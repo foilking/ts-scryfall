@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { Card } from '../../../model';
 import { CardFormat } from '../../constants/cardFormats';
 import { CardFullLayout } from './cardFullLayout';
@@ -48,10 +49,10 @@ export class CardDisplay extends React.Component<CardDisplayProps, {}> {
                         <thead>
                             <tr>
                                 <th>
-                                    <a href="/search?as=checklist&amp;order=set&amp;q=">№</a>
+                                    <Link to={`${process.env.PUBLIC_URL}/search?as=checklist&amp;order=set&amp;q=`}>№</Link>
                                 </th>
                                 <th>
-                                    <a href="/search?as=checklist&amp;q=">Name <span className="arrow">▲</span></a>
+                                    <Link to={`${process.env.PUBLIC_URL}/search?as=checklist&amp;q=`}>Name <span className="arrow">▲</span></Link>
                                 </th>
                                 <th>M.Cost</th>
                                 <th>Type</th>

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { CardProps } from '../../../model';
 import { CardLegalities } from './cardLegalities';
 import { CardSymbols } from './cardSymbols';
@@ -92,7 +93,7 @@ export const CardDetails: React.StatelessComponent<CardProps> = ({ card }) => {
                     </div>
                 }
                 <p className="card-text-artist">
-                    Illustrated by <a href={artistLink}>{card.artist}</a>
+                    Illustrated by <Link to={`${process.env.PUBLIC_URL}/${artistLink}`}>{card.artist}</Link>
                 </p>
                 <CardLegalities legalities={card.legalities} />
             </div>
@@ -140,7 +141,7 @@ export const CardDetails: React.StatelessComponent<CardProps> = ({ card }) => {
                     </div>
                 }
                 <p className="card-text-artist">
-                    Illustrated by <a href={artistLink}>{card.artist}</a>
+                    Illustrated by <Link to={`${process.env.PUBLIC_URL}/${artistLink}`}>{card.artist}</Link>
                 </p>
                 <CardLegalities legalities={card.legalities} />
             </div>
