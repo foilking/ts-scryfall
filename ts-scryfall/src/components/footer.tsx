@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 
 export const Footer: React.StatelessComponent<{}> = () => {
     return (
@@ -8,11 +9,11 @@ export const Footer: React.StatelessComponent<{}> = () => {
                     <div className="footer-column">
                         <h6>Find Cards</h6>
                         <ul>
-                            <li><a className="footer-link" href="/advanced">Advanced Search</a></li>
-                            <li><a className="footer-link" href="/reference">Syntax Guide</a></li>
-                            <li><a className="footer-link" href="/sets">All Sets</a></li>
-                            <li><a className="footer-link" href="/random">Random Card</a></li>
-                            <li><a className="footer-link" href="/decks">Decks</a></li>
+                            <li><Link to={`/advanced`}>Advanced Search</Link></li>
+                            <li><Link to={`/reference`}>Syntax Guide</Link></li>
+                            <li><Link to={`/sets`}>All Sets</Link></li>
+                            <li><Link to={`/random`}>Random Card</Link></li>
+                            <li><Link to={`/decks`}>Decks</Link></li>
                         </ul>
                     </div>
 

@@ -25,13 +25,6 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
         };
     }
 
-    // private buildAdvancedSearch() {
-    //     const oracleSearchPrefix = "o:";
-    //     const typeSearchPrefix = "t:";
-    //     const colorSearchPrefix = "c≥";
-
-    // }
-
     public render() {
         return (
             <div className="form-layout advanced-search">
@@ -58,7 +51,7 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                         <div className="form-row-content">
                             <div className="form-row-content-band">
                                 <input name="oracle" id="oracle" className="form-input" placeholder="Any Oracle text, e.g. “draw a card”" type="text" value={this.state.oracle} onChange={event => this.onTextFieldChange(event.currentTarget.name, event.currentTarget.value)} />
-                                <select className="advanced-search-subjoiner js-advanced-search-subjoiner" data-field-id="oracle" data-separator="" aria-hidden="true">
+                                <select className="advanced-search-subjoiner" aria-hidden="true" onChange={event => this.onDropdownFieldChange(event.currentTarget.name, event.currentTarget.value, 'oracle')}>
                                     <option value="">Add symbol</option>
                                     <option value="{T}">{`{T}`} – tap this permanent</option>
                                     <option value="{Q}">{`{Q}`} – untap this permanent</option>
@@ -222,50 +215,50 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
 
                             <div className="form-row-content-band">
                                 <input name="mana" id="mana" className="form-input short" placeholder="Any mana symbols, e.g. “{W}{W}”" type="text" value={this.state.mana} onChange={event => this.onTextFieldChange(event.currentTarget.name, event.currentTarget.value)} />
-                                <select className="advanced-search-subjoiner js-advanced-search-subjoiner" data-field-id="mana" data-separator="" aria-hidden="true">
+                                <select className="advanced-search-subjoiner" aria-hidden="true" onChange={event => this.onDropdownFieldChange(event.currentTarget.name, event.currentTarget.value, 'mana')}>
                                     <option value="">Add symbol</option>
-                                    <option value="{W}">{`W`} – one white mana</option>
-                                    <option value="{U}">{`U`} – one blue mana</option>
-                                    <option value="{B}">{`B`} – one black mana</option>
-                                    <option value="{R}">{`R`} – one red mana</option>
-                                    <option value="{G}">{`G`} – one green mana</option>
-                                    <option value="{C}">{`C`} – one colorless mana</option>
-                                    <option value="{X}">{`X`} – X generic mana</option>
-                                    <option value="{0}">{0} – zero mana</option>
-                                    <option value="{1}">{1} – one generic mana</option>
-                                    <option value="{2}">{2} – two generic mana</option>
-                                    <option value="{3}">{3} – three generic mana</option>
-                                    <option value="{4}">{4} – four generic mana</option>
-                                    <option value="{5}">{5} – five generic mana</option>
-                                    <option value="{6}">{6} – six generic mana</option>
-                                    <option value="{7}">{7} – seven generic mana</option>
-                                    <option value="{8}">{8} – eight generic mana</option>
-                                    <option value="{9}">{9} – nine generic mana</option>
-                                    <option value="{10}">{10} – ten generic mana</option>
-                                    <option value="{11}">{11} – eleven generic mana</option>
-                                    <option value="{12}">{12} – twelve generic mana</option>
-                                    <option value="{15}">{15} – fifteen generic mana</option>
-                                    <option value="{16}">{16} – sixteen generic mana</option>
-                                    <option value="{W/U}">{`W/U`} – one white or blue mana</option>
-                                    <option value="{W/B}">{`W/B`} – one white or black mana</option>
-                                    <option value="{B/R}">{`B/R`} – one black or red mana</option>
-                                    <option value="{B/G}">{`B/G`} – one black or green mana</option>
-                                    <option value="{U/B}">{`U/B`} – one blue or black mana</option>
-                                    <option value="{U/R}">{`U/R`} – one blue or red mana</option>
-                                    <option value="{R/G}">{`R/G`} – one red or green mana</option>
-                                    <option value="{R/W}">{`R/W`} – one red or white mana</option>
-                                    <option value="{G/W}">{`G/W`} – one green or white mana</option>
-                                    <option value="{G/U}">{`G/U`} – one green or blue mana</option>
-                                    <option value="{2/W}">{`2/W`} – two generic mana or one white mana</option>
-                                    <option value="{2/U}">{`2/U`} – two generic mana or one blue mana</option>
-                                    <option value="{2/B}">{`2/B`} – two generic mana or one black mana</option>
-                                    <option value="{2/R}">{`2/R`} – two generic mana or one red mana</option>
-                                    <option value="{2/G}">{`2/G`} – two generic mana or one green mana</option>
-                                    <option value="{W/P}">{`W/P`} – one white mana or two life</option>
-                                    <option value="{U/P}">{`U/P`} – one blue mana or two life</option>
-                                    <option value="{B/P}">{`B/P`} – one black mana or two life</option>
-                                    <option value="{R/P}">{`R/P`} – one red mana or two life</option>
-                                    <option value="{G/P}">{`G/P`} – one green mana or two life</option>
+                                    <option value="{W}">{`{W}`} – one white mana</option>
+                                    <option value="{U}">{`U}`} – one blue mana</option>
+                                    <option value="{B}">{`{B}`} – one black mana</option>
+                                    <option value="{R}">{`{R}`} – one red mana</option>
+                                    <option value="{G}">{`{G}`} – one green mana</option>
+                                    <option value="{C}">{`{C}`} – one colorless mana</option>
+                                    <option value="{X}">{`{X}`} – X generic mana</option>
+                                    <option value="{0}">{`{0}`} – zero mana</option>
+                                    <option value="{1}">{`{1}`} – one generic mana</option>
+                                    <option value="{2}">{`{2}`} – two generic mana</option>
+                                    <option value="{3}">{`{3}`} – three generic mana</option>
+                                    <option value="{4}">{`{4}`} – four generic mana</option>
+                                    <option value="{5}">{`{5}`} – five generic mana</option>
+                                    <option value="{6}">{`{6}`} – six generic mana</option>
+                                    <option value="{7}">{`{7}`} – seven generic mana</option>
+                                    <option value="{8}">{`{8}`} – eight generic mana</option>
+                                    <option value="{9}">{`{9}`} – nine generic mana</option>
+                                    <option value="{10}">{`{10}`} – ten generic mana</option>
+                                    <option value="{11}">{`{11}`} – eleven generic mana</option>
+                                    <option value="{12}">{`{12}`} – twelve generic mana</option>
+                                    <option value="{15}">{`{15}`} – fifteen generic mana</option>
+                                    <option value="{16}">{`{16}`} – sixteen generic mana</option>
+                                    <option value="{W/U}">{`{W/U}`} – one white or blue mana</option>
+                                    <option value="{W/B}">{`{W/B}`} – one white or black mana</option>
+                                    <option value="{B/R}">{`{B/R}`} – one black or red mana</option>
+                                    <option value="{B/G}">{`{B/G}`} – one black or green mana</option>
+                                    <option value="{U/B}">{`{U/B}`} – one blue or black mana</option>
+                                    <option value="{U/R}">{`{U/R}`} – one blue or red mana</option>
+                                    <option value="{R/G}">{`{R/G}`} – one red or green mana</option>
+                                    <option value="{R/W}">{`{R/W}`} – one red or white mana</option>
+                                    <option value="{G/W}">{`{G/W}`} – one green or white mana</option>
+                                    <option value="{G/U}">{`{G/U}`} – one green or blue mana</option>
+                                    <option value="{2/W}">{`{2/W}`} – two generic mana or one white mana</option>
+                                    <option value="{2/U}">{`{2/U}`} – two generic mana or one blue mana</option>
+                                    <option value="{2/B}">{`{2/B}`} – two generic mana or one black mana</option>
+                                    <option value="{2/R}">{`{2/R}`} – two generic mana or one red mana</option>
+                                    <option value="{2/G}">{`{2/G}`} – two generic mana or one green mana</option>
+                                    <option value="{W/P}">{`{W/P}`} – one white mana or two life</option>
+                                    <option value="{U/P}">{`{U/P}`} – one blue mana or two life</option>
+                                    <option value="{B/P}">{`{B/P}`} – one black mana or two life</option>
+                                    <option value="{R/P}">{`{R/P}`} – one red mana or two life</option>
+                                    <option value="{G/P}">{`{G/P}`} – one green mana or two life</option>
                                 </select>
                             </div>
 
@@ -1355,6 +1348,13 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
     
     private onTextFieldChange(fieldName: string, fieldValue: string) {
         const newState = {... this.state, [fieldName]: fieldValue};        
+        this.setState(newState);
+    }
+
+    private onDropdownFieldChange(fieldName: string, addValue: string, targetName: string) {
+        const field = this.state[targetName];        
+        const fieldValue = field ? field + addValue : addValue;
+        const newState = {...this.state, [targetName]: fieldValue};
         this.setState(newState);
     }
 }

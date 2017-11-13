@@ -33,10 +33,10 @@ export class CardsPage extends React.Component<Props, State> {
             <div id="main" className="main">
                 <SearchControls searchTerms={searchTerms} cardFormat={cardFormat} resultCount={cardsResult ? cardsResult.total_cards : 0} hasMore={cardsResult ? cardsResult.has_more : false} fetchFilteredCards={fetchFilteredCards} changeListDisplay={this.changeListDisplay} />
                 {/* <SearchControlsMobile /> */}
-                {cardsResult &&
+                {cardsResult && cardsResult.cards &&
                     <CardDisplay cards={cardsResult.cards} cardFormat={cardFormat}/>
                 }
-                {!cardsResult && 
+                {!(cardsResult && cardsResult.cards) &&
                     <div className="search-empty">
                         <div className="inner-flex">
                         <svg aria-hidden="true" focusable="false" className="search-empty-status" width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><path d="M5 0v20l10 10 10-10v-20h-20zm18 19.172l-8 8-8-8v-17.172h16v17.172zm-3-11.172h-10v2h10v-2z" /></svg>
