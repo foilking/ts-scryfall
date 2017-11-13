@@ -3,6 +3,9 @@ import { State } from '../../reducers';
 import { CardsPage } from './page';
 
 const mapStateToProps = (state: State, ownProps: any) => {   
+    console.log('Cards Container');
+    console.log(state);
+    
     return {
         cardsResult: state.cardsResult,
         location: ownProps.location,

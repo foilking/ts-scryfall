@@ -15,15 +15,17 @@ export class ScryfallRouter extends React.Component<RouterProps, {}> {
   }
 
   public render() {
+    console.log(process.env.PUBLIC_URL);
+    
     return (
       <Switch>
-        <Route exact={true} path="/" component={About}/>
-        <Route path="/cards" render={(props) => <CardsPageContainer {...props}  fetchFilteredCards={this.props.fetchFilteredCards}/>} />
-        <Route path="/card/:code/:number" component={CardPageContainer} />
-        <Route path="/advanced" component={AdvanceSearchPageContainer} />
-        <Route path="/about" component={About} />
-        <Route path="/reference" component={Reference} />
-        <Route path="/sets" component={SetsPageContainer} />
+        <Route exact={true} path={`${process.env.PUBLIC_URL}/`} component={About}/>
+        <Route path={`${process.env.PUBLIC_URL}/cards`} render={(props) => <CardsPageContainer {...props}  fetchFilteredCards={this.props.fetchFilteredCards}/>} />
+        <Route path={`${process.env.PUBLIC_URL}/card/:code/:number`} component={CardPageContainer} />
+        <Route path={`${process.env.PUBLIC_URL}/advanced`} component={AdvanceSearchPageContainer} />
+        <Route path={`${process.env.PUBLIC_URL}/about`} component={About} />
+        <Route path={`${process.env.PUBLIC_URL}/reference`} component={Reference} />
+        <Route path={`${process.env.PUBLIC_URL}/sets`} component={SetsPageContainer} />
       </Switch>
     );
   }

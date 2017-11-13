@@ -16,7 +16,7 @@ interface State {
 }
 
 export class CardsPage extends React.Component<Props, State> {
-    constructor(props: Props) {
+    constructor(props: Props) {        
         super(props);   
 
         this.state = {
