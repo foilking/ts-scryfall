@@ -6,11 +6,8 @@ import { App } from './App';
 import { fetchFilteredCardsAction, updateSearchTermsAction } from './common/actions';
 import { SearchTerms, SearchOrder } from './model';
 
-const mapStateToProps = (state: State, ownProps: any) => {
-    console.log('App Container');
-    
+const mapStateToProps = (state: State, ownProps: any) => {    
     let searchTerms = null;   
-    console.log(ownProps.location);
        
     if (ownProps.location.search) {
         var qs = QueryString.parse(ownProps.location.search);

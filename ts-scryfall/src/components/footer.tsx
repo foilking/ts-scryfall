@@ -9,11 +9,11 @@ export const Footer: React.StatelessComponent<{}> = () => {
                     <div className="footer-column">
                         <h6>Find Cards</h6>
                         <ul>
-                            <li><Link to={`/advanced`}>Advanced Search</Link></li>
-                            <li><Link to={`/reference`}>Syntax Guide</Link></li>
-                            <li><Link to={`/sets`}>All Sets</Link></li>
-                            <li><Link to={`/random`}>Random Card</Link></li>
-                            <li><Link to={`/decks`}>Decks</Link></li>
+                            <li><Link to={`/advanced`} className="footer-link" >Advanced Search</Link></li>
+                            <li><Link to={`/reference`} className="footer-link" >Syntax Guide</Link></li>
+                            <li><Link to={`/sets`} className="footer-link" >All Sets</Link></li>
+                            <li><Link to={`/random`} className="footer-link" >Random Card</Link></li>
+                            <li><Link to={`/decks`} className="footer-link" >Decks</Link></li>
                         </ul>
                     </div>
 

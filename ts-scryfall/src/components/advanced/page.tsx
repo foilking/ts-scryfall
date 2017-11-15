@@ -1,27 +1,69 @@
 import * as React from 'react';
+import { isNumber } from 'util';
 // import Select from 'react-select';
 // import { SearchTerms, SearchOrder } from '../../model';
+
+enum Color {
+   WHITE = 'w',
+   BLUE = 'u',
+   BLACK = 'b',
+   RED = 'r',
+   GREEN = 'g',
+   COLORLESS = 'c'
+}
 
 interface AdvanceSearchProps {
 }
 
-interface State {
+interface AdvanceSearchState {
     name: string;
     oracle: string;
     type: string;
+    allowPartialTypeMatch: boolean;
+    colors: Color[];
+    requiresMulticolored: boolean;
+    excludeUnselectedColors: boolean;
+    allowPartialColorMatch: boolean;
     mana: string;
+    formats: string[];
+    commanderIdentity: Color[];
+    sets: string[];
+    rarities: string[];
+    artist: string;
+    flavor: string;
+    lore: string;
+    display: string;
+    order: string;
+    showAllPrints: boolean;
+    includeFunny: boolean;
 }
 
-export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State> {
+export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, AdvanceSearchState> {
     constructor(props: AdvanceSearchProps) {        
         super(props);
-        document.title = 'Advance Search';
+        document.title = 'Advance Search' + ' | TS Scryfall';
 
         this.state = {
             name: '',
             oracle: '',
             type: '',
-            mana: ''
+            allowPartialTypeMatch: false,
+            colors: [],
+            requiresMulticolored: false,
+            excludeUnselectedColors: false,
+            allowPartialColorMatch: false,
+            mana: '',
+            formats: [],
+            commanderIdentity: [],
+            sets: [],
+            rarities: [],
+            artist: '',
+            flavor: '',
+            lore: '',
+            display: '',
+            order: '',
+            showAllPrints: false,
+            includeFunny: false
         };
     }
 
@@ -38,7 +80,7 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                         </label>
                         <div className="form-row-content">
                             <div className="form-row-content-band">
-                                <input name="name" id="name" className="form-input" placeholder="Any words in the name, e.g. “Fire”" type="text" value={this.state.name} onChange={event => this.onTextFieldChange(event.currentTarget.name, event.currentTarget.value)}  />
+                                <input name="name" id="name" className="form-input" placeholder="Any words in the name, e.g. “Fire”" type="text" value={this.state.name} onChange={event => this.onFieldChange(event.currentTarget.name, event.currentTarget.value)}  />
                             </div>
                         </div>
 
@@ -50,8 +92,8 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                         </label>
                         <div className="form-row-content">
                             <div className="form-row-content-band">
-                                <input name="oracle" id="oracle" className="form-input" placeholder="Any Oracle text, e.g. “draw a card”" type="text" value={this.state.oracle} onChange={event => this.onTextFieldChange(event.currentTarget.name, event.currentTarget.value)} />
-                                <select className="advanced-search-subjoiner" aria-hidden="true" onChange={event => this.onDropdownFieldChange(event.currentTarget.name, event.currentTarget.value, 'oracle')}>
+                                <input name="oracle" id="oracle" className="form-input" placeholder="Any Oracle text, e.g. “draw a card”" type="text" value={this.state.oracle} onChange={event => this.onFieldChange(event.currentTarget.name, event.currentTarget.value)} />
+                                <select className="advanced-search-subjoiner" aria-hidden="true" onChange={event => this.onJoinerDropdownFieldChange('oracle', event.currentTarget.value)} value={''}>
                                     <option value="">Add symbol</option>
                                     <option value="{T}">{`{T}`} – tap this permanent</option>
                                     <option value="{Q}">{`{Q}`} – untap this permanent</option>
@@ -65,41 +107,41 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                                     <option value="{G}">{`{G}`} – one green mana</option>
                                     <option value="{C}">{`{C}`} – one colorless mana</option>
                                     <option value="{X}">{`{X}`} – X generic mana</option>
-                                    <option value="{0}">{0} – zero mana</option>
-                                    <option value="{1}">{1} – one generic mana</option>
-                                    <option value="{2}">{2} – two generic mana</option>
-                                    <option value="{3}">{3} – three generic mana</option>
-                                    <option value="{4}">{4} – four generic mana</option>
-                                    <option value="{5}">{5} – five generic mana</option>
-                                    <option value="{6}">{6} – six generic mana</option>
-                                    <option value="{7}">{7} – seven generic mana</option>
-                                    <option value="{8}">{8} – eight generic mana</option>
-                                    <option value="{9}">{9} – nine generic mana</option>
-                                    <option value="{10}">{10} – ten generic mana</option>
-                                    <option value="{11}">{11} – eleven generic mana</option>
-                                    <option value="{12}">{12} – twelve generic mana</option>
-                                    <option value="{15}">{15} – fifteen generic mana</option>
-                                    <option value="{16}">{16} – sixteen generic mana</option>
-                                    <option value="{W/U}">{`W/U`} – one white or blue mana</option>
-                                    <option value="{W/B}">{`W/B`} – one white or black mana</option>
-                                    <option value="{B/R}">{`B/R`} – one black or red mana</option>
-                                    <option value="{B/G}">{`B/G`} – one black or green mana</option>
-                                    <option value="{U/B}">{`U/B`} – one blue or black mana</option>
-                                    <option value="{U/R}">{`U/R`} – one blue or red mana</option>
-                                    <option value="{R/G}">{`R/G`} – one red or green mana</option>
-                                    <option value="{R/W}">{`R/W`} – one red or white mana</option>
-                                    <option value="{G/W}">{`G/W`} – one green or white mana</option>
-                                    <option value="{G/U}">{`G/U`} – one green or blue mana</option>
-                                    <option value="{2/W}">{`2/W`} – two generic mana or one white mana</option>
-                                    <option value="{2/U}">{`2/U`} – two generic mana or one blue mana</option>
-                                    <option value="{2/B}">{`2/B`} – two generic mana or one black mana</option>
-                                    <option value="{2/R}">{`2/R`} – two generic mana or one red mana</option>
-                                    <option value="{2/G}">{`2/G`} – two generic mana or one green mana</option>
-                                    <option value="{W/P}">{`W/P`} – one white mana or two life</option>
-                                    <option value="{U/P}">{`U/P`} – one blue mana or two life</option>
-                                    <option value="{B/P}">{`B/P`} – one black mana or two life</option>
-                                    <option value="{R/P}">{`R/P`} – one red mana or two life</option>
-                                    <option value="{G/P}">{`G/P`} – one green mana or two life</option>
+                                    <option value="{0}">{'{0}'} – zero mana</option>
+                                    <option value="{1}">{`{1}`} – one generic mana</option>
+                                    <option value="{2}">{`{2}`} – two generic mana</option>
+                                    <option value="{3}">{`{3}`} – three generic mana</option>
+                                    <option value="{4}">{`{4}`} – four generic mana</option>
+                                    <option value="{5}">{`{5}`} – five generic mana</option>
+                                    <option value="{6}">{`{6}`} – six generic mana</option>
+                                    <option value="{7}">{`{7}`} – seven generic mana</option>
+                                    <option value="{8}">{`{8}`} – eight generic mana</option>
+                                    <option value="{9}">{`{9}`} – nine generic mana</option>
+                                    <option value="{10}">{`{10}`} – ten generic mana</option>
+                                    <option value="{11}">{`{11}`} – eleven generic mana</option>
+                                    <option value="{12}">{`{12}`} – twelve generic mana</option>
+                                    <option value="{15}">{`{15}`} – fifteen generic mana</option>
+                                    <option value="{16}">{`{16}`} – sixteen generic mana</option>
+                                    <option value="{W/U}">{`{W/U}`} – one white or blue mana</option>
+                                    <option value="{W/B}">{`{W/B}`} – one white or black mana</option>
+                                    <option value="{B/R}">{`{B/R}`} – one black or red mana</option>
+                                    <option value="{B/G}">{`{B/G}`} – one black or green mana</option>
+                                    <option value="{U/B}">{`{U/B}`} – one blue or black mana</option>
+                                    <option value="{U/R}">{`{U/R}`} – one blue or red mana</option>
+                                    <option value="{R/G}">{`{R/G}`} – one red or green mana</option>
+                                    <option value="{R/W}">{`{R/W}`} – one red or white mana</option>
+                                    <option value="{G/W}">{`{G/W}`} – one green or white mana</option>
+                                    <option value="{G/U}">{`{G/U}`} – one green or blue mana</option>
+                                    <option value="{2/W}">{`{2/W}`} – two generic mana or one white mana</option>
+                                    <option value="{2/U}">{`{2/U}`} – two generic mana or one blue mana</option>
+                                    <option value="{2/B}">{`{2/B}`} – two generic mana or one black mana</option>
+                                    <option value="{2/R}">{`{2/R}`} – two generic mana or one red mana</option>
+                                    <option value="{2/G}">{`{2/G}`} – two generic mana or one green mana</option>
+                                    <option value="{W/P}">{`{W/P}`} – one white mana or two life</option>
+                                    <option value="{U/P}">{`{U/P}`} – one blue mana or two life</option>
+                                    <option value="{B/P}">{`{B/P}`} – one black mana or two life</option>
+                                    <option value="{R/P}">{`{R/P}`} – one red mana or two life</option>
+                                    <option value="{G/P}">{`{G/P}`} – one green mana or two life</option>
                                 </select>
                             </div>
                             <p className="form-row-tip">
@@ -109,7 +151,6 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                             </p>
                         </div>
                     </div>
-
                     <div className="form-row">
 
                         <label className="form-row-label" htmlFor="type">
@@ -118,12 +159,12 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                         </label>
                         <div className="form-row-content">
                             <div className="form-row-content-band">
-                                <input name="type" id="type" className="form-input" placeholder="Enter any card types, e.g. “legendary”" type="text" value={this.state.type} onChange={event => this.onTextFieldChange(event.currentTarget.name, event.currentTarget.value)} />
+                                <input name="type" id="type" className="form-input" placeholder="Enter any card types, e.g. “legendary”" type="text" value={this.state.type} onChange={event => this.onFieldChange(event.currentTarget.name, event.currentTarget.value)} />
                             </div>
 
                             <div className="form-row-content-band">
                                 <label className="advanced-search-checkbox">
-                                    <input name="type_partial" id="type_partial" value="1" type="checkbox" />
+                                    <input name="allowPartialTypeMatch" id="allowPartialTypeMatch" checked={!!this.state.allowPartialTypeMatch} type="checkbox" onChange={event => this.onCheckboxChange(event.currentTarget.name, event.currentTarget.checked)} />
                                     Allow partial type matches
                                 </label>
                             </div>
@@ -134,7 +175,6 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                         </div>
 
                     </div>
-
                     <div className="form-row">
 
                         <label className="form-row-label short">
@@ -146,32 +186,32 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                                 <div className="form-row-content-band">
                                     <legend className="visuallyhidden">Card colors</legend>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="color[]" value="W" type="checkbox" />
+                                        <input name="colors" value={Color.WHITE} type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         <abbr className="card-symbol card-symbol-W" title="one white mana">{`W`}</abbr>
                                         White
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="color[]" value="U" type="checkbox" />
+                                        <input name="colors" value={Color.BLUE} type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         <abbr className="card-symbol card-symbol-U" title="one blue mana">{`U`}</abbr>
                                         Blue
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="color[]" value="B" type="checkbox" />
+                                        <input name="colors" value={Color.BLACK} type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         <abbr className="card-symbol card-symbol-B" title="one black mana">{`B`}</abbr>
                                         Black
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="color[]" value="R" type="checkbox" />
+                                        <input name="colors" value={Color.RED} type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         <abbr className="card-symbol card-symbol-R" title="one red mana">{`R`}</abbr>
                                         Red
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="color[]" value="G" type="checkbox" />
+                                        <input name="colors" value={Color.GREEN} type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         <abbr className="card-symbol card-symbol-G" title="one green mana">{`G`}</abbr>
                                         Green
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="color[]" value="C" type="checkbox" />
+                                        <input name="colors" value={Color.COLORLESS} type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         <abbr className="card-symbol card-symbol-C" title="one colorless mana">{`C`}</abbr>
                                         Colorless
                                     </label>
@@ -182,15 +222,15 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                                 <legend className="visuallyhidden">Additional color options</legend>
                                 <div className="form-row-content-band">
                                     <label className="advanced-search-checkbox" htmlFor="colors_multicolored">
-                                        <input name="colors_multicolored" id="colors_multicolored" value="1" type="checkbox" />
+                                        <input name="requiresMulticolored" id="requiresMulticolored" checked={!!this.state.requiresMulticolored} type="checkbox" onChange={event => this.onCheckboxChange(event.currentTarget.name, event.currentTarget.checked)} />
                                         Require multicolored
                                     </label>
-                                    <label className="advanced-search-checkbox" htmlFor="colors_strict">
-                                        <input name="colors_strict" id="colors_strict" value="1" type="checkbox" />
+                                    <label className="advanced-search-checkbox" htmlFor="excludeUnselectedColors">
+                                        <input name="excludeUnselectedColors" id="excludeUnselectedColors" checked={!!this.state.excludeUnselectedColors} type="checkbox" onChange={event => this.onCheckboxChange(event.currentTarget.name, event.currentTarget.checked)}  />
                                         Excluded unselected
                                     </label>
-                                    <label className="advanced-search-checkbox" htmlFor="colors_partial">
-                                        <input name="colors_partial" id="colors_partial" value="1" type="checkbox" />
+                                    <label className="advanced-search-checkbox" htmlFor="allowPartialColorMatch">
+                                        <input name="allowPartialColorMatch" id="allowPartialColorMatch" checked={!!this.state.allowPartialColorMatch} type="checkbox" onChange={event => this.onCheckboxChange(event.currentTarget.name, event.currentTarget.checked)} />
                                         Allow partial matches
                                     </label>
                                 </div>
@@ -204,7 +244,6 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
 
                         </div>
                     </div>
-
                     <div className="form-row">
 
                         <label className="form-row-label" htmlFor="mana">
@@ -214,17 +253,17 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                         <div className="form-row-content">
 
                             <div className="form-row-content-band">
-                                <input name="mana" id="mana" className="form-input short" placeholder="Any mana symbols, e.g. “{W}{W}”" type="text" value={this.state.mana} onChange={event => this.onTextFieldChange(event.currentTarget.name, event.currentTarget.value)} />
-                                <select className="advanced-search-subjoiner" aria-hidden="true" onChange={event => this.onDropdownFieldChange(event.currentTarget.name, event.currentTarget.value, 'mana')}>
+                                <input name="mana" id="mana" className="form-input short" placeholder="Any mana symbols, e.g. “{W}{W}”" type="text" value={this.state.mana} onChange={event => this.onFieldChange(event.currentTarget.name, event.currentTarget.value)} />
+                                <select className="advanced-search-subjoiner" aria-hidden="true" onChange={event => this.onJoinerDropdownFieldChange('mana', event.currentTarget.value)} value={''}>
                                     <option value="">Add symbol</option>
-                                    <option value="{W}">{`{W}`} – one white mana</option>
-                                    <option value="{U}">{`U}`} – one blue mana</option>
+                                    <option value="{W}">{'{W}'} – one white mana</option>
+                                    <option value="{U}">{`{U}`} – one blue mana</option>
                                     <option value="{B}">{`{B}`} – one black mana</option>
                                     <option value="{R}">{`{R}`} – one red mana</option>
                                     <option value="{G}">{`{G}`} – one green mana</option>
                                     <option value="{C}">{`{C}`} – one colorless mana</option>
                                     <option value="{X}">{`{X}`} – X generic mana</option>
-                                    <option value="{0}">{`{0}`} – zero mana</option>
+                                    <option value="{0}">{'{0}'} – zero mana</option>
                                     <option value="{1}">{`{1}`} – one generic mana</option>
                                     <option value="{2}">{`{2}`} – two generic mana</option>
                                     <option value="{3}">{`{3}`} – three generic mana</option>
@@ -269,7 +308,6 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                         </div>
 
                     </div>
-
                     <div className="form-row">
 
                         <label className="form-row-label" htmlFor="stat_1">
@@ -306,9 +344,7 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                         </div>
 
                     </div>
-
                     <div className="form-row">
-
                         <label className="form-row-label short" htmlFor="colors">
                             <svg aria-hidden="true" focusable="false" className="" width="33" height="25" viewBox="0 0 33 25" xmlns="http://www.w3.org/2000/svg"><path d="M25.788 18H8.561l-1.996-6-.665-2-1-3h1.555l1 3 .666 2 1 3h17.222l.998 3h-1.553zm-.447 5.001H6.561L2.89 12h1.564l2.666 8h17.223l.998 3.001zM27.788 13H10.561l-.333-1-.668-2-1.001-3-.667-2-1.001-3h18.79l3.67 11h-1.563zM4.121 0l1.667 5H2.121l1.667 5H.121l5 15h23l-1.666-5h3.666l-1.666-5h3.666l-5-15h-23z" fillRule="evenodd" /></svg>
                             Formats
@@ -319,27 +355,27 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                                 <legend className="visuallyhidden">Desired formats</legend>
                                 <div className="form-row-content-band">
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="format[]" value="standard" type="checkbox" />
+                                        <input name="formats" value="standard" type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         Standard
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="format[]" value="frontier" type="checkbox" />
+                                        <input name="formats" value="frontier" type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         Frontier
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="format[]" value="modern" type="checkbox" />
+                                        <input name="formats" value="modern" type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         Modern
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="format[]" value="legacy" type="checkbox" />
+                                        <input name="formats" value="legacy" type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         Legacy
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="format[]" value="commander" type="checkbox" />
+                                        <input name="formats" value="commander" type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         Commander
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="format[]" value="vintage" type="checkbox" />
+                                        <input name="formats" value="vintage" type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         Vintage
                                     </label>
                                 </div>
@@ -349,23 +385,23 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                                 <legend className="visuallyhidden">Additional desired formats</legend>
                                 <div className="form-row-content-band">
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="format[]" value="future" type="checkbox" />
+                                        <input name="formats" value="future" type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         Future Standard
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="format[]" value="pauper" type="checkbox" />
+                                        <input name="formats" value="pauper" type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         Pauper
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="format[]" value="penny" type="checkbox" />
+                                        <input name="formats" value="penny" type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         Penny
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="format[]" value="1v1" type="checkbox" />
+                                        <input name="formats" value="1v1" type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         1v1 Cmdr.
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="format[]" value="duel" type="checkbox" />
+                                        <input name="formats" value="duel" type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         Duel Cmdr.
                                     </label>
                                 </div>
@@ -379,7 +415,6 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                         </div>
 
                     </div>
-
                     <div className="form-row">
 
                         <label className="form-row-label short">
@@ -392,32 +427,32 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                                 <legend className="visuallyhidden">Commander colors</legend>
                                 <div className="form-row-content-band">
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="identity[]" id="false" value="W" type="checkbox" />
+                                        <input name="commanderIdentity" id="false" value={Color.WHITE} type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         <abbr className="card-symbol card-symbol-W" title="one white mana">{`W`}</abbr>
                                         White
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="identity[]" id="false" value="U" type="checkbox" />
+                                        <input name="commanderIdentity" id="false" value={Color.BLUE} type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         <abbr className="card-symbol card-symbol-U" title="one blue mana">{`U`}</abbr>
                                         Blue
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="identity[]" id="false" value="B" type="checkbox" />
+                                        <input name="commanderIdentity" id="false" value={Color.BLACK} type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         <abbr className="card-symbol card-symbol-B" title="one black mana">{`B`}</abbr>
                                         Black
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="identity[]" id="false" value="R" type="checkbox" />
+                                        <input name="commanderIdentity" id="false" value={Color.RED} type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         <abbr className="card-symbol card-symbol-R" title="one red mana">{`R`}</abbr>
                                         Red
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="identity[]" id="false" value="G" type="checkbox" />
+                                        <input name="commanderIdentity" id="false" value={Color.GREEN} type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         <abbr className="card-symbol card-symbol-G" title="one green mana">{`G`}</abbr>
                                         Green
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="identity[]" id="false" value="c" type="checkbox" />
+                                        <input name="commanderIdentity" id="false" value={Color.COLORLESS} type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         <abbr className="card-symbol card-symbol-C" title="one colorless mana">{`C`}</abbr>
                                         Colorless
                                     </label>
@@ -432,7 +467,6 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                         </div>
 
                     </div>
-
                     <div className="form-row">
 
                         <label className="form-row-label" htmlFor="set">
@@ -442,8 +476,8 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                         <div className="form-row-content">
 
                             <div className="form-row-content-band">
-                                <input name="set[]" value="" type="hidden" />
-                                <select name="set[]" id="set" data-component="advanced-search-autocomplete" data-placeholder="Enter a set name or choose from the list" tabIndex={-1} className="select2-hidden-accessible" aria-hidden="true">
+                                <input name="sets" defaultValue={this.state.sets.join(',')} type="hidden" />
+                                <select name="sets" id="set" data-component="advanced-search-autocomplete" data-placeholder="Enter a set name or choose from the list" tabIndex={-1} className="select2-hidden-accessible" aria-hidden="true" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} >
                                     <option value="p15a">15th Anniversary Cards (P15A)</option>
                                     <option value="htr">2016 Heroes of the Realm (HTR)</option>
                                     <option value="aer">Aether Revolt (AER)</option>
@@ -967,7 +1001,6 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                         </div>
 
                     </div>
-
                     <div className="form-row">
 
                         <label className="form-row-label short">
@@ -980,19 +1013,19 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                                 <legend className="visuallyhidden">Desired rarities</legend>
                                 <div className="form-row-content-band">
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="rarity[]" id="false" value="c" type="checkbox" />
+                                        <input name="rarities" id="false" value="c" type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)}  />
                                         Common
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="rarity[]" id="false" value="u" type="checkbox" />
+                                        <input name="rarities" id="false" value="u" type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         Uncommon
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="rarity[]" id="false" value="r" type="checkbox" />
+                                        <input name="rarities" id="false" value="r" type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         Rare
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="rarity[]" id="false" value="m" type="checkbox" />
+                                        <input name="rarities" id="false" value="m" type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         Mythic Rare
                                     </label>
                                 </div>
@@ -1005,7 +1038,6 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                         </div>
 
                     </div>
-
                     <div className="form-row">
 
                         <label className="form-row-label" htmlFor="is">
@@ -1189,7 +1221,6 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                         </div>
 
                     </div>
-
                     <div className="form-row">
 
                         <label className="form-row-label">
@@ -1223,7 +1254,6 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                         </div>
 
                     </div>
-
                     <div className="form-row">
 
                         <label className="form-row-label" htmlFor="artist">
@@ -1232,12 +1262,11 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                         </label>
                         <div className="form-row-content">
                             <div className="form-row-content-band">
-                                <input name="artist" id="artist" placeholder="Any artist name, e.g. “Terese”" className="form-input short" type="text" />
+                                <input name="artist" id="artist" placeholder="Any artist name, e.g. “Terese”" className="form-input short" type="text" value={this.state.artist} onChange={event => this.onFieldChange(event.currentTarget.name, event.currentTarget.value)} />
                             </div>
                         </div>
 
                     </div>
-
                     <div className="form-row">
 
                         <label className="form-row-label" htmlFor="flavor">
@@ -1247,7 +1276,7 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                         <div className="form-row-content">
 
                             <div className="form-row-content-band">
-                                <input name="flavor" id="flavor" className="form-input" placeholder="Any flavor text, e.g. “Lemurs?”" type="text" />
+                                <input name="flavor" id="flavor" className="form-input" placeholder="Any flavor text, e.g. “Lemurs?”" type="text" value={this.state.flavor} onChange={event => this.onFieldChange(event.currentTarget.name, event.currentTarget.value)} />
                             </div>
 
                             <p className="form-row-tip">
@@ -1258,7 +1287,6 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                         </div>
 
                     </div>
-
                     <div className="form-row">
 
                         <label className="form-row-label" htmlFor="lore">
@@ -1268,7 +1296,7 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                         <div className="form-row-content">
 
                             <div className="form-row-content-band">
-                                <input name="lore" id="lore" className="form-input" placeholder="Any text, especially names. e.g. “Hanna”" type="text" />
+                                <input name="lore" id="lore" className="form-input" placeholder="Any text, especially names. e.g. “Hanna”" type="text" value={this.state.lore} onChange={event => this.onFieldChange(event.currentTarget.name, event.currentTarget.value)} />
                             </div>
 
                             <p className="form-row-tip">
@@ -1280,7 +1308,6 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                         </div>
 
                     </div>
-
                     <div className="form-row">
 
                         <label className="form-row-label">
@@ -1290,14 +1317,14 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                         <div className="form-row-content">
 
                             <div className="form-row-content-band">
-                                <label className="visuallyhidden" htmlFor="as">Display</label>
-                                <select className="form-input auto" name="as" id="as">
+                                <label className="visuallyhidden" htmlFor="display">Display</label>
+                                <select className="form-input auto" name="display" id="display" onChange={event => this.onFieldChange(event.currentTarget.name, event.currentTarget.value)}>
                                     <option value="">Display as Images</option>
                                     <option value="checklist">Display as Pricelist</option>
                                     <option value="full">Display as Full</option>
                                 </select>
                                 <label className="visuallyhidden" htmlFor="order">Order</label>
-                                <select className="form-input auto" name="order" id="order">
+                                <select className="form-input auto" name="order" id="order" onChange={event => this.onFieldChange(event.currentTarget.name, event.currentTarget.value)}>
                                     <option value="">Sort by Name</option>
                                     <option value="set">Sort by Set/Number</option>
                                     <option value="rarity">Sort by Rarity</option>
@@ -1313,15 +1340,15 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                             </div>
 
                             <div className="form-row-content-band">
-                                <label className="advanced-search-checkbox" htmlFor="unroll_search">
-                                    <input name="unroll_search" id="unroll_search" value="1" type="checkbox" />
+                                <label className="advanced-search-checkbox" htmlFor="showAllPrints">
+                                    <input name="showAllPrints" id="showAllPrints" checked={!!this.state.showAllPrints} type="checkbox" onChange={event => this.onCheckboxChange(event.currentTarget.name, event.currentTarget.checked)} />
                                     Show all card prints (++)
                                 </label>
                             </div>
 
                             <div className="form-row-content-band">
-                                <label className="advanced-search-checkbox" htmlFor="include_extras">
-                                    <input name="include_extras" id="include_extras" value="1" type="checkbox" />
+                                <label className="advanced-search-checkbox" htmlFor="includeFunny">
+                                    <input name="includeFunny" id="includeFunny" checked={!!this.state.includeFunny} type="checkbox" onChange={event => this.onCheckboxChange(event.currentTarget.name, event.currentTarget.checked)} />
                                     Include extra cards and funny cards (tokens, Unstable, etc)
                                 </label>
                             </div>
@@ -1329,32 +1356,123 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                         </div>
 
                     </div>
-
                     <div className="form-row">
                         <div className="form-row-label" />
                         <div className="form-row-content">
                             <div className="form-row-content-band">
-                                <button type="submit" className="button-primary-large">
+                                <button type="submit" className="button-primary-large" onClick={event => this.submitButtonClicked()}>
                                     Search with these options
                                 </button>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         );
     }
     
-    private onTextFieldChange(fieldName: string, fieldValue: string) {
+    private onFieldChange(fieldName: string, fieldValue: string) {
         const newState = {... this.state, [fieldName]: fieldValue};        
         this.setState(newState);
     }
 
-    private onDropdownFieldChange(fieldName: string, addValue: string, targetName: string) {
+    private onJoinerDropdownFieldChange(targetName: string, addValue: string) {        
         const field = this.state[targetName];        
         const fieldValue = field ? field + addValue : addValue;
         const newState = {...this.state, [targetName]: fieldValue};
         this.setState(newState);
+    }
+
+    private onCheckboxChange(fieldName: string, checked: boolean) {        
+        const newState = {... this.state, [fieldName]: checked};        
+        this.setState(newState);        
+    }
+    
+    private onMulitCheckboxChange(fieldName: string, fieldValue: any) {
+        const field = this.state[fieldName] as any[];        
+        const fieldIndex = field.indexOf(fieldValue);
+        if (fieldIndex > -1) {
+            field.splice(fieldIndex, 1);
+        } else {
+            field.push(fieldValue);
+        }
+        const newState = {... this.state, [fieldName]: field};   
+        this.setState(newState);  
+    }
+
+    private submitButtonClicked() {
+        console.log(this.state);  
+        let searchQueryArray = [];
+        if (this.state.showAllPrints) {
+            searchQueryArray.push('++');
+        }
+        if (this.state.name) {
+            searchQueryArray.push(this.splitWords(this.state.name.split(' ')));
+        }
+        if (this.state.oracle) {
+            searchQueryArray.push(this.splitWords(this.state.oracle.split(' '), 'o:'));
+        }
+        if (this.state.type) {
+            searchQueryArray.push(this.splitWords(this.state.type.split(' '), 't:', this.state.allowPartialTypeMatch));
+        }
+        if (this.state.colors && this.state.colors.length > 0) {
+            searchQueryArray.push(this.splitWords(this.state.colors, 'colors≥', this.state.allowPartialColorMatch));
+
+            if (this.state.excludeUnselectedColors) {
+                let excludedColors = [] as string[];
+                for (let key in Color) {
+                    if (!isNumber(key)) {
+                        const color = Color[key] as Color;
+                        if (this.state.colors.indexOf(color) < 0) {
+                            excludedColors.push('-c≥' + color.toLowerCase());
+                        }
+                    }
+                }
+                searchQueryArray.push('(' + excludedColors.join(' AND ') + ')');
+            }
+        }
+        if (this.state.requiresMulticolored) {
+            searchQueryArray.push('colors≥2');
+        }
+        if (this.state.mana) {
+            searchQueryArray.push(this.splitWords(this.state.mana.split(' '), 'mana:'));
+        }
+        if (this.state.formats && this.state.formats.length > 0) {
+            searchQueryArray.push(this.splitWords(this.state.formats, 'f:'));
+        }
+        if (this.state.commanderIdentity && this.state.commanderIdentity.length > 0) {
+            searchQueryArray.push(this.splitWords(this.state.commanderIdentity, 'ids≤', true));
+        }
+        if (this.state.rarities && this.state.rarities.length > 0) {
+            searchQueryArray.push(this.splitWords(this.state.rarities, 'r:', true));
+        }
+        if (this.state.artist) {
+            searchQueryArray.push(this.splitWords(this.state.artist.split(' '), 'a:'));
+        }
+        if (this.state.flavor) {
+            searchQueryArray.push(this.splitWords(this.state.flavor.split(' '), 'ft:'));
+        }
+        if (this.state.lore) {
+            searchQueryArray.push(this.splitWords(this.state.lore.split(' '), 'lore:'));
+        }
+        if (this.state.includeFunny) {
+            searchQueryArray.push('include:extras');
+        }
+        console.log(searchQueryArray.join(' '));        
+    }
+
+    private splitWords(searchTerm: any[], prefix: string = '', conditional: boolean = false): string {
+        let searchTerms = '';
+        let termArray = [] as string[];
+        searchTerm.forEach(element => {
+            termArray.push(prefix + element);
+        });
+        if (termArray.length > 1) {
+            const types = conditional ? termArray.join(' OR ') :  termArray.join(' ');
+            searchTerms = '(' + types + ')';
+        } else {
+            searchTerms = termArray[0];
+        }
+        return searchTerms;
     }
 }

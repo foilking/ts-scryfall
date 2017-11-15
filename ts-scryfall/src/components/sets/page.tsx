@@ -11,7 +11,7 @@ export class SetsPage extends React.Component<Props, {}> {
     constructor(props: Props) {
         super(props);
         this.props.fetchSets();
-        document.title = 'All Sets';
+        document.title = 'All Sets' + ' | TS Scryfall';
     }
 
     public render() {

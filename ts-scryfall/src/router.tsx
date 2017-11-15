@@ -14,9 +14,7 @@ export class ScryfallRouter extends React.Component<RouterProps, {}> {
     super(props);
   }
 
-  public render() {
-    console.log(process.env.PUBLIC_URL);
-    
+  public render() {    
     return (
       <Switch>
         <Route exact={true} path={`/`} component={About}/>

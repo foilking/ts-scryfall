@@ -14,8 +14,6 @@ interface State {
 
 export class App extends React.Component<Props, State> {
   constructor(props: Props) {
-    console.log('App');
-    console.log(props);
     
     super(props);
     const searchTerms = {
@@ -29,7 +27,7 @@ export class App extends React.Component<Props, State> {
     };
       
     if (location.pathname.indexOf('/cards') > -1) {
-      document.title = this.state.searchTerms.q || 'Search';
+      document.title = (this.state.searchTerms.q || 'Search') + ' | TS Scryfall';
       this.props.fetchFilteredCards(this.state.searchTerms);
       this.props.updateSearchTerms(this.state.searchTerms);
     }
@@ -38,9 +36,7 @@ export class App extends React.Component<Props, State> {
   }
 
   public render() {     
-    const { searchTerms } = this.state;
-    console.log(searchTerms);
-        
+    const { searchTerms } = this.state;        
     return (
         <div id="body">
           <Header searchTerms={searchTerms} fetchFilteredCards={this.fetchFilteredCards} location={location}/>

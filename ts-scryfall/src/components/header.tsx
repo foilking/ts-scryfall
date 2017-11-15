@@ -91,7 +91,7 @@ export class Header extends React.Component<HeaderProps, State> {
 
   private search(keyCode: number, q: string) {
     if (keyCode === 13) {   
-      document.title = q;
+      document.title = q  + ' | TS Scryfall';
       
       const newSearchTerms = { ...this.props.searchTerms, q, page: 1, order: SearchOrder.Name };
       

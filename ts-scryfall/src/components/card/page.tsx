@@ -26,7 +26,7 @@ export class CardPage extends React.Component<Props, State> {
         // Making sure the card is available
         const { card } = this.props;
         if (card) {
-            document.title = card.name;
+            document.title = card.name + ' | TS Scryfall';
             return (
                 <div id="main" className="main">
                     <CardFullLayout card={card}/>

@@ -6,7 +6,7 @@ import { CardSymbols } from './cardSymbols';
 import { OracleText } from './oracleText';
 
 export const CardDetails: React.StatelessComponent<CardProps> = ({ card }) => {
-    const artistLink = `/search?q=%2B%2Ba%3A%22${card.artist.replace(' ', '+')}%22`;
+    const artistLink = card.artist ? `/search?q=%2B%2Ba%3A%22${card.artist.replace(' ', '+')}%22` : '';
     if ((card.layout === 'transform' || card.layout === 'double_faced_token' || card.layout === 'flip' || card.layout === 'split') && card.card_faces) {
         const cardFront = card.card_faces[0];
         const cardBack = card.card_faces[1];
