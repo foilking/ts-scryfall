@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { isNumber } from 'util';
+import { RouteComponentProps } from 'react-router';
 // import Select from 'react-select';
-// import { SearchTerms, SearchOrder } from '../../model';
+import { SearchTerms, SearchOrder } from '../../model';
 
 enum Color {
    WHITE = 'w',
@@ -13,6 +14,8 @@ enum Color {
 }
 
 interface AdvanceSearchProps {
+    searchTerms: SearchTerms;
+    fetchFilteredCards: (searchTerms: SearchTerms) => void;
 }
 
 interface AdvanceSearchState {
@@ -38,10 +41,11 @@ interface AdvanceSearchState {
     includeFunny: boolean;
 }
 
-export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, AdvanceSearchState> {
-    constructor(props: AdvanceSearchProps) {        
+export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & RouteComponentProps<AdvanceSearchProps>, AdvanceSearchState> {
+    constructor(props: AdvanceSearchProps & RouteComponentProps<AdvanceSearchProps>) {        
         super(props);
-        document.title = 'Advance Search' + ' | TS Scryfall';
+        
+        document.title = 'Advance Search | TS Scryfall';
 
         this.state = {
             name: '',
@@ -92,7 +96,7 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, Advan
                         </label>
                         <div className="form-row-content">
                             <div className="form-row-content-band">
-                                <input name="oracle" id="oracle" className="form-input" placeholder="Any Oracle text, e.g. “draw a card”" type="text" value={this.state.oracle} onChange={event => this.onFieldChange(event.currentTarget.name, event.currentTarget.value)} />
+                                <input name="oracle" id="oracle" className="form-input" placeholder="Any Oracle text, e.g. “draw a card”" type="text" value={this.state.oracle} onChange={event => this.onFieldChange(event.currentTarget.name, event.currentTarget.value)} onKeyUp={event => this.onEnter(event.keyCode)} />
                                 <select className="advanced-search-subjoiner" aria-hidden="true" onChange={event => this.onJoinerDropdownFieldChange('oracle', event.currentTarget.value)} value={''}>
                                     <option value="">Add symbol</option>
                                     <option value="{T}">{`{T}`} – tap this permanent</option>
@@ -1370,6 +1374,16 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, Advan
             </div>
         );
     }
+
+    private onEnter(keyCode: number) {
+        if (keyCode === 13) {   
+            this.buildQueryAndSearch();
+        }
+    }
+
+    private submitButtonClicked() {
+        this.buildQueryAndSearch();
+    }
     
     private onFieldChange(fieldName: string, fieldValue: string) {
         const newState = {... this.state, [fieldName]: fieldValue};        
@@ -1400,8 +1414,7 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, Advan
         this.setState(newState);  
     }
 
-    private submitButtonClicked() {
-        console.log(this.state);  
+    private buildQueryAndSearch() {
         let searchQueryArray = [];
         if (this.state.showAllPrints) {
             searchQueryArray.push('++');
@@ -1458,7 +1471,11 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, Advan
         if (this.state.includeFunny) {
             searchQueryArray.push('include:extras');
         }
-        console.log(searchQueryArray.join(' '));        
+        const q = searchQueryArray.join(' ');
+        const newSearchTerms = { ...this.props.searchTerms, q, page: 1, order: SearchOrder.Name };
+
+        this.props.fetchFilteredCards(newSearchTerms);
+        this.props.history.push(process.env.PUBLIC_URL + '/cards?q=' + q);       
     }
 
     private splitWords(searchTerm: any[], prefix: string = '', conditional: boolean = false): string {

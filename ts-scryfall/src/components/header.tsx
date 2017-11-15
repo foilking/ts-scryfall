@@ -13,7 +13,7 @@ interface State {
 
 export class Header extends React.Component<HeaderProps, State> {
   constructor(props: HeaderProps) {
-    super(props);
+    super(props); 
     
     this.search = this.search.bind(this);
     this.showMenu = this.showMenu.bind(this);
@@ -24,7 +24,7 @@ export class Header extends React.Component<HeaderProps, State> {
 
   public render() {
     const { isMenuOpen } = this.state;
-    const isSearchPage = this.props.location.pathname.indexOf('cards') > -1;
+    const isSearchPage = this.props.location.pathname.indexOf('cards') > -1;    
     return (
       <div id="header" className="header">
         <div className="inner-flex">
@@ -45,7 +45,7 @@ export class Header extends React.Component<HeaderProps, State> {
           {!isSearchPage && 
             <form className="header-search" action={`${process.env.PUBLIC_URL}/cards`} method="get">
               <label className="visuallyhidden" htmlFor="js-header-search-field">Search for Magic cards</label>
-              <input name="q" id="js-header-search-field" defaultValue={this.props.searchTerms.q} placeholder="Search for Magic cards" autoComplete="on" autoCapitalize="none" autoCorrect="off" spellCheck={false} maxLength={1024} type="text" />
+              <input name="q" id="js-header-search-field" placeholder="Search for Magic cards" autoComplete="on" autoCapitalize="none" autoCorrect="off" spellCheck={false} maxLength={1024} type="text" />
               <button type="submit" className="visuallyhidden">
                 Find Cards
               </button>

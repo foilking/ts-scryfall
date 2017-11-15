@@ -6,11 +6,11 @@ import { App } from './App';
 import { fetchFilteredCardsAction, updateSearchTermsAction } from './common/actions';
 import { SearchTerms, SearchOrder } from './model';
 
-const mapStateToProps = (state: State, ownProps: any) => {    
+const mapStateToProps = (state: State, ownProps: any) => {  
     let searchTerms = null;   
-       
+    
     if (ownProps.location.search) {
-        var qs = QueryString.parse(ownProps.location.search);
+        var qs = QueryString.parse(ownProps.location.search);        
         const q = qs.q;
         const page = +qs.page || 1;
         const order = qs.order as SearchOrder || SearchOrder.Name;
@@ -20,9 +20,10 @@ const mapStateToProps = (state: State, ownProps: any) => {
             page: page,
             order: order
         } as SearchTerms;
-    }    
+    } 
+     
     return {
-        searchTerms: searchTerms
+        searchTerms: searchTerms || state.searchTerms
     };
 };
 

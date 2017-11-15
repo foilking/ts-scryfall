@@ -18,9 +18,9 @@ export class ScryfallRouter extends React.Component<RouterProps, {}> {
     return (
       <Switch>
         <Route exact={true} path={`/`} component={About}/>
-        <Route path={`/cards`} render={(props) => <CardsPageContainer {...props}  fetchFilteredCards={this.props.fetchFilteredCards}/>} />
+        <Route path={`/cards`} render={(props) => <CardsPageContainer {...props}  fetchFilteredCards={this.props.fetchFilteredCards} />} />
         <Route path={`/card/:code/:number`} component={CardPageContainer} />
-        <Route path={`/advanced`} component={AdvanceSearchPageContainer} />
+        <Route path={`/advanced`} render={(props) => <AdvanceSearchPageContainer {...props}  fetchFilteredCards={this.props.fetchFilteredCards} />} />
         <Route path={`/about`} component={About} />
         <Route path={`/reference`} component={Reference} />
         <Route path={`/sets`} component={SetsPageContainer} />

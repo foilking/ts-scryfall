@@ -23,6 +23,8 @@ export class CardsPage extends React.Component<Props, State> {
             cardFormat: CardFormat.Full
         };
         this.changeListDisplay = this.changeListDisplay.bind(this);
+
+        document.title = (this.props.searchTerms.q || 'Search') + ' | TS Scryfall';
     }
 
     public render() {

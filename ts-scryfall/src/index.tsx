@@ -9,8 +9,8 @@ import './css/scryfall.css';
 
 ReactDOM.render(
   <BrowserRouter basename={process.env.PUBLIC_URL}>
-  <Provider store={store}>
-    <AppContainer />
+    <Provider store={store}>
+      <AppContainer />
     </Provider>
   </BrowserRouter>,
   document.getElementById('root') as HTMLElement

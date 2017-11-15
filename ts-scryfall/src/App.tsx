@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { Header, Footer } from './components';
-import { SearchTerms, SearchOrder } from './model';
+import { SearchTerms } from './model';
 import { ScryfallRouter } from './router';
 
 interface Props {
   searchTerms: SearchTerms;
+  location: Location;
   fetchFilteredCards: (searchTerms: SearchTerms) => void;
   updateSearchTerms: (searchTerms: SearchTerms) => void;
 }
@@ -14,20 +15,12 @@ interface State {
 
 export class App extends React.Component<Props, State> {
   constructor(props: Props) {
-    
     super(props);
-    const searchTerms = {
-        q: '',
-        order: SearchOrder.Name,
-        page: 1
-    } as SearchTerms;
-
     this.state = {
-      searchTerms: this.props.searchTerms || searchTerms
+      searchTerms: props.searchTerms
     };
-      
+    
     if (location.pathname.indexOf('/cards') > -1) {
-      document.title = (this.state.searchTerms.q || 'Search') + ' | TS Scryfall';
       this.props.fetchFilteredCards(this.state.searchTerms);
       this.props.updateSearchTerms(this.state.searchTerms);
     }
@@ -36,7 +29,8 @@ export class App extends React.Component<Props, State> {
   }
 
   public render() {     
-    const { searchTerms } = this.state;        
+    const { searchTerms } = this.state; 
+           
     return (
         <div id="body">
           <Header searchTerms={searchTerms} fetchFilteredCards={this.fetchFilteredCards} location={location}/>
