@@ -1475,7 +1475,7 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
         const newSearchTerms = { ...this.props.searchTerms, q, page: 1, order: SearchOrder.Name };
 
         this.props.fetchFilteredCards(newSearchTerms);
-        this.props.history.push(process.env.PUBLIC_URL + '/cards?q=' + q);       
+        this.props.history.push('/cards?q=' + q);       
     }
 
     private splitWords(searchTerm: any[], prefix: string = '', conditional: boolean = false): string {
