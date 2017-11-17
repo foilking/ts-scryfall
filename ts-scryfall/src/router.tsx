@@ -12,6 +12,7 @@ interface RouterProps {
 export class ScryfallRouter extends React.Component<RouterProps, {}> {
   constructor(props: RouterProps) {
     super(props);
+    console.log(props.searchTerms);
   }
 
   public render() {    
@@ -20,7 +21,7 @@ export class ScryfallRouter extends React.Component<RouterProps, {}> {
         <Route exact={true} path={`/`} component={About}/>
         <Route path={`/cards`} render={(props) => <CardsPageContainer {...props}  fetchFilteredCards={this.props.fetchFilteredCards} />} />
         <Route path={`/card/:code/:number`} component={CardPageContainer} />
-        <Route path={`/advanced`} render={(props) => <AdvanceSearchPageContainer {...props}  fetchFilteredCards={this.props.fetchFilteredCards} />} />
+        <Route path={`/advanced`} render={(props) => <AdvanceSearchPageContainer {...props}  fetchFilteredCards={this.props.fetchFilteredCards} searchTerms={this.props.searchTerms} />} />
         <Route path={`/about`} component={About} />
         <Route path={`/reference`} component={Reference} />
         <Route path={`/sets`} component={SetsPageContainer} />

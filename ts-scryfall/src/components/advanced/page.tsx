@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { isNumber } from 'util';
 import { RouteComponentProps } from 'react-router';
-// import Select from 'react-select';
-import { SearchTerms, SearchOrder } from '../../model';
+import Select from 'react-select';
+import { SearchTerms, SearchOrder, Set } from '../../model';
 
 enum Color {
    WHITE = 'w',
@@ -16,62 +16,25 @@ enum Color {
 interface AdvanceSearchProps {
     searchTerms: SearchTerms;
     fetchFilteredCards: (searchTerms: SearchTerms) => void;
+    fetchSets: () => void;
+    updateSearchTerms: (searchTerms: SearchTerms) => void;
+    sets: Set[];
 }
 
 interface AdvanceSearchState {
-    name: string;
-    oracle: string;
-    type: string;
-    allowPartialTypeMatch: boolean;
-    colors: Color[];
-    requiresMulticolored: boolean;
-    excludeUnselectedColors: boolean;
-    allowPartialColorMatch: boolean;
-    mana: string;
-    formats: string[];
-    commanderIdentity: Color[];
-    sets: string[];
-    rarities: string[];
-    artist: string;
-    flavor: string;
-    lore: string;
-    display: string;
-    order: string;
-    showAllPrints: boolean;
-    includeFunny: boolean;
+    
 }
 
 export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & RouteComponentProps<AdvanceSearchProps>, AdvanceSearchState> {
     constructor(props: AdvanceSearchProps & RouteComponentProps<AdvanceSearchProps>) {        
         super(props);
+        this.props.fetchSets();
         
         document.title = 'Advance Search | TS Scryfall';
-
-        this.state = {
-            name: '',
-            oracle: '',
-            type: '',
-            allowPartialTypeMatch: false,
-            colors: [],
-            requiresMulticolored: false,
-            excludeUnselectedColors: false,
-            allowPartialColorMatch: false,
-            mana: '',
-            formats: [],
-            commanderIdentity: [],
-            sets: [],
-            rarities: [],
-            artist: '',
-            flavor: '',
-            lore: '',
-            display: '',
-            order: '',
-            showAllPrints: false,
-            includeFunny: false
-        };
     }
 
     public render() {
+        const { searchTerms } = this.props;
         return (
             <div className="form-layout advanced-search">
                 <input name="utf8" value="✓" type="hidden" />
@@ -84,7 +47,7 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
                         </label>
                         <div className="form-row-content">
                             <div className="form-row-content-band">
-                                <input name="name" id="name" className="form-input" placeholder="Any words in the name, e.g. “Fire”" type="text" value={this.state.name} onChange={event => this.onFieldChange(event.currentTarget.name, event.currentTarget.value)}  />
+                                <input name="name" id="name" className="form-input" placeholder="Any words in the name, e.g. “Fire”" type="text" value={searchTerms.name} onChange={event => this.onFieldChange(event.currentTarget.name, event.currentTarget.value)}  />
                             </div>
                         </div>
 
@@ -96,7 +59,7 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
                         </label>
                         <div className="form-row-content">
                             <div className="form-row-content-band">
-                                <input name="oracle" id="oracle" className="form-input" placeholder="Any Oracle text, e.g. “draw a card”" type="text" value={this.state.oracle} onChange={event => this.onFieldChange(event.currentTarget.name, event.currentTarget.value)} onKeyUp={event => this.onEnter(event.keyCode)} />
+                                <input name="oracle" id="oracle" className="form-input" placeholder="Any Oracle text, e.g. “draw a card”" type="text" value={searchTerms.oracle} onChange={event => this.onFieldChange(event.currentTarget.name, event.currentTarget.value)} onKeyUp={event => this.onEnter(event.keyCode)} />
                                 <select className="advanced-search-subjoiner" aria-hidden="true" onChange={event => this.onJoinerDropdownFieldChange('oracle', event.currentTarget.value)} value={''}>
                                     <option value="">Add symbol</option>
                                     <option value="{T}">{`{T}`} – tap this permanent</option>
@@ -163,12 +126,12 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
                         </label>
                         <div className="form-row-content">
                             <div className="form-row-content-band">
-                                <input name="type" id="type" className="form-input" placeholder="Enter any card types, e.g. “legendary”" type="text" value={this.state.type} onChange={event => this.onFieldChange(event.currentTarget.name, event.currentTarget.value)} />
+                                <input name="type" id="type" className="form-input" placeholder="Enter any card types, e.g. “legendary”" type="text" value={searchTerms.type} onChange={event => this.onFieldChange(event.currentTarget.name, event.currentTarget.value)} />
                             </div>
 
                             <div className="form-row-content-band">
                                 <label className="advanced-search-checkbox">
-                                    <input name="allowPartialTypeMatch" id="allowPartialTypeMatch" checked={!!this.state.allowPartialTypeMatch} type="checkbox" onChange={event => this.onCheckboxChange(event.currentTarget.name, event.currentTarget.checked)} />
+                                    <input name="allowPartialTypeMatch" id="allowPartialTypeMatch" checked={!!searchTerms.allowPartialTypeMatch} type="checkbox" onChange={event => this.onCheckboxChange(event.currentTarget.name, event.currentTarget.checked)} />
                                     Allow partial type matches
                                 </label>
                             </div>
@@ -190,32 +153,32 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
                                 <div className="form-row-content-band">
                                     <legend className="visuallyhidden">Card colors</legend>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="colors" value={Color.WHITE} type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="colors" value={Color.WHITE} type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         <abbr className="card-symbol card-symbol-W" title="one white mana">{`W`}</abbr>
                                         White
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="colors" value={Color.BLUE} type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="colors" value={Color.BLUE} type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         <abbr className="card-symbol card-symbol-U" title="one blue mana">{`U`}</abbr>
                                         Blue
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="colors" value={Color.BLACK} type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="colors" value={Color.BLACK} type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         <abbr className="card-symbol card-symbol-B" title="one black mana">{`B`}</abbr>
                                         Black
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="colors" value={Color.RED} type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="colors" value={Color.RED} type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         <abbr className="card-symbol card-symbol-R" title="one red mana">{`R`}</abbr>
                                         Red
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="colors" value={Color.GREEN} type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="colors" value={Color.GREEN} type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         <abbr className="card-symbol card-symbol-G" title="one green mana">{`G`}</abbr>
                                         Green
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="colors" value={Color.COLORLESS} type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="colors" value={Color.COLORLESS} type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         <abbr className="card-symbol card-symbol-C" title="one colorless mana">{`C`}</abbr>
                                         Colorless
                                     </label>
@@ -226,15 +189,15 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
                                 <legend className="visuallyhidden">Additional color options</legend>
                                 <div className="form-row-content-band">
                                     <label className="advanced-search-checkbox" htmlFor="colors_multicolored">
-                                        <input name="requiresMulticolored" id="requiresMulticolored" checked={!!this.state.requiresMulticolored} type="checkbox" onChange={event => this.onCheckboxChange(event.currentTarget.name, event.currentTarget.checked)} />
+                                        <input name="requiresMulticolored" id="requiresMulticolored" checked={!!searchTerms.requiresMulticolored} type="checkbox" onChange={event => this.onCheckboxChange(event.currentTarget.name, event.currentTarget.checked)} />
                                         Require multicolored
                                     </label>
                                     <label className="advanced-search-checkbox" htmlFor="excludeUnselectedColors">
-                                        <input name="excludeUnselectedColors" id="excludeUnselectedColors" checked={!!this.state.excludeUnselectedColors} type="checkbox" onChange={event => this.onCheckboxChange(event.currentTarget.name, event.currentTarget.checked)}  />
+                                        <input name="excludeUnselectedColors" id="excludeUnselectedColors" checked={!!searchTerms.excludeUnselectedColors} type="checkbox" onChange={event => this.onCheckboxChange(event.currentTarget.name, event.currentTarget.checked)}  />
                                         Excluded unselected
                                     </label>
                                     <label className="advanced-search-checkbox" htmlFor="allowPartialColorMatch">
-                                        <input name="allowPartialColorMatch" id="allowPartialColorMatch" checked={!!this.state.allowPartialColorMatch} type="checkbox" onChange={event => this.onCheckboxChange(event.currentTarget.name, event.currentTarget.checked)} />
+                                        <input name="allowPartialColorMatch" id="allowPartialColorMatch" checked={!!searchTerms.allowPartialColorMatch} type="checkbox" onChange={event => this.onCheckboxChange(event.currentTarget.name, event.currentTarget.checked)} />
                                         Allow partial matches
                                     </label>
                                 </div>
@@ -257,7 +220,7 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
                         <div className="form-row-content">
 
                             <div className="form-row-content-band">
-                                <input name="mana" id="mana" className="form-input short" placeholder="Any mana symbols, e.g. “{W}{W}”" type="text" value={this.state.mana} onChange={event => this.onFieldChange(event.currentTarget.name, event.currentTarget.value)} />
+                                <input name="mana" id="mana" className="form-input short" placeholder="Any mana symbols, e.g. “{W}{W}”" type="text" value={searchTerms.mana} onChange={event => this.onFieldChange(event.currentTarget.name, event.currentTarget.value)} />
                                 <select className="advanced-search-subjoiner" aria-hidden="true" onChange={event => this.onJoinerDropdownFieldChange('mana', event.currentTarget.value)} value={''}>
                                     <option value="">Add symbol</option>
                                     <option value="{W}">{'{W}'} – one white mana</option>
@@ -359,27 +322,27 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
                                 <legend className="visuallyhidden">Desired formats</legend>
                                 <div className="form-row-content-band">
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="formats" value="standard" type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="formats" value="standard" type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         Standard
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="formats" value="frontier" type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="formats" value="frontier" type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         Frontier
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="formats" value="modern" type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="formats" value="modern" type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         Modern
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="formats" value="legacy" type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="formats" value="legacy" type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         Legacy
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="formats" value="commander" type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="formats" value="commander" type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         Commander
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="formats" value="vintage" type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="formats" value="vintage" type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         Vintage
                                     </label>
                                 </div>
@@ -389,23 +352,23 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
                                 <legend className="visuallyhidden">Additional desired formats</legend>
                                 <div className="form-row-content-band">
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="formats" value="future" type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="formats" value="future" type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         Future Standard
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="formats" value="pauper" type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="formats" value="pauper" type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         Pauper
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="formats" value="penny" type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="formats" value="penny" type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         Penny
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="formats" value="1v1" type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="formats" value="1v1" type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         1v1 Cmdr.
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="formats" value="duel" type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="formats" value="duel" type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         Duel Cmdr.
                                     </label>
                                 </div>
@@ -431,32 +394,32 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
                                 <legend className="visuallyhidden">Commander colors</legend>
                                 <div className="form-row-content-band">
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="commanderIdentity" id="false" value={Color.WHITE} type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="commanderIdentity" id="false" value={Color.WHITE} type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         <abbr className="card-symbol card-symbol-W" title="one white mana">{`W`}</abbr>
                                         White
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="commanderIdentity" id="false" value={Color.BLUE} type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="commanderIdentity" id="false" value={Color.BLUE} type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         <abbr className="card-symbol card-symbol-U" title="one blue mana">{`U`}</abbr>
                                         Blue
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="commanderIdentity" id="false" value={Color.BLACK} type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="commanderIdentity" id="false" value={Color.BLACK} type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         <abbr className="card-symbol card-symbol-B" title="one black mana">{`B`}</abbr>
                                         Black
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="commanderIdentity" id="false" value={Color.RED} type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="commanderIdentity" id="false" value={Color.RED} type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         <abbr className="card-symbol card-symbol-R" title="one red mana">{`R`}</abbr>
                                         Red
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="commanderIdentity" id="false" value={Color.GREEN} type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="commanderIdentity" id="false" value={Color.GREEN} type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         <abbr className="card-symbol card-symbol-G" title="one green mana">{`G`}</abbr>
                                         Green
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="commanderIdentity" id="false" value={Color.COLORLESS} type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="commanderIdentity" id="false" value={Color.COLORLESS} type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         <abbr className="card-symbol card-symbol-C" title="one colorless mana">{`C`}</abbr>
                                         Colorless
                                     </label>
@@ -480,463 +443,16 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
                         <div className="form-row-content">
 
                             <div className="form-row-content-band">
-                                <input name="sets" defaultValue={this.state.sets.join(',')} type="hidden" />
-                                <select name="sets" id="set" data-component="advanced-search-autocomplete" data-placeholder="Enter a set name or choose from the list" tabIndex={-1} className="select2-hidden-accessible" aria-hidden="true" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} >
-                                    <option value="p15a">15th Anniversary Cards (P15A)</option>
-                                    <option value="htr">2016 Heroes of the Realm (HTR)</option>
-                                    <option value="aer">Aether Revolt (AER)</option>
-                                    <option value="paer">Aether Revolt Promos (PAER)</option>
-                                    <option value="taer">Aether Revolt Tokens (TAER)</option>
-                                    <option value="arb">Alara Reborn (ARB)</option>
-                                    <option value="tarb">Alara Reborn Tokens (TARB)</option>
-                                    <option value="all">Alliances (ALL)</option>
-                                    <option value="akh">Amonkhet (AKH)</option>
-                                    <option value="mp2">Amonkhet Invocations (MP2)</option>
-                                    <option value="pakh">Amonkhet Promos (PAKH)</option>
-                                    <option value="takh">Amonkhet Tokens (TAKH)</option>
-                                    <option value="ath">Anthologies (ATH)</option>
-                                    <option value="atq">Antiquities (ATQ)</option>
-                                    <option value="apc">Apocalypse (APC)</option>
-                                    <option value="arn">Arabian Nights (ARN)</option>
-                                    <option value="arc">Archenemy (ARC)</option>
-                                    <option value="e01">Archenemy: Nicol Bolas (E01)</option>
-                                    <option value="te01">Archenemy: Nicol Bolas Tokens (TE01)</option>
-                                    <option value="parl">Arena League 1996 (PARL)</option>
-                                    <option value="pal99">Arena League 1999 (PAL99)</option>
-                                    <option value="pal00">Arena League 2000 (PAL00)</option>
-                                    <option value="pal01">Arena League 2001 (PAL01)</option>
-                                    <option value="pal02">Arena League 2002 (PAL02)</option>
-                                    <option value="pal03">Arena League 2003 (PAL03)</option>
-                                    <option value="pal04">Arena League 2004 (PAL04)</option>
-                                    <option value="pal05">Arena League 2005 (PAL05)</option>
-                                    <option value="pal06">Arena League 2006 (PAL06)</option>
-                                    <option value="palp">Asia Pacific Land Program (PALP)</option>
-                                    <option value="avr">Avacyn Restored (AVR)</option>
-                                    <option value="pavr">Avacyn Restored Promos (PAVR)</option>
-                                    <option value="tavr">Avacyn Restored Tokens (TAVR)</option>
-                                    <option value="bfz">Battle for Zendikar (BFZ)</option>
-                                    <option value="pbfz">Battle for Zendikar Promos (PBFZ)</option>
-                                    <option value="tbfz">Battle for Zendikar Tokens (TBFZ)</option>
-                                    <option value="brb">Battle Royale Box Set (BRB)</option>
-                                    <option value="tbth">Battle the Horde (TBTH)</option>
-                                    <option value="btd">Beatdown Box Set (BTD)</option>
-                                    <option value="bok">Betrayers of Kamigawa (BOK)</option>
-                                    <option value="pss1">BFZ Standard Series (PSS1)</option>
-                                    <option value="bng">Born of the Gods (BNG)</option>
-                                    <option value="thp2">Born of the Gods Hero's Path (THP2)</option>
-                                    <option value="pbng">Born of the Gods Promos (PBNG)</option>
-                                    <option value="tbng">Born of the Gods Tokens (TBNG)</option>
-                                    <option value="pcel">Celebration Cards (PCEL)</option>
-                                    <option value="chk">Champions of Kamigawa (CHK)</option>
-                                    <option value="pcmp">Champs and States (PCMP)</option>
-                                    <option value="chr">Chronicles (CHR)</option>
-                                    <option value="6ed">Classic Sixth Edition (6ED)</option>
-                                    <option value="csp">Coldsnap (CSP)</option>
-                                    <option value="cst">Coldsnap Theme Decks (CST)</option>
-                                    <option value="tcsp">Coldsnap Tokens (TCSP)</option>
-                                    <option value="ced">Collector’s Edition (CED)</option>
-                                    <option value="cmd">Commander 2011 (CMD)</option>
-                                    <option value="c13">Commander 2013 (C13)</option>
-                                    <option value="tc13">Commander 2013 Tokens (TC13)</option>
-                                    <option value="c14">Commander 2014 (C14)</option>
-                                    <option value="tc14">Commander 2014 Tokens (TC14)</option>
-                                    <option value="c15">Commander 2015 (C15)</option>
-                                    <option value="tc15">Commander 2015 Tokens (TC15)</option>
-                                    <option value="c16">Commander 2016 (C16)</option>
-                                    <option value="tc16">Commander 2016 Tokens (TC16)</option>
-                                    <option value="c17">Commander 2017 (C17)</option>
-                                    <option value="tc17">Commander 2017 Tokens (TC17)</option>
-                                    <option value="cma">Commander Anthology (CMA)</option>
-                                    <option value="cm1">Commander's Arsenal (CM1)</option>
-                                    <option value="con">Conflux (CON)</option>
-                                    <option value="tcon">Conflux Tokens (TCON)</option>
-                                    <option value="cns">Conspiracy (CNS)</option>
-                                    <option value="cn2">Conspiracy: Take the Crown (CN2)</option>
-                                    <option value="tcn2">Conspiracy: Take the Crown Tokens (TCN2)</option>
-                                    <option value="tcns">Conspiracy Tokens (TCNS)</option>
-                                    <option value="dka">Dark Ascension (DKA)</option>
-                                    <option value="pdka">Dark Ascension Promos (PDKA)</option>
-                                    <option value="tdka">Dark Ascension Tokens (TDKA)</option>
-                                    <option value="dst">Darksteel (DST)</option>
-                                    <option value="plgm">DCI Legend Membership (PLGM)</option>
-                                    <option value="dkm">Deckmasters (DKM)</option>
-                                    <option value="tdag">Defeat a God (TDAG)</option>
-                                    <option value="dis">Dissension (DIS)</option>
-                                    <option value="pdrc">Dragon Con (PDRC)</option>
-                                    <option value="dgm">Dragon's Maze (DGM)</option>
-                                    <option value="pdgm">Dragon's Maze Promos (PDGM)</option>
-                                    <option value="tdgm">Dragon's Maze Tokens (TDGM)</option>
-                                    <option value="dtk">Dragons of Tarkir (DTK)</option>
-                                    <option value="pdtk">Dragons of Tarkir Promos (PDTK)</option>
-                                    <option value="tdtk">Dragons of Tarkir Tokens (TDTK)</option>
-                                    <option value="ddh">Duel Decks: Ajani vs. Nicol Bolas (DDH)</option>
-                                    <option value="tddh">Duel Decks: Ajani vs. Nicol Bolas Tokens (TDDH)</option>
-                                    <option value="dvd">Duel Decks Anthology: Divine vs. Demonic (DVD)</option>
-                                    <option value="evg">Duel Decks Anthology: Elves vs. Goblins (EVG)</option>
-                                    <option value="tevg">Duel Decks Anthology: Elves vs. Goblins Tokens (TEVG)</option>
-                                    <option value="gvl">Duel Decks Anthology: Garruk vs. Liliana (GVL)</option>
-                                    <option value="jvc">Duel Decks Anthology: Jace vs. Chandra (JVC)</option>
-                                    <option value="ddq">Duel Decks: Blessed vs. Cursed (DDQ)</option>
-                                    <option value="ddc">Duel Decks: Divine vs. Demonic (DDC)</option>
-                                    <option value="tddc">Duel Decks: Divine vs. Demonic Tokens (TDDC)</option>
-                                    <option value="ddo">Duel Decks: Elspeth vs. Kiora (DDO)</option>
-                                    <option value="ddf">Duel Decks: Elspeth vs. Tezzeret (DDF)</option>
-                                    <option value="tddf">Duel Decks: Elspeth vs. Tezzeret Tokens (TDDF)</option>
-                                    <option value="dd1">Duel Decks: Elves vs. Goblins (DD1)</option>
-                                    <option value="ddd">Duel Decks: Garruk vs. Liliana (DDD)</option>
-                                    <option value="tddd">Duel Decks: Garruk vs. Liliana Tokens (TDDD)</option>
-                                    <option value="ddl">Duel Decks: Heroes vs. Monsters (DDL)</option>
-                                    <option value="tddl">Duel Decks: Heroes vs. Monsters Tokens (TDDL)</option>
-                                    <option value="ddj">Duel Decks: Izzet vs. Golgari (DDJ)</option>
-                                    <option value="tddj">Duel Decks: Izzet vs. Golgari Tokens (TDDJ)</option>
-                                    <option value="dd2">Duel Decks: Jace vs. Chandra (DD2)</option>
-                                    <option value="pdd2">Duel Decks: Jace vs. Chandra Japanese Promos (PDD2)</option>
-                                    <option value="tdd2">Duel Decks: Jace vs. Chandra Tokens (TDD2)</option>
-                                    <option value="ddm">Duel Decks: Jace vs. Vraska (DDM)</option>
-                                    <option value="tddm">Duel Decks: Jace vs. Vraska Tokens (TDDM)</option>
-                                    <option value="ddg">Duel Decks: Knights vs. Dragons (DDG)</option>
-                                    <option value="tddg">Duel Decks: Knights vs. Dragons Tokens (TDDG)</option>
-                                    <option value="ddt">Duel Decks: Merfolk vs. Goblins (DDT)</option>
-                                    <option value="dds">Duel Decks: Mind vs. Might (DDS)</option>
-                                    <option value="tdds">Duel Decks: Mind vs. Might Tokens (TDDS)</option>
-                                    <option value="td2">Duel Decks: Mirrodin Pure vs. New Phyrexia (TD2)</option>
-                                    <option value="ddr">Duel Decks: Nissa vs. Ob Nixilis (DDR)</option>
-                                    <option value="dde">Duel Decks: Phyrexia vs. the Coalition (DDE)</option>
-                                    <option value="tdde">Duel Decks: Phyrexia vs. the Coalition Tokens (TDDE)</option>
-                                    <option value="ddk">Duel Decks: Sorin vs. Tibalt (DDK)</option>
-                                    <option value="tddk">Duel Decks: Sorin vs. Tibalt Tokens (TDDK)</option>
-                                    <option value="ddn">Duel Decks: Speed vs. Cunning (DDN)</option>
-                                    <option value="tddn">Duel Decks: Speed vs. Cunning Tokens (TDDN)</option>
-                                    <option value="ddi">Duel Decks: Venser vs. Koth (DDI)</option>
-                                    <option value="tddi">Duel Decks: Venser vs. Koth Tokens (TDDI)</option>
-                                    <option value="ddp">Duel Decks: Zendikar vs. Eldrazi (DDP)</option>
-                                    <option value="dpa">Duels of the Planeswalkers (DPA)</option>
-                                    <option value="pdtp">Duels of the Planeswalkers Promos 2009 (PDTP)</option>
-                                    <option value="pdp10">Duels of the Planeswalkers Promos 2010 (PDP10)</option>
-                                    <option value="pdp11">Duels of the Planeswalkers Promos 2011 (PDP11)</option>
-                                    <option value="pdp12">Duels of the Planeswalkers Promos 2012 (PDP12)</option>
-                                    <option value="pdp13">Duels of the Planeswalkers Promos 2013 (PDP13)</option>
-                                    <option value="pdp14">Duels of the Planeswalkers Promos 2014 (PDP14)</option>
-                                    <option value="8ed">Eighth Edition (8ED)</option>
-                                    <option value="emn">Eldritch Moon (EMN)</option>
-                                    <option value="pemn">Eldritch Moon Promos (PEMN)</option>
-                                    <option value="temn">Eldritch Moon Tokens (TEMN)</option>
-                                    <option value="ema">Eternal Masters (EMA)</option>
-                                    <option value="tema">Eternal Masters Tokens (TEMA)</option>
-                                    <option value="pelp">European Land Program (PELP)</option>
-                                    <option value="eve">Eventide (EVE)</option>
-                                    <option value="teve">Eventide Tokens (TEVE)</option>
-                                    <option value="exo">Exodus (EXO)</option>
-                                    <option value="e02">Explorers of Ixalan (E02)</option>
-                                    <option value="tfth">Face the Hydra (TFTH)</option>
-                                    <option value="fem">Fallen Empires (FEM)</option>
-                                    <option value="frf">Fate Reforged (FRF)</option>
-                                    <option value="cp2">Fate Reforged Clash Pack (CP2)</option>
-                                    <option value="pfrf">Fate Reforged Promos (PFRF)</option>
-                                    <option value="tfrf">Fate Reforged Tokens (TFRF)</option>
-                                    <option value="5dn">Fifth Dawn (5DN)</option>
-                                    <option value="5ed">Fifth Edition (5ED)</option>
-                                    <option value="4ed">Fourth Edition (4ED)</option>
-                                    <option value="fnm">Friday Night Magic 2000 (FNM)</option>
-                                    <option value="f01">Friday Night Magic 2001 (F01)</option>
-                                    <option value="f02">Friday Night Magic 2002 (F02)</option>
-                                    <option value="f03">Friday Night Magic 2003 (F03)</option>
-                                    <option value="f04">Friday Night Magic 2004 (F04)</option>
-                                    <option value="f05">Friday Night Magic 2005 (F05)</option>
-                                    <option value="f06">Friday Night Magic 2006 (F06)</option>
-                                    <option value="f07">Friday Night Magic 2007 (F07)</option>
-                                    <option value="f08">Friday Night Magic 2008 (F08)</option>
-                                    <option value="f09">Friday Night Magic 2009 (F09)</option>
-                                    <option value="f10">Friday Night Magic 2010 (F10)</option>
-                                    <option value="f11">Friday Night Magic 2011 (F11)</option>
-                                    <option value="f12">Friday Night Magic 2012 (F12)</option>
-                                    <option value="f13">Friday Night Magic 2013 (F13)</option>
-                                    <option value="f14">Friday Night Magic 2014 (F14)</option>
-                                    <option value="f15">Friday Night Magic 2015 (F15)</option>
-                                    <option value="f16">Friday Night Magic 2016 (F16)</option>
-                                    <option value="f17">Friday Night Magic 2017 (F17)</option>
-                                    <option value="v15">From the Vault: Angels (V15)</option>
-                                    <option value="v14">From the Vault: Annihilation (V14)</option>
-                                    <option value="drb">From the Vault: Dragons (DRB)</option>
-                                    <option value="v09">From the Vault: Exiled (V09)</option>
-                                    <option value="v11">From the Vault: Legends (V11)</option>
-                                    <option value="v16">From the Vault: Lore (V16)</option>
-                                    <option value="v12">From the Vault: Realms (V12)</option>
-                                    <option value="v10">From the Vault: Relics (V10)</option>
-                                    <option value="v13">From the Vault: Twenty (V13)</option>
-                                    <option value="fut">Future Sight (FUT)</option>
-                                    <option value="gtc">Gatecrash (GTC)</option>
-                                    <option value="pgtc">Gatecrash Promos (PGTC)</option>
-                                    <option value="tgtc">Gatecrash Tokens (TGTC)</option>
-                                    <option value="pgtw">Gateway 2006 (PGTW)</option>
-                                    <option value="pg07">Gateway 2007 (PG07)</option>
-                                    <option value="pg08">Gateway 2008 (PG08)</option>
-                                    <option value="pgpx">Grand Prix Promos (PGPX)</option>
-                                    <option value="gpt">Guildpact (GPT)</option>
-                                    <option value="pgru">Guru (PGRU)</option>
-                                    <option value="phuk">Hachette UK (PHUK)</option>
-                                    <option value="hho">Happy Holidays (HHO)</option>
-                                    <option value="phpr">HarperPrism Book Promos (PHPR)</option>
-                                    <option value="h17">HasCon 2017 (H17)</option>
-                                    <option value="hml">Homelands (HML)</option>
-                                    <option value="hou">Hour of Devastation (HOU)</option>
-                                    <option value="phou">Hour of Devastation Promos (PHOU)</option>
-                                    <option value="thou">Hour of Devastation Tokens (THOU)</option>
-                                    <option value="ice">Ice Age (ICE)</option>
-                                    <option value="ima">Iconic Masters (IMA)</option>
-                                    <option value="pidw">IDW Comics 2012 (PIDW)</option>
-                                    <option value="pi13">IDW Comics 2013 (PI13)</option>
-                                    <option value="pi14">IDW Comics 2014 (PI14)</option>
-                                    <option value="isd">Innistrad (ISD)</option>
-                                    <option value="pisd">Innistrad Promos (PISD)</option>
-                                    <option value="tisd">Innistrad Tokens (TISD)</option>
-                                    <option value="cei">Intl. Collector’s Edition (CEI)</option>
-                                    <option value="itp">Introductory Two-Player Set (ITP)</option>
-                                    <option value="inv">Invasion (INV)</option>
-                                    <option value="xln">Ixalan (XLN)</option>
-                                    <option value="pxln">Ixalan Promos (PXLN)</option>
-                                    <option value="txln">Ixalan Tokens (TXLN)</option>
-                                    <option value="jou">Journey into Nyx (JOU)</option>
-                                    <option value="thp3">Journey into Nyx Hero's Path (THP3)</option>
-                                    <option value="pjou">Journey into Nyx Promos (PJOU)</option>
-                                    <option value="tjou">Journey into Nyx Tokens (TJOU)</option>
-                                    <option value="jgp">Judge Gift Cards 1998 (JGP)</option>
-                                    <option value="g99">Judge Gift Cards 1999 (G99)</option>
-                                    <option value="g00">Judge Gift Cards 2000 (G00)</option>
-                                    <option value="g01">Judge Gift Cards 2001 (G01)</option>
-                                    <option value="g02">Judge Gift Cards 2002 (G02)</option>
-                                    <option value="g03">Judge Gift Cards 2003 (G03)</option>
-                                    <option value="g04">Judge Gift Cards 2004 (G04)</option>
-                                    <option value="g05">Judge Gift Cards 2005 (G05)</option>
-                                    <option value="g06">Judge Gift Cards 2006 (G06)</option>
-                                    <option value="g07">Judge Gift Cards 2007 (G07)</option>
-                                    <option value="g08">Judge Gift Cards 2008 (G08)</option>
-                                    <option value="g09">Judge Gift Cards 2009 (G09)</option>
-                                    <option value="g10">Judge Gift Cards 2010 (G10)</option>
-                                    <option value="g11">Judge Gift Cards 2011 (G11)</option>
-                                    <option value="j12">Judge Gift Cards 2012 (J12)</option>
-                                    <option value="j13">Judge Gift Cards 2013 (J13)</option>
-                                    <option value="j14">Judge Gift Cards 2014 (J14)</option>
-                                    <option value="j15">Judge Gift Cards 2015 (J15)</option>
-                                    <option value="j16">Judge Gift Cards 2016 (J16)</option>
-                                    <option value="j17">Judge Gift Cards 2017 (J17)</option>
-                                    <option value="jud">Judgment (JUD)</option>
-                                    <option value="pjas">Junior APAC Series (PJAS)</option>
-                                    <option value="pjse">Junior Series Europe (PJSE)</option>
-                                    <option value="psus">Junior Super Series (PSUS)</option>
-                                    <option value="kld">Kaladesh (KLD)</option>
-                                    <option value="mps">Kaladesh Inventions (MPS)</option>
-                                    <option value="pkld">Kaladesh Promos (PKLD)</option>
-                                    <option value="tkld">Kaladesh Tokens (TKLD)</option>
-                                    <option value="ktk">Khans of Tarkir (KTK)</option>
-                                    <option value="pktk">Khans of Tarkir Promos (PKTK)</option>
-                                    <option value="tktk">Khans of Tarkir Tokens (TKTK)</option>
-                                    <option value="plpa">Launch Parties (PLPA)</option>
-                                    <option value="ltk">League Tokens (LTK)</option>
-                                    <option value="l12">League Tokens 2012 (L12)</option>
-                                    <option value="l13">League Tokens 2013 (L13)</option>
-                                    <option value="l14">League Tokens 2014 (L14)</option>
-                                    <option value="l15">League Tokens 2015 (L15)</option>
-                                    <option value="l16">League Tokens 2016 (L16)</option>
-                                    <option value="l17">League Tokens 2017 (L17)</option>
-                                    <option value="pz1">Legendary Cube (PZ1)</option>
-                                    <option value="leg">Legends (LEG)</option>
-                                    <option value="lgn">Legions (LGN)</option>
-                                    <option value="lea">Limited Edition Alpha (LEA)</option>
-                                    <option value="leb">Limited Edition Beta (LEB)</option>
-                                    <option value="lrw">Lorwyn (LRW)</option>
-                                    <option value="tlrw">Lorwyn Tokens (TLRW)</option>
-                                    <option value="pmei">Magazine Inserts (PMEI)</option>
-                                    <option value="m10">Magic 2010 (M10)</option>
-                                    <option value="pm10">Magic 2010 Promos (PM10)</option>
-                                    <option value="tm10">Magic 2010 Tokens (TM10)</option>
-                                    <option value="m11">Magic 2011 (M11)</option>
-                                    <option value="pm11">Magic 2011 Promos (PM11)</option>
-                                    <option value="tm11">Magic 2011 Tokens (TM11)</option>
-                                    <option value="m12">Magic 2012 (M12)</option>
-                                    <option value="pm12">Magic 2012 Promos (PM12)</option>
-                                    <option value="tm12">Magic 2012 Tokens (TM12)</option>
-                                    <option value="m13">Magic 2013 (M13)</option>
-                                    <option value="pm13">Magic 2013 Promos (PM13)</option>
-                                    <option value="tm13">Magic 2013 Tokens (TM13)</option>
-                                    <option value="m14">Magic 2014 (M14)</option>
-                                    <option value="pm14">Magic 2014 Promos (PM14)</option>
-                                    <option value="tm14">Magic 2014 Tokens (TM14)</option>
-                                    <option value="m15">Magic 2015 (M15)</option>
-                                    <option value="cp1">Magic 2015 Clash Pack (CP1)</option>
-                                    <option value="pm15">Magic 2015 Promos (PM15)</option>
-                                    <option value="tm15">Magic 2015 Tokens (TM15)</option>
-                                    <option value="prm">Magic Online Promos (PRM)</option>
-                                    <option value="td0">Magic Online Theme Decks (TD0)</option>
-                                    <option value="ori">Magic Origins (ORI)</option>
-                                    <option value="cp3">Magic Origins Clash Pack (CP3)</option>
-                                    <option value="pori">Magic Origins Promos (PORI)</option>
-                                    <option value="tori">Magic Origins Tokens (TORI)</option>
-                                    <option value="mpr">Magic Player Rewards 2001 (MPR)</option>
-                                    <option value="pr2">Magic Player Rewards 2002 (PR2)</option>
-                                    <option value="p03">Magic Player Rewards 2003 (P03)</option>
-                                    <option value="p04">Magic Player Rewards 2004 (P04)</option>
-                                    <option value="p05">Magic Player Rewards 2005 (P05)</option>
-                                    <option value="p06">Magic Player Rewards 2006 (P06)</option>
-                                    <option value="p07">Magic Player Rewards 2007 (P07)</option>
-                                    <option value="p08">Magic Player Rewards 2008 (P08)</option>
-                                    <option value="p09">Magic Player Rewards 2009 (P09)</option>
-                                    <option value="p10">Magic Player Rewards 2010 (P10)</option>
-                                    <option value="p11">Magic Player Rewards 2011 (P11)</option>
-                                    <option value="pmps">Magic Premiere Shop 2005 (PMPS)</option>
-                                    <option value="pmps06">Magic Premiere Shop 2006 (PMPS06)</option>
-                                    <option value="pmps07">Magic Premiere Shop 2007 (PMPS07)</option>
-                                    <option value="pmps08">Magic Premiere Shop 2008 (PMPS08)</option>
-                                    <option value="pmps09">Magic Premiere Shop 2009 (PMPS09)</option>
-                                    <option value="pmps10">Magic Premiere Shop 2010 (PMPS10)</option>
-                                    <option value="pmps11">Magic Premiere Shop 2011 (PMPS11)</option>
-                                    <option value="med">Masters Edition (MED)</option>
-                                    <option value="me2">Masters Edition II (ME2)</option>
-                                    <option value="me3">Masters Edition III (ME3)</option>
-                                    <option value="me4">Masters Edition IV (ME4)</option>
-                                    <option value="mmq">Mercadian Masques (MMQ)</option>
-                                    <option value="mir">Mirage (MIR)</option>
-                                    <option value="mrd">Mirrodin (MRD)</option>
-                                    <option value="mbs">Mirrodin Besieged (MBS)</option>
-                                    <option value="pmbs">Mirrodin Besieged Promos (PMBS)</option>
-                                    <option value="tmbs">Mirrodin Besieged Tokens (TMBS)</option>
-                                    <option value="pbok">Miscellaneous Book Promos (PBOK)</option>
-                                    <option value="md1">Modern Event Deck 2014 (MD1)</option>
-                                    <option value="tmd1">Modern Event Deck 2014 Tokens (TMD1)</option>
-                                    <option value="mma">Modern Masters (MMA)</option>
-                                    <option value="mm2">Modern Masters 2015 (MM2)</option>
-                                    <option value="tmm2">Modern Masters 2015 Tokens (TMM2)</option>
-                                    <option value="mm3">Modern Masters 2017 (MM3)</option>
-                                    <option value="tmm3">Modern Masters 2017 Tokens (TMM3)</option>
-                                    <option value="tmma">Modern Masters Tokens (TMMA)</option>
-                                    <option value="mor">Morningtide (MOR)</option>
-                                    <option value="tmor">Morningtide Tokens (TMOR)</option>
-                                    <option value="mgb">Multiverse Gift Box (MGB)</option>
-                                    <option value="nem">Nemesis (NEM)</option>
-                                    <option value="nph">New Phyrexia (NPH)</option>
-                                    <option value="pnph">New Phyrexia Promos (PNPH)</option>
-                                    <option value="tnph">New Phyrexia Tokens (TNPH)</option>
-                                    <option value="9ed">Ninth Edition (9ED)</option>
-                                    <option value="ogw">Oath of the Gatewatch (OGW)</option>
-                                    <option value="pogw">Oath of the Gatewatch Promos (POGW)</option>
-                                    <option value="togw">Oath of the Gatewatch Tokens (TOGW)</option>
-                                    <option value="ody">Odyssey (ODY)</option>
-                                    <option value="ons">Onslaught (ONS)</option>
-                                    <option value="plc">Planar Chaos (PLC)</option>
-                                    <option value="hop">Planechase (HOP)</option>
-                                    <option value="pc2">Planechase 2012 (PC2)</option>
-                                    <option value="pca">Planechase Anthology (PCA)</option>
-                                    <option value="tpca">Planechase Anthology Tokens (TPCA)</option>
-                                    <option value="pls">Planeshift (PLS)</option>
-                                    <option value="por">Portal (POR)</option>
-                                    <option value="ppod">Portal Demo Game (PPOD)</option>
-                                    <option value="p02">Portal: Second Age (P02)</option>
-                                    <option value="ptk">Portal: Three Kingdoms (PTK)</option>
-                                    <option value="pd2">Premium Deck Series: Fire and Lightning (PD2)</option>
-                                    <option value="pd3">Premium Deck Series: Graveborn (PD3)</option>
-                                    <option value="h09">Premium Deck Series: Slivers (H09)</option>
-                                    <option value="ppre">Prerelease Events (PPRE)</option>
-                                    <option value="phop">Promotional Planes (PHOP)</option>
-                                    <option value="parc">Promotional Schemes (PARC)</option>
-                                    <option value="pcy">Prophecy (PCY)</option>
-                                    <option value="ppro">Pro Tour Promos (PPRO)</option>
-                                    <option value="rav">Ravnica: City of Guilds (RAV)</option>
-                                    <option value="prel">Release Events (PREL)</option>
-                                    <option value="pres">Resale Promos (PRES)</option>
-                                    <option value="rtr">Return to Ravnica (RTR)</option>
-                                    <option value="prtr">Return to Ravnica Promos (PRTR)</option>
-                                    <option value="trtr">Return to Ravnica Tokens (TRTR)</option>
-                                    <option value="3ed">Revised Edition (3ED)</option>
-                                    <option value="roe">Rise of the Eldrazi (ROE)</option>
-                                    <option value="proe">Rise of the Eldrazi Promos (PROE)</option>
-                                    <option value="troe">Rise of the Eldrazi Tokens (TROE)</option>
-                                    <option value="rix">Rivals of Ixalan (RIX)</option>
-                                    <option value="prix">Rivals of Ixalan Promos (PRIX)</option>
-                                    <option value="rqs">Rivals Quick Start Set (RQS)</option>
-                                    <option value="psdc">San Diego Comic-Con 2013 (PSDC)</option>
-                                    <option value="ps14">San Diego Comic-Con 2014 (PS14)</option>
-                                    <option value="ps15">San Diego Comic-Con 2015 (PS15)</option>
-                                    <option value="ps16">San Diego Comic-Con 2016 (PS16)</option>
-                                    <option value="ps17">San Diego Comic-Con 2017 (PS17)</option>
-                                    <option value="sok">Saviors of Kamigawa (SOK)</option>
-                                    <option value="som">Scars of Mirrodin (SOM)</option>
-                                    <option value="psom">Scars of Mirrodin Promos (PSOM)</option>
-                                    <option value="tsom">Scars of Mirrodin Tokens (TSOM)</option>
-                                    <option value="scg">Scourge (SCG)</option>
-                                    <option value="7ed">Seventh Edition (7ED)</option>
-                                    <option value="shm">Shadowmoor (SHM)</option>
-                                    <option value="tshm">Shadowmoor Tokens (TSHM)</option>
-                                    <option value="soi">Shadows over Innistrad (SOI)</option>
-                                    <option value="psoi">Shadows over Innistrad Promos (PSOI)</option>
-                                    <option value="tsoi">Shadows over Innistrad Tokens (TSOI)</option>
-                                    <option value="ala">Shards of Alara (ALA)</option>
-                                    <option value="tala">Shards of Alara Tokens (TALA)</option>
-                                    <option value="s99">Starter 1999 (S99)</option>
-                                    <option value="s00">Starter 2000 (S00)</option>
-                                    <option value="sth">Stronghold (STH)</option>
-                                    <option value="sum">Summer Magic / Edgar (SUM)</option>
-                                    <option value="psum">Summer of Magic (PSUM)</option>
-                                    <option value="tmp">Tempest (TMP)</option>
-                                    <option value="tpr">Tempest Remastered (TPR)</option>
-                                    <option value="10e">Tenth Edition (10E)</option>
-                                    <option value="p10e">Tenth Edition Promos (P10E)</option>
-                                    <option value="t10e">Tenth Edition Tokens (T10E)</option>
-                                    <option value="drk">The Dark (DRK)</option>
-                                    <option value="ths">Theros (THS)</option>
-                                    <option value="thp1">Theros Hero's Path (THP1)</option>
-                                    <option value="pths">Theros Promos (PTHS)</option>
-                                    <option value="tths">Theros Tokens (TTHS)</option>
-                                    <option value="tsp">Time Spiral (TSP)</option>
-                                    <option value="tsb">Time Spiral Timeshifted (TSB)</option>
-                                    <option value="tor">Torment (TOR)</option>
-                                    <option value="p2hg">Two-Headed Giant Tournament (P2HG)</option>
-                                    <option value="ugin">Ugin's Fate (UGIN)</option>
-                                    <option value="ugl">Unglued (UGL)</option>
-                                    <option value="tugl">Unglued Tokens (TUGL)</option>
-                                    <option value="unh">Unhinged (UNH)</option>
-                                    <option value="2ed">Unlimited Edition (2ED)</option>
-                                    <option value="ust">Unstable (UST)</option>
-                                    <option value="purl">URL/Convention Promos (PURL)</option>
-                                    <option value="uds">Urza's Destiny (UDS)</option>
-                                    <option value="ulg">Urza's Legacy (ULG)</option>
-                                    <option value="usg">Urza's Saga (USG)</option>
-                                    <option value="pvan">Vanguard Series (PVAN)</option>
-                                    <option value="vma">Vintage Masters (VMA)</option>
-                                    <option value="tvma">Vintage Masters Tokens (TVMA)</option>
-                                    <option value="vis">Visions (VIS)</option>
-                                    <option value="wth">Weatherlight (WTH)</option>
-                                    <option value="w16">Welcome Deck 2016 (W16)</option>
-                                    <option value="w17">Welcome Deck 2017 (W17)</option>
-                                    <option value="pwos">Wizards of the Coast Online Store (PWOS)</option>
-                                    <option value="pwpn">Wizards Play Network 2008 (PWPN)</option>
-                                    <option value="pwp09">Wizards Play Network 2009 (PWP09)</option>
-                                    <option value="pwp10">Wizards Play Network 2010 (PWP10)</option>
-                                    <option value="pwp11">Wizards Play Network 2011 (PWP11)</option>
-                                    <option value="pwp12">Wizards Play Network 2012 (PWP12)</option>
-                                    <option value="pwcq">World Magic Cup Qualifiers (PWCQ)</option>
-                                    <option value="pwor">Worlds (PWOR)</option>
-                                    <option value="wwk">Worldwake (WWK)</option>
-                                    <option value="pwwk">Worldwake Promos (PWWK)</option>
-                                    <option value="twwk">Worldwake Tokens (TWWK)</option>
-                                    <option value="pss2">XLN Standard Showdown (PSS2)</option>
-                                    <option value="pz2">You Make the Cube (PZ2)</option>
-                                    <option value="zen">Zendikar (ZEN)</option>
-                                    <option value="exp">Zendikar Expeditions (EXP)</option>
-                                    <option value="pzen">Zendikar Promos (PZEN)</option>
-                                    <option value="tzen">Zendikar Tokens (TZEN)</option>
-                                </select>
-                                <span className="select2 select2-container select2-container--default" dir="ltr">
-                                    <span className="selection">
-                                        <span className="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabIndex={-1}>
-                                            <ul className="select2-selection__rendered">
-                                                <li className="select2-search select2-search--inline">
-                                                    <input className="select2-search__field" tabIndex={0} role="textbox" aria-autocomplete="list" placeholder="Enter a set name or choose from the list" type="search" />
-                                                </li>
-                                            </ul>
-                                        </span>
-                                    </span>
-                                    <span className="dropdown-wrapper" aria-hidden="true" />
-                                </span>
+                                {/* <input name="sets" defaultValue={searchTerms.sets.map(set => set.name)} type="hidden" /> */}
+                                <Select 
+                                    name="sets" 
+                                    value={searchTerms.sets.length > 0 ? searchTerms.sets : ''}
+                                    placeholder="Enter a set name or choose from the list"
+                                    options={this.props.sets} 
+                                    valueKey="code"
+                                    labelKey="name"
+                                    onChange={event => this.onMultiCheckboxChange('sets', event)}  
+                                />
                             </div>
 
                             <div className="form-row-content-band">
@@ -1017,19 +533,19 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
                                 <legend className="visuallyhidden">Desired rarities</legend>
                                 <div className="form-row-content-band">
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="rarities" id="false" value="c" type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)}  />
+                                        <input name="rarities" id="false" value="c" type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)}  />
                                         Common
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="rarities" id="false" value="u" type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="rarities" id="false" value="u" type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         Uncommon
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="rarities" id="false" value="r" type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="rarities" id="false" value="r" type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         Rare
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="rarities" id="false" value="m" type="checkbox" onChange={event => this.onMulitCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="rarities" id="false" value="m" type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         Mythic Rare
                                     </label>
                                 </div>
@@ -1266,7 +782,7 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
                         </label>
                         <div className="form-row-content">
                             <div className="form-row-content-band">
-                                <input name="artist" id="artist" placeholder="Any artist name, e.g. “Terese”" className="form-input short" type="text" value={this.state.artist} onChange={event => this.onFieldChange(event.currentTarget.name, event.currentTarget.value)} />
+                                <input name="artist" id="artist" placeholder="Any artist name, e.g. “Terese”" className="form-input short" type="text" value={searchTerms.artist} onChange={event => this.onFieldChange(event.currentTarget.name, event.currentTarget.value)} />
                             </div>
                         </div>
 
@@ -1280,7 +796,7 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
                         <div className="form-row-content">
 
                             <div className="form-row-content-band">
-                                <input name="flavor" id="flavor" className="form-input" placeholder="Any flavor text, e.g. “Lemurs?”" type="text" value={this.state.flavor} onChange={event => this.onFieldChange(event.currentTarget.name, event.currentTarget.value)} />
+                                <input name="flavor" id="flavor" className="form-input" placeholder="Any flavor text, e.g. “Lemurs?”" type="text" value={searchTerms.flavor} onChange={event => this.onFieldChange(event.currentTarget.name, event.currentTarget.value)} />
                             </div>
 
                             <p className="form-row-tip">
@@ -1300,7 +816,7 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
                         <div className="form-row-content">
 
                             <div className="form-row-content-band">
-                                <input name="lore" id="lore" className="form-input" placeholder="Any text, especially names. e.g. “Hanna”" type="text" value={this.state.lore} onChange={event => this.onFieldChange(event.currentTarget.name, event.currentTarget.value)} />
+                                <input name="lore" id="lore" className="form-input" placeholder="Any text, especially names. e.g. “Hanna”" type="text" value={searchTerms.lore} onChange={event => this.onFieldChange(event.currentTarget.name, event.currentTarget.value)} />
                             </div>
 
                             <p className="form-row-tip">
@@ -1345,14 +861,14 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
 
                             <div className="form-row-content-band">
                                 <label className="advanced-search-checkbox" htmlFor="showAllPrints">
-                                    <input name="showAllPrints" id="showAllPrints" checked={!!this.state.showAllPrints} type="checkbox" onChange={event => this.onCheckboxChange(event.currentTarget.name, event.currentTarget.checked)} />
+                                    <input name="showAllPrints" id="showAllPrints" checked={!!searchTerms.showAllPrints} type="checkbox" onChange={event => this.onCheckboxChange(event.currentTarget.name, event.currentTarget.checked)} />
                                     Show all card prints (++)
                                 </label>
                             </div>
 
                             <div className="form-row-content-band">
                                 <label className="advanced-search-checkbox" htmlFor="includeFunny">
-                                    <input name="includeFunny" id="includeFunny" checked={!!this.state.includeFunny} type="checkbox" onChange={event => this.onCheckboxChange(event.currentTarget.name, event.currentTarget.checked)} />
+                                    <input name="includeFunny" id="includeFunny" checked={!!searchTerms.includeFunny} type="checkbox" onChange={event => this.onCheckboxChange(event.currentTarget.name, event.currentTarget.checked)} />
                                     Include extra cards and funny cards (tokens, Unstable, etc)
                                 </label>
                             </div>
@@ -1386,57 +902,58 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
     }
     
     private onFieldChange(fieldName: string, fieldValue: string) {
-        const newState = {... this.state, [fieldName]: fieldValue};        
-        this.setState(newState);
+        const newSearchTerms = {...this.props.searchTerms, [fieldName]: fieldValue};        
+        this.props.updateSearchTerms(newSearchTerms);
     }
 
     private onJoinerDropdownFieldChange(targetName: string, addValue: string) {        
-        const field = this.state[targetName];        
+        const field = this.props.searchTerms[targetName];        
         const fieldValue = field ? field + addValue : addValue;
-        const newState = {...this.state, [targetName]: fieldValue};
-        this.setState(newState);
+        const newSearchTerms = {...this.props.searchTerms, [targetName]: fieldValue};
+        this.props.updateSearchTerms(newSearchTerms);
     }
 
     private onCheckboxChange(fieldName: string, checked: boolean) {        
-        const newState = {... this.state, [fieldName]: checked};        
-        this.setState(newState);        
+        const newSearchTerms = {... this.props.searchTerms, [fieldName]: checked};        
+        this.props.updateSearchTerms(newSearchTerms);        
     }
     
-    private onMulitCheckboxChange(fieldName: string, fieldValue: any) {
-        const field = this.state[fieldName] as any[];        
+    private onMultiCheckboxChange(fieldName: string, fieldValue: any) {
+        const field = this.props.searchTerms[fieldName] as any[];        
         const fieldIndex = field.indexOf(fieldValue);
         if (fieldIndex > -1) {
             field.splice(fieldIndex, 1);
         } else {
             field.push(fieldValue);
         }
-        const newState = {... this.state, [fieldName]: field};   
-        this.setState(newState);  
+        const newSearchTerms = {...this.props.searchTerms, [fieldName]: field};   
+        this.props.updateSearchTerms(newSearchTerms);  
     }
 
     private buildQueryAndSearch() {
+        const { searchTerms } = this.props;
         let searchQueryArray = [];
-        if (this.state.showAllPrints) {
+        if (searchTerms.showAllPrints) {
             searchQueryArray.push('++');
         }
-        if (this.state.name) {
-            searchQueryArray.push(this.splitWords(this.state.name.split(' ')));
+        if (searchTerms.name) {
+            searchQueryArray.push(this.splitWords(searchTerms.name.split(' ')));
         }
-        if (this.state.oracle) {
-            searchQueryArray.push(this.splitWords(this.state.oracle.split(' '), 'o:'));
+        if (searchTerms.oracle) {
+            searchQueryArray.push(this.splitWords(searchTerms.oracle.split(' '), 'o:'));
         }
-        if (this.state.type) {
-            searchQueryArray.push(this.splitWords(this.state.type.split(' '), 't:', this.state.allowPartialTypeMatch));
+        if (searchTerms.type) {
+            searchQueryArray.push(this.splitWords(searchTerms.type.split(' '), 't:', searchTerms.allowPartialTypeMatch));
         }
-        if (this.state.colors && this.state.colors.length > 0) {
-            searchQueryArray.push(this.splitWords(this.state.colors, 'colors≥', this.state.allowPartialColorMatch));
+        if (searchTerms.colors && searchTerms.colors.length > 0) {
+            searchQueryArray.push(this.splitWords(searchTerms.colors, 'colors≥', searchTerms.allowPartialColorMatch));
 
-            if (this.state.excludeUnselectedColors) {
+            if (searchTerms.excludeUnselectedColors) {
                 let excludedColors = [] as string[];
                 for (let key in Color) {
                     if (!isNumber(key)) {
-                        const color = Color[key] as Color;
-                        if (this.state.colors.indexOf(color) < 0) {
+                        const color = Color[key];
+                        if (searchTerms.colors.indexOf(color) < 0) {
                             excludedColors.push('-c≥' + color.toLowerCase());
                         }
                     }
@@ -1444,31 +961,31 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
                 searchQueryArray.push('(' + excludedColors.join(' AND ') + ')');
             }
         }
-        if (this.state.requiresMulticolored) {
+        if (searchTerms.requiresMulticolored) {
             searchQueryArray.push('colors≥2');
         }
-        if (this.state.mana) {
-            searchQueryArray.push(this.splitWords(this.state.mana.split(' '), 'mana:'));
+        if (searchTerms.mana) {
+            searchQueryArray.push(this.splitWords(searchTerms.mana.split(' '), 'mana:'));
         }
-        if (this.state.formats && this.state.formats.length > 0) {
-            searchQueryArray.push(this.splitWords(this.state.formats, 'f:'));
+        if (searchTerms.formats && searchTerms.formats.length > 0) {
+            searchQueryArray.push(this.splitWords(searchTerms.formats, 'f:'));
         }
-        if (this.state.commanderIdentity && this.state.commanderIdentity.length > 0) {
-            searchQueryArray.push(this.splitWords(this.state.commanderIdentity, 'ids≤', true));
+        if (searchTerms.commanderIdentity && searchTerms.commanderIdentity.length > 0) {
+            searchQueryArray.push(this.splitWords(searchTerms.commanderIdentity, 'ids≤', true));
         }
-        if (this.state.rarities && this.state.rarities.length > 0) {
-            searchQueryArray.push(this.splitWords(this.state.rarities, 'r:', true));
+        if (searchTerms.rarities && searchTerms.rarities.length > 0) {
+            searchQueryArray.push(this.splitWords(searchTerms.rarities, 'r:', true));
         }
-        if (this.state.artist) {
-            searchQueryArray.push(this.splitWords(this.state.artist.split(' '), 'a:'));
+        if (searchTerms.artist) {
+            searchQueryArray.push(this.splitWords(searchTerms.artist.split(' '), 'a:'));
         }
-        if (this.state.flavor) {
-            searchQueryArray.push(this.splitWords(this.state.flavor.split(' '), 'ft:'));
+        if (searchTerms.flavor) {
+            searchQueryArray.push(this.splitWords(searchTerms.flavor.split(' '), 'ft:'));
         }
-        if (this.state.lore) {
-            searchQueryArray.push(this.splitWords(this.state.lore.split(' '), 'lore:'));
+        if (searchTerms.lore) {
+            searchQueryArray.push(this.splitWords(searchTerms.lore.split(' '), 'lore:'));
         }
-        if (this.state.includeFunny) {
+        if (searchTerms.includeFunny) {
             searchQueryArray.push('include:extras');
         }
         const q = searchQueryArray.join(' ');
@@ -1478,18 +995,35 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
         this.props.history.push('/cards?q=' + q);       
     }
 
-    private splitWords(searchTerm: any[], prefix: string = '', conditional: boolean = false): string {
-        let searchTerms = '';
-        let termArray = [] as string[];
+    private splitWords(searchTerm: string[], prefix: string = '', conditional: boolean = false): string {
+        let searchTerms = [] as string[];
+        let inclusiveArray = [] as string[];
+        let exclusiveArray = [] as string[];
+
         searchTerm.forEach(element => {
-            termArray.push(prefix + element);
+            if (element.startsWith('-')) {
+                exclusiveArray.push('-' + prefix + element.substr(1));
+            } else {
+                inclusiveArray.push(prefix + element);
+            }
         });
-        if (termArray.length > 1) {
-            const types = conditional ? termArray.join(' OR ') :  termArray.join(' ');
-            searchTerms = '(' + types + ')';
+
+        // Turn off conditional if there's any exclusion
+        conditional = conditional && exclusiveArray.length === 0;
+
+        if (exclusiveArray.length > 1) {
+            const types = conditional ? exclusiveArray.join(' OR ') :  exclusiveArray.join(' ');
+            searchTerms.push('(' + types + ')');
         } else {
-            searchTerms = termArray[0];
+            searchTerms.push(exclusiveArray[0]);
         }
-        return searchTerms;
+
+        if (inclusiveArray.length > 1) {
+            const types = conditional ? inclusiveArray.join(' OR ') :  inclusiveArray.join(' ');
+            searchTerms.push('(' + types + ')');
+        } else {
+            searchTerms.push(inclusiveArray[0]);
+        }
+        return searchTerms.join(' ');
     }
 }

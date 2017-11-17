@@ -201,7 +201,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
           </div>
 
           <div className="reference-block-examples">
-            <Link className="reference-example" to="/cards?q=c%3Arg">
+            <Link className="reference-example" to="/cards?q=c:rg">
               <span className="reference-example-text">
                 <code>c:rg</code>
                 <span>Cards that are red and&nbsp;green<p />
@@ -209,7 +209,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
               </span>
             </Link>
 
-            <Link className="reference-example" to="/cards?q=color%3E%3Duw+-c%3Ared">
+            <Link className="reference-example" to="/cards?q=color>=uw+-c:red">
               <span className="reference-example-text">
                 <code>color&gt;=uw -c:red</code>
                 <span>Cards that are at least white and blue, but not&nbsp;red<p />
@@ -217,7 +217,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
               </span>
             </Link>
 
-            <Link className="reference-example" to="/cards?q=id%3C%3Desper+t%3Ainstant">
+            <Link className="reference-example" to="/cards?q=id≤esper+t:instant">
               <span className="reference-example-text">
                 <code>id&lt;=esper t:instant</code>
                 <span>Instants you can play with an Esper&nbsp;commander<p />
@@ -225,7 +225,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
               </span>
             </Link>
 
-            <Link className="reference-example" to="/cards?q=id%3Ac+t%3Aland">
+            <Link className="reference-example" to="/cards?q=id:c+t:land">
               <span className="reference-example-text">
                 <code>id:c t:land</code>
                 <span>Land cards with colorless&nbsp;identity<p />
@@ -256,7 +256,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards?q=t%3Amerfolk+t%3Alegend">
+            <Link className="reference-example" to="/cards?q=t:merfolk+t:legend">
               <span className="reference-example-text">
                 <code>t:merfolk t:legend</code>
                 <span>Legendary merfolk&nbsp;cards<p />
@@ -264,7 +264,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
               </span>
             </Link>
 
-            <Link className="reference-example" to="/cards?q=t%3Agoblin+-t%3Acreature">
+            <Link className="reference-example" to="/cards?q=t:goblin+-t:creature">
               <span className="reference-example-text">
                 <code>t:goblin -t:creature</code>
                 <span>Goblin cards that aren’t&nbsp;creatures<p />
@@ -301,7 +301,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards?q=o%3Adraw+t%3Acreature">
+            <Link className="reference-example" to="/cards?q=o:draw+t:creature">
               <span className="reference-example-text">
                 <code>o:draw t:creature</code>
                 <span>Creatures that deal with drawing&nbsp;cards<p />
@@ -309,7 +309,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
               </span>
             </Link>
 
-            <Link className="reference-example" to="/cards?q=o%3A%22%7E+enters+the+battlefield+tapped%22">
+            <Link className="reference-example" to={`/cards?q=o:"~+enters+the+battlefield+tapped"`}>
               <span className="reference-example-text">
                 <code>o:"~ enters the battlefield tapped"</code>
                 <span>Cards that enter the battlefield&nbsp;tapped<p />
@@ -352,7 +352,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards?q=mana%3A%7BG%7D%7BU%7D">
+            <Link className="reference-example" to="/cards?q=mana:{G}{U}">
               <span className="reference-example-text">
                 <code>mana:{`G`}{`U`}</code>
                 <span>Cards with one green and blue mana in their&nbsp;costs<p />
@@ -360,7 +360,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
               </span>
             </Link>
 
-            <Link className="reference-example" to="/cards?q=m%3A2WW">
+            <Link className="reference-example" to="/cards?q=m:2WW">
               <span className="reference-example-text">
                 <code>m:2WW</code>
                 <span>Cards with two generic and two white mana in their&nbsp;cost<p />
@@ -368,7 +368,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
               </span>
             </Link>
 
-            <Link className="reference-example" to="/cards?q=m%3A%7BR%2FP%7D">
+            <Link className="reference-example" to="/cards?q=m:{R/P}">
               <span className="reference-example-text">
                 <code>m:{`R/P`}</code>
                 <span>Cards with one Phyrexian red mana in their&nbsp;cost<p />
@@ -376,7 +376,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
               </span>
             </Link>
 
-            <Link className="reference-example" to="/cards?q=c%3Au+cmc%3D5">
+            <Link className="reference-example" to="/cards?q=c:u+cmc=5">
               <span className="reference-example-text">
                 <code>c:u cmc=5</code>
                 <span>Blue cards with converted mana cost&nbsp;5<p />
@@ -409,7 +409,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards?q=pow%3E%3D8">
+            <Link className="reference-example" to="/cards?q=pow>=8">
               <span className="reference-example-text">
                 <code>pow&gt;=8</code>
                 <span>Cards with 8 or more&nbsp;power<p />
@@ -417,7 +417,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
               </span>
             </Link>
 
-            <Link className="reference-example" to="/cards?q=pow%3Etou+c%3Aw+t%3Acreature">
+            <Link className="reference-example" to="/cards?q=pow>tou+c:w+t:creature">
               <span className="reference-example-text">
                 <code>pow&gt;tou c:w t:creature</code>
                 <span>White creatures that are&nbsp;top-heavy<p />
@@ -425,7 +425,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
               </span>
             </Link>
 
-            <Link className="reference-example" to="/cards?q=t%3Aplaneswalker+loy%3D3">
+            <Link className="reference-example" to="/cards?q=t:planeswalker+loy=3">
               <span className="reference-example-text">
                 <code>t:planeswalker loy=3</code>
                 <span>Planeswalkers that start at 3&nbsp;loyalty<p />
@@ -458,7 +458,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards?q=is%3Ameld">
+            <Link className="reference-example" to="/cards?q=is:meld">
               <span className="reference-example-text">
                 <code>is:meld</code>
                 <span>Cards that&nbsp;meld<p />
@@ -466,7 +466,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
               </span>
             </Link>
 
-            <Link className="reference-example" to="/cards?q=is%3Asplit">
+            <Link className="reference-example" to="/cards?q=is:split">
               <span className="reference-example-text">
                 <code>is:split</code>
                 <span>Split-faced&nbsp;cards<p />
@@ -502,7 +502,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards?q=c%3Abrm+is%3Aspell+f%3Aduel">
+            <Link className="reference-example" to="/cards?q=c:brm+is:spell+f:duel">
               <span className="reference-example-text">
                 <code>c:brm is:spell f:duel</code>
                 <span>Black and red multicolor spells in Duel&nbsp;Commander<p />
@@ -510,7 +510,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
               </span>
             </Link>
 
-            <Link className="reference-example" to="/cards?q=is%3Apermanent+t%3Arebel">
+            <Link className="reference-example" to="/cards?q=is:permanent+t:rebel">
               <span className="reference-example-text">
                 <code>is:permanent t:rebel</code>
                 <span>Rebel&nbsp;permanents<p />
@@ -518,7 +518,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
               </span>
             </Link>
 
-            <Link className="reference-example" to="/cards?q=is%3Avanilla">
+            <Link className="reference-example" to="/cards?q=is:vanilla">
               <span className="reference-example-text">
                 <code>is:vanilla</code>
                 <span>Vanilla&nbsp;creatures<p />
@@ -542,7 +542,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
             </h2>
 
             <p><a href="/cards?q=t:vanguard" rel="nofollow noreferrer">Vanguard</a>,
-              <a href="/cards?q=t%3Aplane+-t%3Aplaneswalker" rel="nofollow noreferrer">plane</a>,
+              <a href="/cards?q=t:plane+-t:planeswalker" rel="nofollow noreferrer">plane</a>,
               <a href="/cards?q=t:scheme" rel="nofollow noreferrer">scheme</a>,
               and <a href="/cards?q=t:phenomenon" rel="nofollow noreferrer">phenomenon</a>
               cards are hidden by default.
@@ -561,21 +561,21 @@ export const Reference: React.StatelessComponent<{}> = () => {
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards?q=is%3Afunny">
+            <Link className="reference-example" to="/cards?q=is:funny">
               <span className="reference-example-text">
                 <code>is:funny</code>
                 <span>All funny&nbsp;cards<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=t%3Ascheme">
+            <Link className="reference-example" to="/cards?q=t:scheme">
               <span className="reference-example-text">
                 <code>t:scheme</code>
                 <span>Scheme&nbsp;cards<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=power+include%3Aextras">
+            <Link className="reference-example" to="/cards?q=power+include:extras">
               <span className="reference-example-text">
                 <code>power include:extras</code>
                 <span>Cards with “power” in their name, including&nbsp;extras<p />
@@ -604,7 +604,7 @@ You can search for <code>common</code>, <code>uncommon</code>, <code>rare</code>
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards?q=r%3Acommon+t%3Aartifact">
+            <Link className="reference-example" to="/cards?q=r:common+t:artifact">
               <span className="reference-example-text">
                 <code>r:common t:artifact</code>
                 <span>Common&nbsp;artifacts<p />
@@ -648,49 +648,49 @@ that once appeared in Alpha.</p>
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards?q=e%3Amm2">
+            <Link className="reference-example" to="/cards?q=e:mm2">
               <span className="reference-example-text">
                 <code>e:mm2</code>
                 <span>Cards from Modern Masters&nbsp;2015<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=b%3Awwk">
+            <Link className="reference-example" to="/cards?q=b:wwk">
               <span className="reference-example-text">
                 <code>b:wwk</code>
                 <span>Cards in Zendikar Block (but using the Worldwake&nbsp;code)<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=e%3Ac16+not%3Areprint">
+            <Link className="reference-example" to="/cards?q=e:c16+not:reprint">
               <span className="reference-example-text">
                 <code>e:c16 not:reprint</code>
                 <span>Cards that were new in Commander&nbsp;2016<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=in%3Alea+in%3Am15">
+            <Link className="reference-example" to="/cards?q=in:lea+in:m15">
               <span className="reference-example-text">
                 <code>in:lea in:m15</code>
                 <span>Cards that were in both Alpha and Magic&nbsp;2015<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=e%3Aktk+is%3Aunique">
+            <Link className="reference-example" to="/cards?q=e:ktk+is:unique">
               <span className="reference-example-text">
                 <code>e:ktk is:unique</code>
                 <span>Cards that were in Khans of Tarkir and not printed in any other&nbsp;set<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=sets%3E%3D20">
+            <Link className="reference-example" to="/cards?q=sets>=20">
               <span className="reference-example-text">
                 <code>sets&gt;=20</code>
                 <span>Cards that have been printed in 20 or more distinct&nbsp;sets<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=e%3Aarn+papersets%3D1">
+            <Link className="reference-example" to="/cards?q=e:arn+papersets=1">
               <span className="reference-example-text">
                 <code>e:arn papersets=1</code>
                 <span>Cards that were printed in Arabian Nights but never reprinted in&nbsp;paper<p />
@@ -721,14 +721,14 @@ that once appeared in Alpha.</p>
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards?q=cube%3Avintage">
+            <Link className="reference-example" to="/cards?q=cube:vintage">
               <span className="reference-example-text">
                 <code>cube:vintage</code>
                 <span>Cards in the Vintage&nbsp;Cube<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=cube%3Amodern+t%3Aplaneswalker">
+            <Link className="reference-example" to="/cards?q=cube:modern+t:planeswalker">
               <span className="reference-example-text">
                 <code>cube:modern t:planeswalker</code>
                 <span>Planeswalkers in the Modern&nbsp;Cube<p />
@@ -771,28 +771,28 @@ restricted with the <code>restricted:</code> keyword.</p>
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards?q=c%3Ag+t%3Acreature+f%3Apauper">
+            <Link className="reference-example" to="/cards?q=c:g+t:creature+f:pauper">
               <span className="reference-example-text">
                 <code>c:g t:creature f:pauper</code>
                 <span>Green creatures in Pauper&nbsp;format<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=banned%3Alegacy">
+            <Link className="reference-example" to="/cards?q=banned:legacy">
               <span className="reference-example-text">
                 <code>banned:legacy</code>
                 <span>Cards banned in Legacy&nbsp;format<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=is%3Acommander">
+            <Link className="reference-example" to="/cards?q=is:commander">
               <span className="reference-example-text">
                 <code>is:commander</code>
                 <span>Cards that can be your&nbsp;commander<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=is%3Areserved">
+            <Link className="reference-example" to="/cards?q=is:reserved">
               <span className="reference-example-text">
                 <code>is:reserved</code>
                 <span>Cards on the Reserved&nbsp;List<p />
@@ -822,14 +822,14 @@ numeric expression (<code>&gt;</code>, <code>&lt;</code>, <code>=</code>, <code>
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards?as=checklist&amp;order=tix&amp;q=tix%3E15.00">
+            <Link className="reference-example" to="/cards?as=checklist&amp;order=tix&amp;q=tix>15.00">
               <span className="reference-example-text">
                 <code>tix&gt;15.00</code>
                 <span>Cards that cost more than 15 TIX at MTGO&nbsp;stores<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?as=checklist&amp;order=usd&amp;q=usd%3E%3D0.50+e%3Aema">
+            <Link className="reference-example" to="/cards?as=checklist&amp;order=usd&amp;q=usd>=0.50+e:ema">
               <span className="reference-example-text">
                 <code>usd&gt;=0.50 e:ema</code>
                 <span>Cards worth 50¢ or more in Eternal&nbsp;Masters<p />
@@ -867,28 +867,28 @@ or punctuation in quotes <code>" "</code>.</p>
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards?q=a%3A%22proce%22">
+            <Link className="reference-example" to={`/cards?q=a:"proce"`}>
               <span className="reference-example-text">
                 <code>a:"proce"</code>
                 <span>Cards illustrated by Vincent&nbsp;Proce<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=ft%3Amishra">
+            <Link className="reference-example" to="/cards?q=ft:mishra">
               <span className="reference-example-text">
                 <code>ft:mishra</code>
                 <span>Cards that mention Mishra in their flavor&nbsp;text<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=ft%3Adesigned+e%3Am15">
+            <Link className="reference-example" to="/cards?q=ft:designed+e:m15">
               <span className="reference-example-text">
                 <code>ft:designed e:m15</code>
                 <span>Cards created by guest designers in Magic&nbsp;2015<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=wm%3Aorzhov">
+            <Link className="reference-example" to="/cards?q=wm:orzhov">
               <span className="reference-example-text">
                 <code>wm:orzhov</code>
                 <span>Cards with Orzhov guild&nbsp;watermark<p />
@@ -929,21 +929,21 @@ using <code>is:hires</code>.</p>
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards?q=border%3Awhite+t%3Acreature">
+            <Link className="reference-example" to="/cards?q=border:white+t:creature">
               <span className="reference-example-text">
                 <code>border:white t:creature</code>
                 <span>White-bordered creature&nbsp;cards<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=is%3Anew+r%3Amythic">
+            <Link className="reference-example" to="/cards?q=is:new+r:mythic">
               <span className="reference-example-text">
                 <code>is:new r:mythic</code>
                 <span>Mythic cards with the 2015 holofoil-stamp&nbsp;frame<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=is%3Ahires">
+            <Link className="reference-example" to="/cards?q=is:hires">
               <span className="reference-example-text">
                 <code>is:hires</code>
                 <span>Cards with high-resolution&nbsp;scans<p />
@@ -982,28 +982,28 @@ The games <code>paper</code>, <code>mtgo</code>, and <code>arena</code> are supp
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards?q=game%3Aarena">
+            <Link className="reference-example" to="/cards?q=game:arena">
               <span className="reference-example-text">
                 <code>game:arena</code>
                 <span>Cards available on&nbsp;MTG:Arena<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=-in%3Amtgo+f%3Alegacy">
+            <Link className="reference-example" to="/cards?q=-in:mtgo+f:legacy">
               <span className="reference-example-text">
                 <code>-in:mtgo f:legacy</code>
                 <span>Legacy legal cards not available on&nbsp;MTGO<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=is%3Apromo">
+            <Link className="reference-example" to="/cards?q=is:promo">
               <span className="reference-example-text">
                 <code>is:promo</code>
                 <span>Promotional&nbsp;cards<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=is%3Aspotlight">
+            <Link className="reference-example" to="/cards?q=is:spotlight">
               <span className="reference-example-text">
                 <code>is:spotlight</code>
                 <span>Story Spotlight&nbsp;cards<p />
@@ -1032,14 +1032,14 @@ to find cards that were released relative to a certain year.</p>
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards?q=year%3C%3D1994">
+            <Link className="reference-example" to="/cards?q=year≤1994">
               <span className="reference-example-text">
                 <code>year&lt;=1994</code>
                 <span>Cards from 1994 and&nbsp;before<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=year%3D2017">
+            <Link className="reference-example" to="/cards?q=year=2017">
               <span className="reference-example-text">
                 <code>year=2017</code>
                 <span>Cards released this&nbsp;year<p />
@@ -1076,21 +1076,21 @@ cards from Time Spiral block with
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards?q=is%3Adual">
+            <Link className="reference-example" to="/cards?q=is:dual">
               <span className="reference-example-text">
                 <code>is:dual</code>
                 <span>Cards that are dual&nbsp;lands<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=is%3Afetchland">
+            <Link className="reference-example" to="/cards?q=is:fetchland">
               <span className="reference-example-text">
                 <code>is:fetchland</code>
                 <span>Cards that are&nbsp;fetchlands<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=is%3Acolorshifted">
+            <Link className="reference-example" to="/cards?q=is:colorshifted">
               <span className="reference-example-text">
                 <code>is:colorshifted</code>
                 <span>Colorshifted&nbsp;cards<p />
@@ -1127,21 +1127,21 @@ Conversely, <code>-not:</code> is the same as <code>is:</code>.</p>
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards?q=-fire+c%3Ar+t%3Ainstant">
+            <Link className="reference-example" to="/cards?q=-fire+c:r+t:instant">
               <span className="reference-example-text">
                 <code>-fire c:r t:instant</code>
                 <span>Red instants without the word “fire” in their&nbsp;name<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=o%3Achangeling+-t%3Acreature">
+            <Link className="reference-example" to="/cards?q=o:changeling+-t:creature">
               <span className="reference-example-text">
                 <code>o:changeling -t:creature</code>
                 <span>Changeling cards that aren’t&nbsp;creatures<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=not%3Areprint+e%3Ac16">
+            <Link className="reference-example" to="/cards?q=not:reprint+e:c16">
               <span className="reference-example-text">
                 <code>not:reprint e:c16</code>
                 <span>Cards in Commander 2016 that aren’t&nbsp;reprints<p />
@@ -1187,21 +1187,21 @@ our <a href="/docs/regular-expressions" rel="nofollow noreferrer">Regular Expres
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards?q=t%3Acreature+re%3A%22%5E%7BT%7D%3A%22">
+            <Link className="reference-example" to={`/cards?q=t:creature+re:"^{T}:"`}>
               <span className="reference-example-text">
                 <code>t:creature re:"^{`T`}:"</code>
                 <span>Creatures that tap with no other&nbsp;payment<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=t%3Ainstant+re%3A%22%2B%5Cd%2F%2B%5Cd%22">
+            <Link className="reference-example" to={`/cards?q=t:instant+re:"+\\d/+\\d"`}>
               <span className="reference-example-text">
                 <code>t:instant re:"+\d/+\d"</code>
                 <span>Instants that provide +X/+X&nbsp;effects<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=t%3Aland+re%3A%22%28%7BW%7D%7C%7BU%7D%7Cany%29%22">
+            <Link className="reference-example" to={`/cards?q=t:land+re:"({W}|{U}|any)"`}>
               <span className="reference-example-text">
                 <code>t:land re:"({`W`}|{`U`}|any)"</code>
                 <span>Lands that mention white, blue, or “any”&nbsp;mana<p />
@@ -1232,14 +1232,14 @@ our <a href="/docs/regular-expressions" rel="nofollow noreferrer">Regular Expres
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards?q=%21fire">
+            <Link className="reference-example" to="/cards?q=!fire">
               <span className="reference-example-text">
                 <code>!fire</code>
                 <span>The card&nbsp;Fire<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=%21%22sift+through+sands%22">
+            <Link className="reference-example" to={`/cards?q=!"sift+through+sands"`}>
               <span className="reference-example-text">
                 <code>!"sift through sands"</code>
                 <span>The card Sift Through&nbsp;Sands<p />
@@ -1274,28 +1274,28 @@ find every single print of all matching cards.</p>
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards?q=%2B%2B%21%22Lightning+Bolt%22">
+            <Link className="reference-example" to={`/cards?q=++!"Lightning+Bolt"`}>
               <span className="reference-example-text">
                 <code>++!"Lightning Bolt"</code>
                 <span>Every printing of Lightning&nbsp;Bolt<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=%2B%2Bt%3Aforest+a%3A%22john+avon%22">
+            <Link className="reference-example" to={`/cards?q=++t:forest+a:"john+avon"`}>
               <span className="reference-example-text">
                 <code>++t:forest a:"john avon"</code>
                 <span>Every Forest illustrated by John&nbsp;Avon<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=%2B%2Byamazaki">
+            <Link className="reference-example" to="/cards?q=++yamazaki">
               <span className="reference-example-text">
                 <code>++yamazaki</code>
                 <span>Both Brothers&nbsp;Yamazaki<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=%2B%2Be%3Aall">
+            <Link className="reference-example" to="/cards?q=++e:all">
               <span className="reference-example-text">
                 <code>++e:all</code>
                 <span>Every card, including alternate arts, in&nbsp;Alliances<p />
@@ -1327,14 +1327,14 @@ you can put the special word <code>or</code>/<code>OR</code> between terms.</p>
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards?q=t%3Afish+or+t%3Abird">
+            <Link className="reference-example" to="/cards?q=t:fish+or+t:bird">
               <span className="reference-example-text">
                 <code>t:fish or t:bird</code>
                 <span>Cards that are Fish or&nbsp;Birds<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=t%3Aland+%28a%3Atitus+or+a%3Abradley%29">
+            <Link className="reference-example" to="/cards?q=t:land+(a:titus+or+a:bradley)">
               <span className="reference-example-text">
                 <code>t:land (a:titus or a:bradley)</code>
                 <span>Lands illustrated by Titus Lunter of Noah&nbsp;Bradley<p />
@@ -1367,14 +1367,14 @@ This is most useful when combined with the <code>OR</code> keyword.</p>
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards?q=t%3Alegendary+%28t%3Agoblin+or+t%3Aelf%29">
+            <Link className="reference-example" to="/cards?q=t:legendary+(t:goblin+or+t:elf)">
               <span className="reference-example-text">
                 <code>t:legendary (t:goblin or t:elf)</code>
                 <span>Legendary goblins or&nbsp;elves<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?q=through+%28depths+or+sands+or+mists%29">
+            <Link className="reference-example" to="/cards?q=through+(depths+or+sands+or+mists)">
               <span className="reference-example-text">
                 <code>through (depths or sands or mists)</code>
                 <span>The Unspeakable&nbsp;combo<p />

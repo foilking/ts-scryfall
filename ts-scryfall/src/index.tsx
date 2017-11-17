@@ -6,6 +6,7 @@ import { store } from './store';
 import { AppContainer } from './appContainer';
 import registerServiceWorker from './registerServiceWorker';
 import './css/scryfall.css';
+import 'react-select/dist/react-select.css';
 
 ReactDOM.render(
   <BrowserRouter basename={process.env.PUBLIC_URL}>

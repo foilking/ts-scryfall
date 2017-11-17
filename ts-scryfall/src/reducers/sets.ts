@@ -11,5 +11,6 @@ export const setsReducer = (state: Set[] = [], action: any) => {
 };
 
 const handleFetchSetsCompleted = (state: Set[], payload: Set[]) => {
+    window.localStorage.setItem('sets', JSON.stringify(payload));
     return payload;
 };

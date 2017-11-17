@@ -7,7 +7,30 @@ import { fetchFilteredCardsAction, updateSearchTermsAction } from './common/acti
 import { SearchTerms, SearchOrder } from './model';
 
 const mapStateToProps = (state: State, ownProps: any) => {  
-    let searchTerms = null;   
+    let searchTerms = {
+        q: '',
+        page: 1,
+        order: SearchOrder.Name,
+        name: '',
+        oracle: '',
+        type: '',
+        allowPartialTypeMatch: false,
+        colors: [],
+        requiresMulticolored: false,
+        excludeUnselectedColors: false,
+        allowPartialColorMatch: false,
+        mana: '',
+        formats: [],
+        commanderIdentity: [],
+        sets: [],
+        rarities: [],
+        artist: '',
+        flavor: '',
+        lore: '',
+        display: '',
+        showAllPrints: false,
+        includeFunny: false
+    } as SearchTerms;   
     
     if (ownProps.location.search) {
         var qs = QueryString.parse(ownProps.location.search);        
@@ -15,11 +38,7 @@ const mapStateToProps = (state: State, ownProps: any) => {
         const page = +qs.page || 1;
         const order = qs.order as SearchOrder || SearchOrder.Name;
 
-        searchTerms = {
-            q: q,
-            page: page,
-            order: order
-        } as SearchTerms;
+        searchTerms = {...searchTerms, q, page, order } as SearchTerms;
     } 
      
     return {
