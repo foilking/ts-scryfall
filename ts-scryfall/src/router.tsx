@@ -12,7 +12,6 @@ interface RouterProps {
 export class ScryfallRouter extends React.Component<RouterProps, {}> {
   constructor(props: RouterProps) {
     super(props);
-    console.log(props.searchTerms);
   }
 
   public render() {    

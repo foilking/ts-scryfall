@@ -131,7 +131,7 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
 
                             <div className="form-row-content-band">
                                 <label className="advanced-search-checkbox">
-                                    <input name="allowPartialTypeMatch" id="allowPartialTypeMatch" checked={!!searchTerms.allowPartialTypeMatch} type="checkbox" onChange={event => this.onCheckboxChange(event.currentTarget.name, event.currentTarget.checked)} />
+                                    <input name="allowPartialTypeMatch" id="allowPartialTypeMatch" defaultChecked={!!searchTerms.allowPartialTypeMatch} type="checkbox" onChange={event => this.onCheckboxChange(event.currentTarget.name, event.currentTarget.checked)} />
                                     Allow partial type matches
                                 </label>
                             </div>
@@ -153,32 +153,32 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
                                 <div className="form-row-content-band">
                                     <legend className="visuallyhidden">Card colors</legend>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="colors" value={Color.WHITE} type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="colors" value={Color.WHITE} defaultChecked={searchTerms.colors.indexOf(Color.WHITE) > -1} type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         <abbr className="card-symbol card-symbol-W" title="one white mana">{`W`}</abbr>
                                         White
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="colors" value={Color.BLUE} type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="colors" value={Color.BLUE} defaultChecked={searchTerms.colors.indexOf(Color.BLUE) > -1} type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         <abbr className="card-symbol card-symbol-U" title="one blue mana">{`U`}</abbr>
                                         Blue
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="colors" value={Color.BLACK} type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="colors" value={Color.BLACK} defaultChecked={searchTerms.colors.indexOf(Color.BLACK) > -1} type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         <abbr className="card-symbol card-symbol-B" title="one black mana">{`B`}</abbr>
                                         Black
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="colors" value={Color.RED} type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="colors" value={Color.RED} defaultChecked={searchTerms.colors.indexOf(Color.RED) > -1} type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         <abbr className="card-symbol card-symbol-R" title="one red mana">{`R`}</abbr>
                                         Red
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="colors" value={Color.GREEN} type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="colors" value={Color.GREEN} defaultChecked={searchTerms.colors.indexOf(Color.GREEN) > -1} type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         <abbr className="card-symbol card-symbol-G" title="one green mana">{`G`}</abbr>
                                         Green
                                     </label>
                                     <label className="advanced-search-checkbox small-columns">
-                                        <input name="colors" value={Color.COLORLESS} type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
+                                        <input name="colors" value={Color.COLORLESS} defaultChecked={searchTerms.colors.indexOf(Color.COLORLESS) > -1} type="checkbox" onChange={event => this.onMultiCheckboxChange(event.currentTarget.name, event.currentTarget.value)} />
                                         <abbr className="card-symbol card-symbol-C" title="one colorless mana">{`C`}</abbr>
                                         Colorless
                                     </label>
@@ -189,15 +189,15 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
                                 <legend className="visuallyhidden">Additional color options</legend>
                                 <div className="form-row-content-band">
                                     <label className="advanced-search-checkbox" htmlFor="colors_multicolored">
-                                        <input name="requiresMulticolored" id="requiresMulticolored" checked={!!searchTerms.requiresMulticolored} type="checkbox" onChange={event => this.onCheckboxChange(event.currentTarget.name, event.currentTarget.checked)} />
+                                        <input name="requiresMulticolored" id="requiresMulticolored" defaultChecked={!!searchTerms.requiresMulticolored} type="checkbox" onChange={event => this.onCheckboxChange(event.currentTarget.name, event.currentTarget.checked)} />
                                         Require multicolored
                                     </label>
                                     <label className="advanced-search-checkbox" htmlFor="excludeUnselectedColors">
-                                        <input name="excludeUnselectedColors" id="excludeUnselectedColors" checked={!!searchTerms.excludeUnselectedColors} type="checkbox" onChange={event => this.onCheckboxChange(event.currentTarget.name, event.currentTarget.checked)}  />
+                                        <input name="excludeUnselectedColors" id="excludeUnselectedColors" defaultChecked={!!searchTerms.excludeUnselectedColors} type="checkbox" onChange={event => this.onCheckboxChange(event.currentTarget.name, event.currentTarget.checked)}  />
                                         Excluded unselected
                                     </label>
                                     <label className="advanced-search-checkbox" htmlFor="allowPartialColorMatch">
-                                        <input name="allowPartialColorMatch" id="allowPartialColorMatch" checked={!!searchTerms.allowPartialColorMatch} type="checkbox" onChange={event => this.onCheckboxChange(event.currentTarget.name, event.currentTarget.checked)} />
+                                        <input name="allowPartialColorMatch" id="allowPartialColorMatch" defaultChecked={!!searchTerms.allowPartialColorMatch} type="checkbox" onChange={event => this.onCheckboxChange(event.currentTarget.name, event.currentTarget.checked)} />
                                         Allow partial matches
                                     </label>
                                 </div>
@@ -861,14 +861,14 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
 
                             <div className="form-row-content-band">
                                 <label className="advanced-search-checkbox" htmlFor="showAllPrints">
-                                    <input name="showAllPrints" id="showAllPrints" checked={!!searchTerms.showAllPrints} type="checkbox" onChange={event => this.onCheckboxChange(event.currentTarget.name, event.currentTarget.checked)} />
+                                    <input name="showAllPrints" id="showAllPrints" defaultChecked={!!searchTerms.showAllPrints} type="checkbox" onChange={event => this.onCheckboxChange(event.currentTarget.name, event.currentTarget.checked)} />
                                     Show all card prints (++)
                                 </label>
                             </div>
 
                             <div className="form-row-content-band">
                                 <label className="advanced-search-checkbox" htmlFor="includeFunny">
-                                    <input name="includeFunny" id="includeFunny" checked={!!searchTerms.includeFunny} type="checkbox" onChange={event => this.onCheckboxChange(event.currentTarget.name, event.currentTarget.checked)} />
+                                    <input name="includeFunny" id="includeFunny" defaultChecked={!!searchTerms.includeFunny} type="checkbox" onChange={event => this.onCheckboxChange(event.currentTarget.name, event.currentTarget.checked)} />
                                     Include extra cards and funny cards (tokens, Unstable, etc)
                                 </label>
                             </div>

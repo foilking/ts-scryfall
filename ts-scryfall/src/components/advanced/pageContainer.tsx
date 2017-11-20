@@ -7,9 +7,6 @@ import { AdvanceSearchPage } from './page';
 import { SearchTerms } from '../../model/index';
 
 const mapStateToProps = (state: State, ownProps: any) => {
-    console.log('Advanced Page Container');
-    
-    console.log(ownProps.searchTerms);
     return {
         searchTerms: ownProps.searchTerms,
         fetchFilteredCards: ownProps.fetchFilteredCards,
