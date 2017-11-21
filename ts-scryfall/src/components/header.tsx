@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory';
 import { SearchTerms, SearchOrder } from '../model';
 
 interface HeaderProps {
@@ -9,22 +10,28 @@ interface HeaderProps {
 }
 interface State {
   isMenuOpen: boolean;
+  q: string;
 }
+const history = createHistory();
 
 export class Header extends React.Component<HeaderProps, State> {
   constructor(props: HeaderProps) {
     super(props); 
-    
     this.search = this.search.bind(this);
     this.showMenu = this.showMenu.bind(this);
+    this.submitForm = this.submitForm.bind(this);
+    this.updateQuery = this.updateQuery.bind(this);
     this.state = {
-      isMenuOpen: false
+      isMenuOpen: false,
+      q: ''
     };
   }
 
   public render() {
-    const { isMenuOpen } = this.state;
-    const isSearchPage = this.props.location.pathname.indexOf('cards') > -1;    
+    const { isMenuOpen, } = this.state;
+    const { searchTerms } = this.props;
+    const isSearchPage = this.props.location.pathname.indexOf('cards') > -1;  
+
     return (
       <div id="header" className="header">
         <div className="inner-flex">
@@ -43,9 +50,9 @@ export class Header extends React.Component<HeaderProps, State> {
             </div>
           }
           {!isSearchPage && 
-            <form className="header-search" action={`${process.env.PUBLIC_URL}/cards`} method="get">
+            <form className="header-search" onSubmit={event => this.submitForm(event)}>
               <label className="visuallyhidden" htmlFor="js-header-search-field">Search for Magic cards</label>
-              <input name="q" id="js-header-search-field" placeholder="Search for Magic cards" autoComplete="on" autoCapitalize="none" autoCorrect="off" spellCheck={false} maxLength={1024} type="text" />
+              <input defaultValue={searchTerms.q} name="q" id="js-header-search-field" placeholder="Search for Magic cards" autoComplete="on" autoCapitalize="none" autoCorrect="off" spellCheck={false} maxLength={1024} type="text" onChange={event => this.updateQuery(event.currentTarget.value)} />
               <button type="submit" className="visuallyhidden">
                 Find Cards
               </button>
@@ -94,6 +101,7 @@ export class Header extends React.Component<HeaderProps, State> {
       document.title = q  + ' | TS Scryfall';
       
       const newSearchTerms = { ...this.props.searchTerms, q, page: 1, order: SearchOrder.Name };
+      history.push(`/cards/` + q);
       
       this.props.fetchFilteredCards(newSearchTerms);      
     }
@@ -102,6 +110,16 @@ export class Header extends React.Component<HeaderProps, State> {
   private showMenu() {
     const showMenu = !this.state.isMenuOpen;
     this.setState({ isMenuOpen: showMenu });
+  }
+
+  private updateQuery (query: string) {
+    this.setState({q: query});
+  }
+
+  private submitForm (e: React.FormEvent<HTMLFormElement>) {
+      e.preventDefault();      
+      
+      this.props.location.replace(`/cards/` + this.state.q);
   }
 
 }

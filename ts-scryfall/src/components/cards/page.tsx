@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CardsResponse, SearchTerms } from '../../model';
+import { CardsResponse, SearchTerms, Card } from '../../model';
 import { CardDisplay } from '../../common/components/card';
 import { CardFormat } from '../../common/constants/cardFormats';
 import { SearchControls } from './searchControls';
@@ -9,6 +9,8 @@ interface Props {
     searchTerms: SearchTerms;
     fetchFilteredCards: (searchTerms: SearchTerms) => void;
     location: Location;
+    addCardToDeck: (card: Card) => void;
+    search: string;
 }
 
 interface State {
@@ -27,16 +29,22 @@ export class CardsPage extends React.Component<Props, State> {
         document.title = (this.props.searchTerms.q || 'Search') + ' | TS Scryfall';
     }
 
+    public componentDidMount() {
+        if (this.props.search && this.props.search !== this.props.searchTerms.q) {
+            this.props.fetchFilteredCards({...this.props.searchTerms, q: this.props.search});
+        }
+    }
+
     public render() {
         const { cardFormat } = this.state;
-        const { searchTerms, cardsResult, fetchFilteredCards } = this.props;
+        const { searchTerms, cardsResult, fetchFilteredCards, addCardToDeck } = this.props;
         
         return (
             <div id="main" className="main">
                 <SearchControls searchTerms={searchTerms} cardFormat={cardFormat} resultCount={cardsResult ? cardsResult.total_cards : 0} hasMore={cardsResult ? cardsResult.has_more : false} fetchFilteredCards={fetchFilteredCards} changeListDisplay={this.changeListDisplay} />
                 {/* <SearchControlsMobile /> */}
                 {cardsResult && cardsResult.cards &&
-                    <CardDisplay cards={cardsResult.cards} cardFormat={cardFormat}/>
+                    <CardDisplay cards={cardsResult.cards} cardFormat={cardFormat} addCardToDeck={addCardToDeck}/>
                 }
                 {!(cardsResult && cardsResult.cards) &&
                     <div className="search-empty">

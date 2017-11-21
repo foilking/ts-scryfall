@@ -8,6 +8,7 @@ interface Props {
     fetchCardByCodeAndCollectorNumber: (setCode: string, collectorNumber: string) => void;
     location: Location;
     card: Card;
+    addCardToDeck: (card: Card) => void;
 }
 
 interface State {
@@ -16,20 +17,17 @@ interface State {
 export class CardPage extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);        
-    }
-
-    public componentDidMount() {
         this.props.fetchCardByCodeAndCollectorNumber(this.props.setCode, this.props.collectorNumber);
     }
 
     public render() {
         // Making sure the card is available
-        const { card } = this.props;
-        if (card) {
+        const { card, addCardToDeck } = this.props;
+        if (card && card.name) {            
             document.title = card.name + ' | TS Scryfall';
             return (
                 <div id="main" className="main">
-                    <CardFullLayout card={card}/>
+                    <CardFullLayout card={card} addCardToDeck={addCardToDeck}/>
                     <div className="toolbox">
                         <div className="inner-flex">
                             <div className="toolbox-column">

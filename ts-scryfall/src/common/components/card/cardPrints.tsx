@@ -38,7 +38,7 @@ export const CardPrints: React.StatelessComponent<Props> = ({card}) => {
                 {/* API doesn't give links to all prints. */}
                 <tr className="current">
                     <td>
-                        <Link to={`card/${card.set}/${card.collector_number}`}>
+                        <Link to={`/card/${card.set}/${card.collector_number}`}>
                             <svg className={`rarity-${card.rarity.toLocaleLowerCase()}`} aria-hidden="true" focusable="false" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M12 4.435c0 .106-.063.221-.188.346l-2.618 2.553.62 3.606.007.144c0 .101-.025.186-.076.256-.05.07-.124.105-.22.105-.091 0-.188-.029-.288-.087l-3.238-1.702-3.238 1.702c-.106.058-.202.087-.288.087-.101 0-.177-.035-.227-.105-.05-.07-.076-.155-.076-.256l.014-.144.62-3.606-2.625-2.553c-.12-.13-.18-.245-.18-.346 0-.178.135-.288.404-.332l3.62-.526 1.623-3.281c.091-.197.209-.296.353-.296s.262.099.353.296l1.623 3.281 3.62.526c.269.043.404.154.404.332z" fill="red" />
                             </svg>

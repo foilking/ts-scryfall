@@ -9,6 +9,7 @@ import { CardListLayout } from './cardListLayout';
 interface CardDisplayProps {
     cards: Card[];
     cardFormat: CardFormat;
+    addCardToDeck: (card: Card) => void;
 }
 
 export class CardDisplay extends React.Component<CardDisplayProps, {}> {
@@ -17,7 +18,7 @@ export class CardDisplay extends React.Component<CardDisplayProps, {}> {
     }
 
     public render() {
-        const {cards, cardFormat} = this.props;
+        const {cards, cardFormat, addCardToDeck} = this.props;
         
         switch (cardFormat) {
             case CardFormat.Full:
@@ -25,7 +26,7 @@ export class CardDisplay extends React.Component<CardDisplayProps, {}> {
                     <div className="card-full">
                         {cards && cards.map((card, key) => {
                             return (
-                                <CardFullLayout card={card} key={key} />
+                                <CardFullLayout card={card} key={key} addCardToDeck={addCardToDeck} />
                             );
                         })}
                     </div>

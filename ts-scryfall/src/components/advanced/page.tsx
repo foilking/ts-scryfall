@@ -47,7 +47,7 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
                         </label>
                         <div className="form-row-content">
                             <div className="form-row-content-band">
-                                <input name="name" id="name" className="form-input" placeholder="Any words in the name, e.g. “Fire”" type="text" value={searchTerms.name} onChange={event => this.onFieldChange(event.currentTarget.name, event.currentTarget.value)}  />
+                                <input name="name" id="name" className="form-input" placeholder="Any words in the name, e.g. “Fire”" type="text" defaultValue={searchTerms.name} onChange={event => this.onFieldChange(event.currentTarget.name, event.currentTarget.value)}  />
                             </div>
                         </div>
 
@@ -990,9 +990,9 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
         }
         const q = searchQueryArray.join(' ');
         const newSearchTerms = { ...this.props.searchTerms, q, page: 1, order: SearchOrder.Name };
-
+        
         this.props.fetchFilteredCards(newSearchTerms);
-        this.props.history.push('/cards?q=' + q);       
+        this.props.history.push('/cards/' + q);       
     }
 
     private splitWords(searchTerm: string[], prefix: string = '', conditional: boolean = false): string {

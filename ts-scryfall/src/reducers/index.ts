@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux';
-import { Card, SearchTerms, Set, CardSymbol, CardsResponse } from '../model';
+import { Card, SearchTerms, Set, CardSymbol, CardsResponse, Deck } from '../model';
 import { cardsReducer } from './cards';
 import { cardReducer } from './card';
 import { cardSymbolsReducer } from './cardSymbols';
 import { searchTermsReducer } from './searchTerms';
 import { setsReducer } from './sets';
+import { deckReducer } from './deck';
 
 export interface State {
   cardsResult: CardsResponse;
@@ -12,6 +13,7 @@ export interface State {
   sets: Set[];
   cardSymbols: CardSymbol[];
   searchTerms: SearchTerms;
+  deck: Deck;
 }
 
 export const rootReducer = combineReducers<State>({
@@ -19,5 +21,6 @@ export const rootReducer = combineReducers<State>({
   card: cardReducer,
   cardSymbols: cardSymbolsReducer,
   searchTerms: searchTermsReducer,
-  sets: setsReducer
+  sets: setsReducer,
+  deck: deckReducer
 });

@@ -19,11 +19,6 @@ export class App extends React.Component<Props, State> {
     this.state = {
       searchTerms: props.searchTerms
     };
-    
-    if (location.pathname.indexOf('/cards') > -1) {
-      this.props.fetchFilteredCards(this.state.searchTerms);
-      this.props.updateSearchTerms(this.state.searchTerms);
-    }
 
     this.fetchFilteredCards = this.fetchFilteredCards.bind(this);
   }
@@ -43,7 +38,7 @@ export class App extends React.Component<Props, State> {
   private fetchFilteredCards(searchTerms: SearchTerms) {
     const newState = {...this.state, searchTerms};  
     this.setState(newState);
-    this.props.fetchFilteredCards(searchTerms);
-    this.props.updateSearchTerms(searchTerms);
+    this.props.fetchFilteredCards(newState.searchTerms);
+    this.props.updateSearchTerms(newState.searchTerms);
   }
 }

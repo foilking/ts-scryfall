@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 // import { Set } from '../../model';
 import { fetchSetsAction, updateSearchTermsAction } from '../../common/actions';
 import { AdvanceSearchPage } from './page';
-import { SearchTerms } from '../../model/index';
+import { SearchTerms } from '../../model';
 
 const mapStateToProps = (state: State, ownProps: any) => {
     return {
