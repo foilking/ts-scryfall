@@ -3,3 +3,4 @@ export * from './updateSearchTerms';
 export * from './fetchSets';
 export * from './addCardToDeck';
 export * from './fetchCard';
+export * from './loadSearchPage';

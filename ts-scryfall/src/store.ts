@@ -6,4 +6,6 @@ const devToolsExtension = 'devToolsExtension';
 let devtools: any = window[devToolsExtension] ? window[devToolsExtension]() : (f: any) => f;
 
 let middleware = applyMiddleware(reduxThunk);
-export const store: any = middleware(devtools(createStore))(rootReducer);
+const store: any = middleware(devtools(createStore))(rootReducer);
+
+export default store;

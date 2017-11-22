@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import { State } from '../../reducers';
 import { CardsPage } from './page';
 import { addCardToDeckAction } from '../../common/actions';
@@ -18,7 +19,7 @@ const mapDispatchToProps = (dispatch: any) => ({
     addCardToDeck: (card: Card) => dispatch(addCardToDeckAction(card))
 });
 
-export const CardsPageContainer = connect(
+export const CardsPageContainer = withRouter(connect(
     mapStateToProps,
     mapDispatchToProps,
-)(CardsPage);
+)(CardsPage));

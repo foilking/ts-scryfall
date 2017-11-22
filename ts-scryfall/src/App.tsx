@@ -8,24 +8,21 @@ interface Props {
   location: Location;
   fetchFilteredCards: (searchTerms: SearchTerms) => void;
   updateSearchTerms: (searchTerms: SearchTerms) => void;
+  loadSearchPage: (searchTerm: string) => void;
 }
 interface State {
-  searchTerms: SearchTerms;
 }
 
 export class App extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = {
-      searchTerms: props.searchTerms
-    };
 
     this.fetchFilteredCards = this.fetchFilteredCards.bind(this);
   }
 
   public render() {     
-    const { searchTerms } = this.state; 
-           
+    const { searchTerms } = this.props; 
+    
     return (
         <div id="body">
           <Header searchTerms={searchTerms} fetchFilteredCards={this.fetchFilteredCards} location={location}/>
@@ -36,9 +33,13 @@ export class App extends React.Component<Props, State> {
   }
   
   private fetchFilteredCards(searchTerms: SearchTerms) {
-    const newState = {...this.state, searchTerms};  
-    this.setState(newState);
-    this.props.fetchFilteredCards(newState.searchTerms);
-    this.props.updateSearchTerms(newState.searchTerms);
+    const newSearchTerms = {...this.props.searchTerms, ...searchTerms};  
+    this.props.fetchFilteredCards(newSearchTerms);
+    this.props.updateSearchTerms(newSearchTerms);
+    if (!(this.props.location.pathname.indexOf('/cards/') > -1)) {
+      console.log('Change to search page.');
+      
+      this.props.loadSearchPage(newSearchTerms.q);
+    }
   }
 }
