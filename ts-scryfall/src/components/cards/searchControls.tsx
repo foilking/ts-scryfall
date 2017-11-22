@@ -37,6 +37,7 @@ export class SearchControls extends React.Component<SortProps, SortState> {
 
     public render() {
         const { resultCount, searchTerms, hasMore, cardFormat } = this.props;
+        
         let cardsShown = '';
         if (hasMore) {
             cardsShown = `${(searchTerms.page - 1) * 175 + 1} - ${searchTerms.page * 175} of ${resultCount.toLocaleString()}`;
@@ -50,7 +51,7 @@ export class SearchControls extends React.Component<SortProps, SortState> {
                     <div className="search-controls-options" data-component="search-controls-form">
                         {cardsShown} cards
                         <label htmlFor="as">as</label>
-                        <select name="as" id="as" className="button-select mq-short" defaultValue={cardFormat.toString()}>
+                        <select name="as" id="as" className="button-select mq-short" defaultValue={cardFormat.toString()} onChange={event => this.changeListDisplay(event.currentTarget.value as CardFormat)}>
                             <option value="Image">Images</option>
                             <option value="List">Pricelist</option>
                             <option value="Full">Full</option>

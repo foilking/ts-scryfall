@@ -1,5 +1,5 @@
-import { replace } from 'react-router-redux';
+import { push } from 'react-router-redux';
 
 export const loadSearchPageAction = (searchTerm: string) => (dispatch: any) => {
-    dispatch(replace(`/cards/${searchTerm}`));
+    dispatch(push(`/cards/${searchTerm}`));
 };

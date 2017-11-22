@@ -10,7 +10,6 @@ interface Props {
     fetchFilteredCards: (searchTerms: SearchTerms) => void;
     location: Location;
     addCardToDeck: (card: Card) => void;
-    search: string;
 }
 
 interface State {
@@ -25,19 +24,13 @@ export class CardsPage extends React.Component<Props, State> {
             cardFormat: CardFormat.Full
         };
         this.changeListDisplay = this.changeListDisplay.bind(this);
-
-        document.title = (this.props.searchTerms.q || 'Search') + ' | TS Scryfall';
-    }
-
-    public componentDidMount() {
-        if (this.props.search && this.props.search !== this.props.searchTerms.q) {
-            this.props.fetchFilteredCards({...this.props.searchTerms, q: this.props.search});
-        }
+        this.props.fetchFilteredCards(this.props.searchTerms);
     }
 
     public render() {
         const { cardFormat } = this.state;
         const { searchTerms, cardsResult, fetchFilteredCards, addCardToDeck } = this.props;
+        document.title = (this.props.searchTerms.q || 'Search') + ' | TS Scryfall';
         
         return (
             <div id="main" className="main">

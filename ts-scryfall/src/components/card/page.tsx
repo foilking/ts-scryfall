@@ -21,7 +21,6 @@ export class CardPage extends React.Component<Props, State> {
     }
 
     public render() {
-        // Making sure the card is available
         const { card, addCardToDeck } = this.props;
         if (card && card.name) {            
             document.title = card.name + ' | TS Scryfall';

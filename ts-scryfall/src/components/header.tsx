@@ -1,33 +1,29 @@
 import * as React from 'react';
+import { RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
-import createHistory from 'history/createBrowserHistory';
 import { SearchTerms, SearchOrder } from '../model';
 
 interface HeaderProps {
   searchTerms: SearchTerms;
   fetchFilteredCards: (searchTerms: SearchTerms) => void;
-  location: Location;
 }
 interface State {
   isMenuOpen: boolean;
-  q: string;
 }
-const history = createHistory();
 
-export class Header extends React.Component<HeaderProps, State> {
-  constructor(props: HeaderProps) {
+export class Header extends React.Component<HeaderProps & RouteComponentProps<HeaderProps>, State> {
+  constructor(props: HeaderProps & RouteComponentProps<HeaderProps>) {
     super(props); 
+    
     this.search = this.search.bind(this);
     this.showMenu = this.showMenu.bind(this);
-    this.updateQuery = this.updateQuery.bind(this);
     this.state = {
-      isMenuOpen: false,
-      q: ''
+      isMenuOpen: false
     };    
   }
 
   public render() {
-    const { isMenuOpen, } = this.state;
+    const { isMenuOpen } = this.state;
     const { searchTerms } = this.props;
 
     return (
@@ -40,7 +36,7 @@ export class Header extends React.Component<HeaderProps, State> {
           </Link>
           <div className="header-search">
             <label className="visuallyhidden" htmlFor="js-header-search-field">Search for Magic cards</label>
-            <input name="q" id="js-header-search-field" onKeyUp={event => this.search(event.keyCode, event.currentTarget.value)} defaultValue={searchTerms.q} placeholder="Search for Magic cards" autoComplete="on" autoCapitalize="none" autoCorrect="off" spellCheck={false} maxLength={1024} type="text" />
+            <input name="q" onKeyUp={event => this.search(event.keyCode, event.currentTarget.value)} defaultValue={searchTerms.q} placeholder="Search for Magic cards" autoComplete="on" autoCapitalize="none" autoCorrect="off" spellCheck={false} maxLength={1024} type="text" />
             <button type="submit" className="visuallyhidden">
               Find Cards
             </button>
@@ -88,7 +84,7 @@ export class Header extends React.Component<HeaderProps, State> {
       document.title = q  + ' | TS Scryfall';
       
       const newSearchTerms = { ...this.props.searchTerms, q, page: 1, order: SearchOrder.Name };
-      history.push(`/cards/` + q);
+      this.props.history.push(`/cards/` + q);
       
       this.props.fetchFilteredCards(newSearchTerms);      
     }
@@ -97,10 +93,6 @@ export class Header extends React.Component<HeaderProps, State> {
   private showMenu() {
     const showMenu = !this.state.isMenuOpen;
     this.setState({ isMenuOpen: showMenu });
-  }
-
-  private updateQuery (query: string) {
-    this.setState({q: query});
   }
 
 }

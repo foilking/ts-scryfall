@@ -5,13 +5,16 @@ import { CardsPage } from './page';
 import { addCardToDeckAction } from '../../common/actions';
 import { Card } from '../../model';
 
-const mapStateToProps = (state: State, ownProps: any) => {      
+const mapStateToProps = (state: State, ownProps: any) => {     
+    let searchTerms = state.searchTerms;
+    if (ownProps.match.params.search) {
+        searchTerms = {...state.searchTerms, q: ownProps.match.params.search};
+    } 
     return {
         cardsResult: state.cardsResult,
         location: ownProps.location,
-        searchTerms: state.searchTerms,
-        fetchFilteredCards: ownProps.fetchFilteredCards,
-        search: ownProps.match.params.search
+        searchTerms: searchTerms,
+        fetchFilteredCards: ownProps.fetchFilteredCards
     };
 };
 

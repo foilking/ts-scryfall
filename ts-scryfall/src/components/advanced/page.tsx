@@ -988,7 +988,7 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
         if (searchTerms.includeFunny) {
             searchQueryArray.push('include:extras');
         }
-        const q = searchQueryArray.join(' ');
+        const q = searchQueryArray.join(' ').trim();
         const newSearchTerms = { ...this.props.searchTerms, q, page: 1, order: SearchOrder.Name };
         
         this.props.fetchFilteredCards(newSearchTerms);

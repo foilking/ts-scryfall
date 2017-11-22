@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { RouteComponentProps } from 'react-router';
 import { Header, Footer } from './components';
 import { SearchTerms } from './model';
 import { ScryfallRouter } from './router';
@@ -13,8 +14,8 @@ interface Props {
 interface State {
 }
 
-export class App extends React.Component<Props, State> {
-  constructor(props: Props) {
+export class App extends React.Component<Props & RouteComponentProps<Props>, State> {
+  constructor(props: Props & RouteComponentProps<Props>) {
     super(props);
 
     this.fetchFilteredCards = this.fetchFilteredCards.bind(this);
@@ -25,7 +26,7 @@ export class App extends React.Component<Props, State> {
     
     return (
         <div id="body">
-          <Header searchTerms={searchTerms} fetchFilteredCards={this.fetchFilteredCards} location={location}/>
+          <Header {...this.props}/>
           <ScryfallRouter searchTerms={searchTerms} fetchFilteredCards={this.fetchFilteredCards} location={location} />
           <Footer />
       </div>
@@ -33,12 +34,11 @@ export class App extends React.Component<Props, State> {
   }
   
   private fetchFilteredCards(searchTerms: SearchTerms) {
-    const newSearchTerms = {...this.props.searchTerms, ...searchTerms};  
+    const newSearchTerms = {...this.props.searchTerms, ...searchTerms}; 
+    
     this.props.fetchFilteredCards(newSearchTerms);
     this.props.updateSearchTerms(newSearchTerms);
-    if (!(this.props.location.pathname.indexOf('/cards/') > -1)) {
-      console.log('Change to search page.');
-      
+    if (!(this.props.location.pathname.indexOf('/cards/') > -1)) {      
       this.props.loadSearchPage(newSearchTerms.q);
     }
   }
