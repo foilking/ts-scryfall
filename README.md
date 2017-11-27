@@ -26,8 +26,9 @@ A rebuild of Scryfall.com, using TypeScript, React, and Redux to build on top of
   - [X] Purchase Links
   - [X] MTGO Purchase Links
   - [X] Copy-Paste
+  - [ ] Notes and rules (see [Missing Pieces](#missing-pieces))
 - [X] Header card search
-- [ ] Advanced search functionality
+- [ ] Advanced search page
   - [X] Card Name
   - [X] Oracle Text with symbols
   - [X] Type Line with partial matching
@@ -44,13 +45,17 @@ A rebuild of Scryfall.com, using TypeScript, React, and Redux to build on top of
   - [X] Flavor Text
   - [X] Lore Finder
   - [X] Preferences
-- [X] Syntax Reference
-- [ ] Set listing
+- [X] Syntax reference page
+- [ ] Set listing page
   - [X] Set name and symbol
   - [X] Display sub-sets of a set
-  - [ ] Set block
+  - [X] Set block
   - [X] Number of cards in a set
-  - [ ] Release date
+  - [X] Release date
+  - [ ] Sorting
+- [ ] Set Details page
+- [ ] Random card page
+- [X] Header search functionality
 
 ## Additional Features
 
@@ -60,6 +65,10 @@ To get a better feel of Redux and state management, I am working on functionalit
 ## Missing Pieces
 
 The following pieces of the original Scryfall site aren't in TS-Scryfall:
+
+- Notes and rules information for individual cards
+
+  - Scryfall's API doesn't return the notes and rules information when requesting a card via /cards/:setCode/:collectorNumber
 
 - Listing out different prints of a card on card prints sidebar
   

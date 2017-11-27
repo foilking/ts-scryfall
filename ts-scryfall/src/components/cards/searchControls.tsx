@@ -25,10 +25,7 @@ interface SortProps {
     changeListDisplay: (cardFormat: CardFormat) => void;
 }
 
-interface SortState {
-}
-
-export class SearchControls extends React.Component<SortProps, SortState> {
+export class SearchControls extends React.Component<SortProps, {}> {
     constructor(props: SortProps) {          
         super(props);
         this.orderChange = this.orderChange.bind(this);

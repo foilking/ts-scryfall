@@ -149,14 +149,21 @@ const mapResponseToSets = (response: SetsResponse): Set[] => {
 
 const mapToSet = (set: Set): Set => {
     return {
+        object: set.object,
         code: set.code,
         name: set.name,
+        uri: set.uri,
+        scryfall_uri: set.scryfall_uri,
+        search_uri: set.search_uri,
         set_type: set.set_type,
         card_count: set.card_count,
         parent_set_code: set.parent_set_code,
         digital: set.digital,
         foil: set.foil,
-        icon_svg_uri: set.icon_svg_uri
+        block_code: set.block_code,
+        block: set.block,
+        icon_svg_uri: set.icon_svg_uri,
+        released_at: set.released_at
     };
 };
 

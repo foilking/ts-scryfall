@@ -1,4 +1,5 @@
 import { Set } from './set';
+
 export enum SearchOrder {
     Name = 'name',
     Set = 'set',

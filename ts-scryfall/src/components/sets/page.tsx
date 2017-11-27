@@ -1,21 +1,36 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Set } from '../../model';
+import { SetOrder, SetType } from '../../common/constants/setFormats';
+import { SetSortControls } from './setSortControls';
 
 interface Props {
     sets: Set[];
     fetchSets: () => void;
 }
 
-export class SetsPage extends React.Component<Props, {}> {
+interface State {
+    indent: boolean;
+    setOrder: SetOrder;
+    setType: SetType;
+}
+
+export class SetsPage extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
+        this.changeListDisplay = this.changeListDisplay.bind(this);
+        this.state = {
+            setOrder: SetOrder.ReleaseDate,
+            setType: SetType.Any,
+            indent: true
+        };
         this.props.fetchSets();
         document.title = 'All Sets' + ' | TS Scryfall';
     }
 
     public render() {
         const { sets } = this.props;
+        const { setOrder, setType, indent } = this.state;
         let mappedSets = [] as Set[];
         let setsCount = 0;
         if (sets) {
@@ -26,79 +41,55 @@ export class SetsPage extends React.Component<Props, {}> {
                     mappedSets.push(childSet);
                 });
             });
-        }        
-        
+        }
+
         return (
-            <div className="checklist-wrapper">
-                <div className="search-controls">
-                    <div className="inner-flex">
-                        <div className="search-controls-options" data-component="search-controls-form">
-                        {setsCount} sets
-                        <label htmlFor="order">sorted by</label>
-                        <select name="order" id="order" className="button-select js-search-option" data-other-param="type"><option value="">Release Date</option>
-                    <option value="set">Name</option>
-                    <option value="block">Block/Group</option>
-                    <option value="cards">No. of Cards</option></select>
-                        <label htmlFor="type">of type</label>
-                        <select name="type" id="type" className="button-select js-search-option" data-other-param="order"><option value="">Any</option>
-                    <option value="cube">Cube</option>
-                    <option value="archenemy">Archenemy</option>
-                    <option value="box">Box</option>
-                    <option value="commander">Commander</option>
-                    <option value="conspiracy">Conspiracy</option>
-                    <option value="core">Core</option>
-                    <option value="duel_deck">Duel Deck</option>
-                    <option value="expansion">Expansion</option>
-                    <option value="from_the_vault">From The Vault</option>
-                    <option value="funny">Funny</option>
-                    <option value="masterpiece">Masterpiece</option>
-                    <option value="masters">Masters</option>
-                    <option value="memorabilia">Memorabilia</option>
-                    <option value="planechase">Planechase</option>
-                    <option value="premium_deck">Premium Deck</option>
-                    <option value="promo">Promo</option>
-                    <option value="starter">Starter</option>
-                    <option value="token">Token</option>
-                    <option value="treasure_chest">Treasure Chest</option>
-                    <option value="vanguard">Vanguard</option></select>
-                        </div>
-                    </div>
+            <div>
+                <SetSortControls setsCount={setsCount} setOrder={setOrder} setType={setType} changeListDisplay={this.changeListDisplay} />
+                <div className="checklist-wrapper">
+                    <table className="checklist">
+                        <thead>
+                            <tr>
+                                <th><span className="visuallyhidden">Symbol</span></th>
+                                <th>Name</th>
+                                <th>Block/Group</th>
+                                <th>Cards</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {mappedSets && mappedSets.map((set, key) => {
+                                return (
+                                    <tr className={indent && set.parent_set_code ? 'indent' : ''} key={key}>
+                                        <td className="set-symbol">
+                                            <Link to={`/set/${set.code}`} >
+                                                <img aria-hidden="true" className="" src={set.icon_svg_uri} />
+                                            </Link>
+                                        </td>
+                                        <td>
+                                            <Link to={`/set/${set.code}`} >
+                                                {set.name} <small>{set.code.toUpperCase()}</small>
+                                            </Link>
+                                        </td>
+                                        <td>
+                                            <Link to={`/set/${set.code}`} >{set.block ? set.block : '—'}</Link>
+                                        </td>
+                                        <td><Link to={`/set/${set.code}`} >{set.card_count}</Link></td>
+                                        <td><Link to={`/set/${set.code}`} >{set.released_at ? set.released_at : '—'}</Link></td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
                 </div>
-                <table className="checklist">
-                    <thead>
-                        <tr>
-                            <th><span className="visuallyhidden">Symbol</span></th>
-                            <th>Name</th>
-                            <th>Block/Group</th>
-                            <th>Cards</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {mappedSets && mappedSets.map((set, key) => {
-                            return (
-                                <tr className={set.parent_set_code ? 'indent' : ''} key={key}>
-                                    <td className="set-symbol">
-                                        <Link to={`/set/${set.code}`} >
-                                            <img aria-hidden="true" className="" src={set.icon_svg_uri} />
-                                        </Link>            
-                                    </td>
-                                    <td>
-                                        <Link to={`/set/${set.code}`} >
-                                            {set.name} <small>{set.code.toUpperCase()}</small>
-                                        </Link>            
-                                    </td>
-                                    <td>
-                                        <Link to={`/set/${set.code}`} >Block</Link>
-                                    </td>
-                                    <td><Link to={`/set/${set.code}`} >{set.card_count}</Link></td>
-                                    <td><Link to={`/set/${set.code}`} >Release Date</Link></td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
+                <SetSortControls setsCount={setsCount} setOrder={setOrder} setType={setType} changeListDisplay={this.changeListDisplay} />                
             </div>
         );
+    }
+    
+    private changeListDisplay(setOrder: SetOrder, setType: SetType) {
+        const indent = setType === SetType.Any && setOrder !== SetOrder.Name;
+        const newState = {...this.state, indent, setOrder, setType};
+        this.setState(newState);
     }
 }
