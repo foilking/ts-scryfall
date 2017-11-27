@@ -6,10 +6,8 @@ import { ScryfallRouter } from './router';
 
 interface Props {
   searchTerms: SearchTerms;
-  location: Location;
   fetchFilteredCards: (searchTerms: SearchTerms) => void;
   updateSearchTerms: (searchTerms: SearchTerms) => void;
-  loadSearchPage: (searchTerm: string) => void;
 }
 interface State {
 }
@@ -38,8 +36,5 @@ export class App extends React.Component<Props & RouteComponentProps<Props>, Sta
     
     this.props.fetchFilteredCards(newSearchTerms);
     this.props.updateSearchTerms(newSearchTerms);
-    if (!(this.props.location.pathname.indexOf('/cards/') > -1)) {      
-      this.props.loadSearchPage(newSearchTerms.q);
-    }
   }
 }

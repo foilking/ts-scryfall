@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { CardsPageContainer, CardPageContainer, AdvanceSearchPageContainer, About, Reference, SetsPageContainer } from './components';
+import { CardsPageContainer, CardPageContainer, AdvanceSearchPageContainer, About, Reference, SetsPageContainer, DecksPageContainer } from './components';
 import { SearchTerms } from './model/index';
 
 interface RouterProps {
@@ -21,6 +21,7 @@ export class ScryfallRouter extends React.Component<RouterProps, {}> {
         <Route path={`/cards/:search?`} render={(props) => <CardsPageContainer {...props}  fetchFilteredCards={this.props.fetchFilteredCards} />} />
         <Route path={`/card/:code/:number`} component={CardPageContainer} />
         <Route path={`/advanced`} render={(props) => <AdvanceSearchPageContainer {...props}  fetchFilteredCards={this.props.fetchFilteredCards} searchTerms={this.props.searchTerms} />} />
+        <Route path={`/decks`} component={DecksPageContainer} /> 
         <Route path={`/about`} component={About} />
         <Route path={`/reference`} component={Reference} />
         <Route path={`/sets`} component={SetsPageContainer} />

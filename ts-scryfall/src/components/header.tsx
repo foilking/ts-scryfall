@@ -22,6 +22,12 @@ export class Header extends React.Component<HeaderProps & RouteComponentProps<He
     };    
   }
 
+  public componentWillReceiveProps() {
+    if (this.state.isMenuOpen) {
+      this.setState({...this.state, isMenuOpen: false});
+    }
+  }
+
   public render() {
     const { isMenuOpen } = this.state;
     const { searchTerms } = this.props;
@@ -68,9 +74,9 @@ export class Header extends React.Component<HeaderProps & RouteComponentProps<He
               <svg aria-hidden="true" focusable="false" className="" width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><path d="M20.594 18.406l3.594 3.594h-6.188l-.341-.034c-.229.655-.569 1.256-.997 1.786.421.151.867.248 1.338.248h6.188l-3.594 3.594 1.406 1.406 6-6-6-6-1.406 1.406zm3.594-10.406l-3.594 3.594 1.406 1.406 6-6-6-6-1.406 1.406 3.594 3.594h-6.188c-2.2 0-4 1.8-4 4v10c0 1.103-.897 2-2 2h-10v2h10c2.2 0 4-1.8 4-4v-10c0-1.103.896-2 2-2h6.188zm-11.848.034c.229-.654.565-1.258.993-1.787-.419-.15-.864-.247-1.333-.247h-10v2h10l.34.034z" /></svg>
               Random
             </Link>
-            <Link to={`/saved`} className="header-utility-link header-mobile-only">
+            <Link to={`/decks`} className="header-utility-link header-mobile-only">
               <svg aria-hidden="true" focusable="false" className="" width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><path d="M29 8l-14-7-14 7 14 7 14-7zm-14-4.764l9.528 4.764-9.528 4.764-9.528-4.764 9.528-4.764zm7 10.5l2.528 1.264-9.528 4.764-9.528-4.764 2.528-1.264-2.236-1.118-4.764 2.382 14 7 14-7-4.764-2.382-2.236 1.118zm0 7l2.528 1.264-9.528 4.764-9.528-4.764 2.528-1.264-2.236-1.118-4.764 2.382 14 7 14-7-4.764-2.382-2.236 1.118z" /></svg>
-              Saved Cards
+              Decks
             </Link>
           </div>
 

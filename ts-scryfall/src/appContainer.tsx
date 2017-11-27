@@ -3,7 +3,7 @@ import { withRouter } from 'react-router';
 import * as QueryString from 'query-string';
 import { State } from './reducers';
 import { App } from './App';
-import { fetchFilteredCardsAction, updateSearchTermsAction, loadSearchPageAction } from './common/actions';
+import { fetchFilteredCardsAction, updateSearchTermsAction } from './common/actions';
 import { SearchTerms, SearchOrder } from './model';
 
 const mapStateToProps = (state: State, ownProps: any) => {  
@@ -50,8 +50,7 @@ const mapStateToProps = (state: State, ownProps: any) => {
 
 const mapDispatchToProps = (dispatch: any) => ({
     fetchFilteredCards: (params: SearchTerms) => dispatch(fetchFilteredCardsAction(params)),
-    updateSearchTerms: (params: SearchTerms) => dispatch(updateSearchTermsAction(params)),
-    loadSearchPage: (params: string) => dispatch(loadSearchPageAction(params))
+    updateSearchTerms: (params: SearchTerms) => dispatch(updateSearchTermsAction(params))
 });
 
 export const AppContainer = withRouter(connect(
