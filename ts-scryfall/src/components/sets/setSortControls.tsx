@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SetOrder, SetType } from '../../common/constants/setFormats';
+import { SetOrder, SetType, SetOrderFormat } from '../../common/constants/setFormats';
 
 interface SetSortProps {
     setsCount: number;
@@ -26,7 +26,7 @@ export class SetSortControls extends React.Component<SetSortProps, {}> {
                         <select name="order" id="order" className="button-select" onChange={event => this.orderChange(event.currentTarget.value as SetOrder)} >
                             {Object.keys(SetOrder).filter(key => isNaN(Number(SetOrder[key]))).map((key, keyIndex) => {
                                 return (
-                                    <option value={SetOrder[key]} key={key}>{SetOrder[key]}</option>
+                                    <option value={SetOrder[key]} key={key}>{SetOrderFormat[key]}</option>
                                 );
                             })}
                         </select>

@@ -46,13 +46,13 @@ A rebuild of Scryfall.com, using TypeScript, React, and Redux to build on top of
   - [X] Lore Finder
   - [X] Preferences
 - [X] Syntax reference page
-- [ ] Set listing page
+- [X] Set listing page
   - [X] Set name and symbol
   - [X] Display sub-sets of a set
   - [X] Set block
   - [X] Number of cards in a set
   - [X] Release date
-  - [ ] Sorting
+  - [X] Sorting
 - [ ] Set Details page
 - [ ] Random card page
 - [X] Header search functionality

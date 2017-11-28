@@ -19,6 +19,7 @@ export class SetsPage extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.changeListDisplay = this.changeListDisplay.bind(this);
+        this.setOrdering = this.setOrdering.bind(this);
         this.state = {
             setOrder: SetOrder.ReleaseDate,
             setType: SetType.Any,
@@ -35,12 +36,16 @@ export class SetsPage extends React.Component<Props, State> {
         let setsCount = 0;
         if (sets) {
             setsCount = sets.length;
-            sets.filter((set) => set.parent_set_code == null).forEach((set) => {
-                mappedSets.push(set);
-                sets.filter((childSet) => childSet.parent_set_code === set.code).forEach((childSet) => {
-                    mappedSets.push(childSet);
+            if (indent) {
+                sets.sort(this.setOrdering).filter((set) => set.parent_set_code == null).forEach((set) => {
+                    mappedSets.push(set);
+                    sets.filter((childSet) => childSet.parent_set_code === set.code).forEach((childSet) => {
+                        mappedSets.push(childSet);
+                    });
                 });
-            });
+            } else {
+                sets.sort(this.setOrdering).forEach((set) => mappedSets.push(set));
+            }
         }
 
         return (
@@ -91,5 +96,33 @@ export class SetsPage extends React.Component<Props, State> {
         const indent = setType === SetType.Any && setOrder !== SetOrder.Name;
         const newState = {...this.state, indent, setOrder, setType};
         this.setState(newState);
+    }
+
+    private setOrdering (a: Set, b: Set) {
+        let order = 0;
+        switch (this.state.setOrder) {
+            case SetOrder.Block:    
+                if (!a.block) {
+                    order = 1;
+                } else if (!b.block) {
+                    order = -1;
+                } else {
+                    order = (a.block > b.block ? 1 : (b.block < a.block ? -1 : 0));
+                }
+                break;
+            case SetOrder.Name: 
+                order = (a.name > b.name ? 1 : (b.name < a.name ? -1 : 0));
+                break;
+            case SetOrder.NumCards:
+                order = (a.card_count > b.card_count ? 1 : (b.card_count < a.card_count ? -1 : 0));
+                break;
+            case SetOrder.ReleaseDate:
+            default:
+                const releaseA = Date.parse(a.released_at);
+                const releaseB = Date.parse(b.released_at);
+                order = (releaseA > releaseB ? -1 : (releaseB < releaseA ? 1 : 0));
+                break;
+        }
+        return order;
     }
 }

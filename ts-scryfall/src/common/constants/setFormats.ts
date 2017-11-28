@@ -1,5 +1,12 @@
 
 export enum SetOrder {
+    ReleaseDate = 'ReleaseDate',
+    Name = 'Name',
+    Block = 'Block',
+    NumCards = 'NumCards'
+}
+
+export enum SetOrderFormat {
     ReleaseDate = 'Release Date',
     Name = 'Name',
     Block = 'Block/Group',
