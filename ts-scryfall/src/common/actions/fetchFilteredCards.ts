@@ -2,8 +2,8 @@ import { actionTypes } from '../constants/actionTypes';
 import { SearchTerms, CardsResponse } from '../../model';
 import { scryfall } from '../../api/scryfall';
 
-export const fetchFilteredCardsAction = (params: SearchTerms) => (dispatch: any) => {
-    scryfall.fetchFilteredCardsAsync(params)
+export const fetchFilteredCardsAction = (params: SearchTerms, getAll: boolean = false) => (dispatch: any) => {
+    scryfall.fetchFilteredCardsAsync(params, getAll)
         .then((cardsResponse) => {
             dispatch(fetchFilteredCardsCompleted(cardsResponse));
         });

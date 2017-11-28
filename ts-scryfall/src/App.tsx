@@ -6,7 +6,7 @@ import { ScryfallRouter } from './router';
 
 interface Props {
   searchTerms: SearchTerms;
-  fetchFilteredCards: (searchTerms: SearchTerms) => void;
+  fetchFilteredCards: (searchTerms: SearchTerms, getAll: boolean) => void;
   updateSearchTerms: (searchTerms: SearchTerms) => void;
 }
 interface State {
@@ -31,10 +31,10 @@ export class App extends React.Component<Props & RouteComponentProps<Props>, Sta
     );
   }
   
-  private fetchFilteredCards(searchTerms: SearchTerms) {
+  private fetchFilteredCards(searchTerms: SearchTerms, getAll: boolean = false) {
     const newSearchTerms = {...this.props.searchTerms, ...searchTerms}; 
     
-    this.props.fetchFilteredCards(newSearchTerms);
+    this.props.fetchFilteredCards(newSearchTerms, getAll);
     this.props.updateSearchTerms(newSearchTerms);
   }
 }

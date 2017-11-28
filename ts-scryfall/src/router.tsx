@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { CardsPageContainer, CardPageContainer, AdvanceSearchPageContainer, About, Reference, SetsPageContainer, DecksPageContainer } from './components';
+import { CardsPageContainer, CardPageContainer, AdvanceSearchPageContainer, About, Reference, SetsPageContainer, DecksPageContainer, SetPageContainer } from './components';
 import { SearchTerms } from './model/index';
 
 interface RouterProps {
   searchTerms: SearchTerms;
-  fetchFilteredCards: (searchTerms: SearchTerms) => void;
+  fetchFilteredCards: (searchTerms: SearchTerms, getAll: boolean) => void;
   location: Location;
 }
 
@@ -25,6 +25,7 @@ export class ScryfallRouter extends React.Component<RouterProps, {}> {
         <Route path={`/about`} component={About} />
         <Route path={`/reference`} component={Reference} />
         <Route path={`/sets`} component={SetsPageContainer} />
+        <Route path={`/set/:code`} render={(props) => <SetPageContainer {...props} fetchFilteredCards={this.props.fetchFilteredCards} />} />
       </Switch>
     );
   }

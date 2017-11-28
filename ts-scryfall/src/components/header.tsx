@@ -5,7 +5,7 @@ import { SearchTerms, SearchOrder } from '../model';
 
 interface HeaderProps {
   searchTerms: SearchTerms;
-  fetchFilteredCards: (searchTerms: SearchTerms) => void;
+  fetchFilteredCards: (searchTerms: SearchTerms, getAll: boolean) => void;
 }
 interface State {
   isMenuOpen: boolean;
@@ -31,7 +31,7 @@ export class Header extends React.Component<HeaderProps & RouteComponentProps<He
   public render() {
     const { isMenuOpen } = this.state;
     const { searchTerms } = this.props;
-
+    
     return (
       <div id="header" className="header">
         <div className="inner-flex">
@@ -42,7 +42,7 @@ export class Header extends React.Component<HeaderProps & RouteComponentProps<He
           </Link>
           <div className="header-search">
             <label className="visuallyhidden" htmlFor="js-header-search-field">Search for Magic cards</label>
-            <input name="q" onKeyUp={event => this.search(event.keyCode, event.currentTarget.value)} defaultValue={searchTerms.q} placeholder="Search for Magic cards" autoComplete="on" autoCapitalize="none" autoCorrect="off" spellCheck={false} maxLength={1024} type="text" />
+            <input name="q" onKeyUp={event => this.search(event.keyCode, event.currentTarget.value)} defaultValue={searchTerms.q} placeholder="Search for Magic cards" maxLength={1024} type="text" />
             <button type="submit" className="visuallyhidden">
               Find Cards
             </button>
@@ -92,7 +92,7 @@ export class Header extends React.Component<HeaderProps & RouteComponentProps<He
       const newSearchTerms = { ...this.props.searchTerms, q, page: 1, order: SearchOrder.Name };
       this.props.history.push(`/cards/` + q);
       
-      this.props.fetchFilteredCards(newSearchTerms);      
+      this.props.fetchFilteredCards(newSearchTerms, false);      
     }
   }
 

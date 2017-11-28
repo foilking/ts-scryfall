@@ -53,7 +53,13 @@ A rebuild of Scryfall.com, using TypeScript, React, and Redux to build on top of
   - [X] Number of cards in a set
   - [X] Release date
   - [X] Sorting
-- [ ] Set Details page
+- [X] Set Details page
+  - [X] Set Header (see [Missing Pieces](#missing-pieces))
+  - [X] Display of cards in set
+    - [X] Image
+    - [X] Pricelist
+    - [X] Full
+  - [X] Sorting cards
 - [ ] Random card page
 - [X] Header search functionality
 

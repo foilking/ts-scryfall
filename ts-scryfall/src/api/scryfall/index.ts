@@ -4,29 +4,41 @@ import { Card, CardsResponse, SearchTerms, Set, SetsResponse, CardSymbol } from 
 
 const baseURL = 'https://api.scryfall.com';
 
-const fetchFilteredCardsAsync = (params: SearchTerms): Promise<CardsResponse> => {
-    const queryString = QueryString.stringify(params);
-    const cardsURL = `${baseURL}/cards/search?${queryString}`; // +include%3Aextras
+const fetchFilteredCardsAsync = async (params: SearchTerms, getAll: boolean = false): Promise<CardsResponse> => {
+    console.log(`GetAll? ${getAll ? 'Yes' : 'No'}`);
     
-    return fetch(cardsURL)
-        .then((response) => (response.json()))
-        .then(mapToCards);
+    let finalCardsResponse = {
+        cards: [] as Card[]
+    } as CardsResponse;
+    do {
+        const queryString = QueryString.stringify(params);
+        const cardsURL = `${baseURL}/cards/search?${queryString}`; // +include%3Aextras
+        const response = await fetch(cardsURL);
+        const responseJson = await response.json();
+        const cardsResponse = mapToCards(responseJson);
+        finalCardsResponse = {...finalCardsResponse, total_cards: cardsResponse.total_cards, has_more: cardsResponse.has_more};
+        finalCardsResponse.cards = finalCardsResponse.cards.concat(cardsResponse.cards);
+    } while (getAll && finalCardsResponse.has_more && params.page++);
+
+    return finalCardsResponse;
 };
 
-const fetchCardByMultiverseIdAsync = (id: string): Promise<Card> => {
+const fetchCardByMultiverseIdAsync = async (id: string): Promise<Card> => {
     const cardUrl = `${baseURL}/cards/multiverse/${id}`;
 
-    return fetch(cardUrl)
-        .then((response) => (response.json()))
-        .then(mapToCard);
+    const response = await fetch(cardUrl);
+    const responseJson = await response.json();
+    const cardRespone = mapToCard(responseJson);
+    return cardRespone;
 };
 
-const fetchCardByCodeAndCollectorNumberAsync = (code: string, collector_number: string): Promise<Card> => {
+const fetchCardByCodeAndCollectorNumberAsync = async (code: string, collector_number: string): Promise<Card> => {
     const cardUrl = `${baseURL}/cards/${code}/${collector_number}`;
     
-    return fetch(cardUrl)
-        .then((response) => (response.json()))
-        .then(mapToCard);
+    const response = await fetch(cardUrl);
+    const responseJson = await response.json();
+    const cardRespone = mapToCard(responseJson);
+    return cardRespone;
 };
 
 const mapToCards = (response: any): CardsResponse => {    
@@ -101,12 +113,13 @@ const mapToCard = (card: any): Card => {
     return { } as Card;
 };
 
-const fetchCardSymbology = (): Promise<CardSymbol[]> => {
+const fetchCardSymbology = async (): Promise<CardSymbol[]> => {
     const symbolUrl = `${baseURL}/symbology`;
-
-    return fetch(symbolUrl)
-        .then((response) => (response.json()))
-        .then(mapToSymbols);
+    
+    const response = await fetch(symbolUrl);
+    const responseJson = await response.json();
+    const symbolRespone = mapToSymbols(responseJson);
+    return symbolRespone;
 };
 
 const mapToSymbols = (response: any): CardSymbol[] => {
@@ -134,11 +147,12 @@ const mapToSymbol = (symbol: CardSymbol): CardSymbol => {
     };
 };
 
-const fetchSetsAsync = (): Promise<Set[]> => {
-    const setsURL = `${baseURL}/sets`;
-    return fetch(setsURL)
-        .then((response) => (response.json()))
-        .then(mapResponseToSets);
+const fetchSetsAsync = async (): Promise<Set[]> => {
+    const setsUrl = `${baseURL}/sets`;
+    const response = await fetch(setsUrl);
+    const responseJson = await response.json();
+    const setsRespone = mapResponseToSets(responseJson);
+    return setsRespone;
 };
 
 const mapResponseToSets = (response: SetsResponse): Set[] => {

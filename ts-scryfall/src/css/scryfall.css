@@ -5295,7 +5295,8 @@ img.card.cei,img.card.ced {
 .set-header-symbol {
  margin:0 8px 0 5px;
  max-height:30px;
- width:30px
+ width:30px;
+ filter: invert(1);
 }
 .set-header-symbol path,.set-header-symbol ellipse {
  fill:#FEFEFE

@@ -1,20 +1,6 @@
 import * as React from 'react';
-import { SearchTerms, SearchOrder } from '../../model';
+import { SearchTerms, SearchOrder, SearchOrderFormat } from '../../model';
 import { CardFormat } from '../../common/constants/cardFormats';
-
-enum SearchOrderFormat {
-    Name = 'Name',
-    Set= 'Set/Number',
-    Tix= 'Price: Tix',
-    Usd= 'Price: USD',
-    Eur = 'Price: EUR',
-    CMC = 'CMC',
-    Pow = 'Power',
-    Tou = 'Toughness',
-    Rarity = 'Rarity',
-    Color = 'Color/ID',
-    EDHRec = 'EDHREC Rank'
-}
 
 interface SortProps {
     searchTerms: SearchTerms;

@@ -49,7 +49,7 @@ const mapStateToProps = (state: State, ownProps: any) => {
 };
 
 const mapDispatchToProps = (dispatch: any) => ({
-    fetchFilteredCards: (params: SearchTerms) => dispatch(fetchFilteredCardsAction(params)),
+    fetchFilteredCards: (params: SearchTerms, getAll: boolean) => dispatch(fetchFilteredCardsAction(params, getAll)),
     updateSearchTerms: (params: SearchTerms) => dispatch(updateSearchTermsAction(params))
 });
 
