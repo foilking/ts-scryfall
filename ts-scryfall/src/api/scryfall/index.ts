@@ -4,9 +4,7 @@ import { Card, CardsResponse, SearchTerms, Set, SetsResponse, CardSymbol } from 
 
 const baseURL = 'https://api.scryfall.com';
 
-const fetchFilteredCardsAsync = async (params: SearchTerms, getAll: boolean = false): Promise<CardsResponse> => {
-    console.log(`GetAll? ${getAll ? 'Yes' : 'No'}`);
-    
+const fetchFilteredCardsAsync = async (params: SearchTerms, getAll: boolean = false): Promise<CardsResponse> => {    
     let finalCardsResponse = {
         cards: [] as Card[]
     } as CardsResponse;
