@@ -7,20 +7,6 @@ interface DecksProps {
     decks: Decks;
 }
 
-class DeckLegal {
-    Standard: boolean;
-    Frontier: boolean;
-    Modern: boolean;
-    Pauper: boolean;
-    Legacy: boolean;
-    Penny: boolean;
-    Vintage: boolean;
-    Duel: boolean;
-    Commander: boolean;
-    '1v1': boolean;
-    Future: boolean;
-}
-
 export class DecksPage extends React.Component<DecksProps, {}> {
     constructor(props: DecksProps) {
         super(props);
@@ -28,42 +14,17 @@ export class DecksPage extends React.Component<DecksProps, {}> {
     }
 
     public render() {
-        const deckLegal = new DeckLegal();
         const { decks } = this.props.decks;
         const deck = decks.find((d) => d.isCurrent);
-        {/* Foreach card in a deck, find all legalities. Then reduce to legalities that all cards share. */}
-        if (deck && deck.cards) {
-            const cardLegalities = deck.cards.map((cardInDeck) => cardInDeck.card.legalities);
-            deckLegal.Standard = cardLegalities.every((legalities) => {                
-                return legalities.standard === 'legal';
-            });
-            deckLegal.Frontier = cardLegalities.every((legalities) => {                
-                return legalities.frontier === 'legal';
-            });
-            deckLegal.Modern = cardLegalities.every((legalities) => {                
-                return legalities.modern === 'legal';
-            });
-            deckLegal.Pauper = cardLegalities.every((legalities) => {                
-                return legalities.pauper === 'legal';
-            });
-            deckLegal.Legacy = cardLegalities.every((legalities) => {                
-                return legalities.legacy === 'legal';
-            });
-            deckLegal.Penny = cardLegalities.every((legalities) => {                
-                return legalities.penny === 'legal';
-            });
-        }
         return (
             <div className="decks">
                 {deck && 
                     <div className="deck">
                         <div className="checklist-wrapper">
                             <input type="text" className="name" defaultValue={deck.name} />
-                            {Object.keys(deckLegal).map((legality, key) => {
+                            {deck.formats.filter((format) => format.isLegal).map((format, key) => {
                                 return (
-                                    <div className="legality" key={key}>
-                                        {deckLegal[legality] ? `Legal in ${legality}` : `Not legal in ${legality}`}
-                                    </div>
+                                    <span className="format" key={key}>Legal in {format.name}</span>
                                 );
                             })}
                             <table className="checklist">
