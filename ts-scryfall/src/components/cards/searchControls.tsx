@@ -7,7 +7,7 @@ interface SortProps {
     cardFormat: CardFormat;
     resultCount: number;
     hasMore: boolean;
-    updateSearchTerms: (searchTerms: SearchTerms) => void;
+    fetchFilteredCards: (searchTerms: SearchTerms) => void;
     changeListDisplay: (cardFormat: CardFormat) => void;
 }
 
@@ -94,12 +94,12 @@ export class SearchControls extends React.Component<SortProps, {}> {
     
     private orderChange (order: SearchOrder) {        
         const newSearchTerms = {...this.props.searchTerms, order};
-        this.props.updateSearchTerms(newSearchTerms);
+        this.props.fetchFilteredCards(newSearchTerms);
     }
 
     private updatePage (page: number) {
         const newSearchTerms = {...this.props.searchTerms, page};
-        this.props.updateSearchTerms(newSearchTerms);
+        this.props.fetchFilteredCards(newSearchTerms);
     }
 
     private changeListDisplay (cardFormat: CardFormat) {

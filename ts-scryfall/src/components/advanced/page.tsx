@@ -16,7 +16,7 @@ enum Color {
 interface AdvanceSearchProps {
     searchTerms: SearchTerms;
     fetchSets: () => void;
-    updateSearchTerms: (searchTerms: SearchTerms) => void;
+    fetchFilteredCards: (searchTerms: SearchTerms) => void;
     sets: Set[];
 }
 
@@ -31,7 +31,6 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
         this.state = {
             searchTerms: props.searchTerms
         };
-        console.log(props.searchTerms);
         
         document.title = 'Advance Search | TS Scryfall';
     }
@@ -995,7 +994,7 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
         const q = searchQueryArray.join(' ').trim();
         const newSearchTerms = { ...this.state.searchTerms, q, page: 1, order: SearchOrder.Name };
         
-        this.props.updateSearchTerms(newSearchTerms);
+        this.props.fetchFilteredCards(newSearchTerms);
         this.props.history.push('/cards/' + q);       
     }
 

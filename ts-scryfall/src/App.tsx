@@ -16,22 +16,22 @@ export class App extends React.Component<Props & RouteComponentProps<Props>, Sta
   constructor(props: Props & RouteComponentProps<Props>) {
     super(props);
 
-    this.updateSearchTerms = this.updateSearchTerms.bind(this);
+    this.fetchFilteredCards = this.fetchFilteredCards.bind(this);
   }
 
-  public render() {     
+  public render() {         
     const { searchTerms } = this.props; 
     
     return (
         <div id="body">
-          <Header {...this.props} updateSearchTerms={this.updateSearchTerms} />
-          <ScryfallRouter searchTerms={searchTerms} updateSearchTerms={this.updateSearchTerms} location={location} />
+          <Header {...this.props} fetchFilteredCards={this.fetchFilteredCards} />
+          <ScryfallRouter searchTerms={searchTerms} fetchFilteredCards={this.fetchFilteredCards} location={location} />
           <Footer />
       </div>
     );
   }
   
-  private updateSearchTerms(searchTerms: SearchTerms) {
+  private fetchFilteredCards(searchTerms: SearchTerms, getAll: boolean = false) {
     const newSearchTerms = {...this.props.searchTerms, ...searchTerms}; 
     
     this.props.fetchFilteredCards(newSearchTerms);

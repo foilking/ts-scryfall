@@ -209,7 +209,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
               </span>
             </Link>
 
-            <Link className="reference-example" to="/cards/color>=uw+-c:red">
+            <Link className="reference-example" to="/cards/color>=uw -c:red">
               <span className="reference-example-text">
                 <code>color&gt;=uw -c:red</code>
                 <span>Cards that are at least white and blue, but not&nbsp;red<p />
@@ -217,7 +217,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
               </span>
             </Link>
 
-            <Link className="reference-example" to="/cards/id≤esper+t:instant">
+            <Link className="reference-example" to="/cards/id≤esper t:instant">
               <span className="reference-example-text">
                 <code>id&lt;=esper t:instant</code>
                 <span>Instants you can play with an Esper&nbsp;commander<p />
@@ -225,7 +225,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
               </span>
             </Link>
 
-            <Link className="reference-example" to="/cards/id:c+t:land">
+            <Link className="reference-example" to="/cards/id:c t:land">
               <span className="reference-example-text">
                 <code>id:c t:land</code>
                 <span>Land cards with colorless&nbsp;identity<p />
@@ -256,7 +256,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards/t:merfolk+t:legend">
+            <Link className="reference-example" to="/cards/t:merfolk t:legend">
               <span className="reference-example-text">
                 <code>t:merfolk t:legend</code>
                 <span>Legendary merfolk&nbsp;cards<p />
@@ -264,7 +264,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
               </span>
             </Link>
 
-            <Link className="reference-example" to="/cards/t:goblin+-t:creature">
+            <Link className="reference-example" to="/cards/t:goblin -t:creature">
               <span className="reference-example-text">
                 <code>t:goblin -t:creature</code>
                 <span>Goblin cards that aren’t&nbsp;creatures<p />
@@ -301,7 +301,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards/o:draw+t:creature">
+            <Link className="reference-example" to="/cards/o:draw t:creature">
               <span className="reference-example-text">
                 <code>o:draw t:creature</code>
                 <span>Creatures that deal with drawing&nbsp;cards<p />
@@ -309,7 +309,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
               </span>
             </Link>
 
-            <Link className="reference-example" to={`/cards/o:"~+enters+the+battlefield+tapped"`}>
+            <Link className="reference-example" to={`/cards/o:"~ enters the battlefield tapped"`}>
               <span className="reference-example-text">
                 <code>o:"~ enters the battlefield tapped"</code>
                 <span>Cards that enter the battlefield&nbsp;tapped<p />
@@ -376,7 +376,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
               </span>
             </Link>
 
-            <Link className="reference-example" to="/cards/c:u+cmc=5">
+            <Link className="reference-example" to="/cards/c:u cmc=5">
               <span className="reference-example-text">
                 <code>c:u cmc=5</code>
                 <span>Blue cards with converted mana cost&nbsp;5<p />
@@ -396,7 +396,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
             <h2 className="reference-block-header">
               <span className="reference-block-icon"><svg aria-hidden="true" focusable="false" className="" width="33" height="32" viewBox="0 0 33 32" xmlns="http://www.w3.org/2000/svg"><path d="M3.12 21h15v5c0 .551-.45 1-1 1h-14c-.55 0-1-.449-1-1v-5h1zm0-19.001h14c.55 0 1 .45 1 1.001v16.342h-16V3c0-.551.45-1.001 1-1.001zM26.12 14h3c.55 0 1 .448 1 1v14c0 .552-.45 1-1 1h-23c-.55 0-1-.448-1-1h12c1.66 0 3-1.343 3-3V14h6zm-20 18h23c1.66 0 3-1.343 3-3V15a2.995 2.995 0 0 0-3-2.999h-9V3c0-1.656-1.34-3-3-3h-14c-1.66 0-3 1.344-3 3v23c0 1.657 1.34 3 3 3 0 1.657 1.34 3 3 3zM23.83 5.293l-1.42 1.414L24.706 9l2.415 2.414L29.537 9l2.294-2.293-1.42-1.414-2.29 2.292V5c0-2.761-2.24-5-5-5h-2v2h2c1.65 0 3 1.346 3 3v2.585l-2.29-2.292h-.001z" /></svg></span>
               Power, Toughness, and Loyalty
-      </h2>
+            </h2>
 
             <p>You can use numeric expressions (<code>&gt;</code>, <code>&lt;</code>, <code>=</code>, <code>&gt;=</code>, <code>&lt;=</code>, and <code>!=</code>)
               to find cards with certain
@@ -417,7 +417,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
               </span>
             </Link>
 
-            <Link className="reference-example" to="/cards/pow>tou+c:w+t:creature">
+            <Link className="reference-example" to="/cards/pow>tou c:w t:creature">
               <span className="reference-example-text">
                 <code>pow&gt;tou c:w t:creature</code>
                 <span>White creatures that are&nbsp;top-heavy<p />
@@ -425,7 +425,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
               </span>
             </Link>
 
-            <Link className="reference-example" to="/cards/t:planeswalker+loy=3">
+            <Link className="reference-example" to="/cards/t:planeswalker loy=3">
               <span className="reference-example-text">
                 <code>t:planeswalker loy=3</code>
                 <span>Planeswalkers that start at 3&nbsp;loyalty<p />
@@ -502,7 +502,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards/c:brm+is:spell+f:duel">
+            <Link className="reference-example" to="/cards/c:brm is:spell f:duel">
               <span className="reference-example-text">
                 <code>c:brm is:spell f:duel</code>
                 <span>Black and red multicolor spells in Duel&nbsp;Commander<p />
@@ -510,7 +510,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
               </span>
             </Link>
 
-            <Link className="reference-example" to="/cards/is:permanent+t:rebel">
+            <Link className="reference-example" to="/cards/is:permanent t:rebel">
               <span className="reference-example-text">
                 <code>is:permanent t:rebel</code>
                 <span>Rebel&nbsp;permanents<p />
@@ -575,7 +575,7 @@ export const Reference: React.StatelessComponent<{}> = () => {
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards/power+include:extras">
+            <Link className="reference-example" to="/cards/power include:extras">
               <span className="reference-example-text">
                 <code>power include:extras</code>
                 <span>Cards with “power” in their name, including&nbsp;extras<p />
@@ -662,21 +662,21 @@ that once appeared in Alpha.</p>
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards/e:c16+not:reprint">
+            <Link className="reference-example" to="/cards/e:c16 not:reprint">
               <span className="reference-example-text">
                 <code>e:c16 not:reprint</code>
                 <span>Cards that were new in Commander&nbsp;2016<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards/in:lea+in:m15">
+            <Link className="reference-example" to="/cards/in:lea in:m15">
               <span className="reference-example-text">
                 <code>in:lea in:m15</code>
                 <span>Cards that were in both Alpha and Magic&nbsp;2015<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards/e:ktk+is:unique">
+            <Link className="reference-example" to="/cards/e:ktk is:unique">
               <span className="reference-example-text">
                 <code>e:ktk is:unique</code>
                 <span>Cards that were in Khans of Tarkir and not printed in any other&nbsp;set<p />
@@ -690,7 +690,7 @@ that once appeared in Alpha.</p>
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards/e:arn+papersets=1">
+            <Link className="reference-example" to="/cards/e:arn papersets=1">
               <span className="reference-example-text">
                 <code>e:arn papersets=1</code>
                 <span>Cards that were printed in Arabian Nights but never reprinted in&nbsp;paper<p />
@@ -711,11 +711,9 @@ that once appeared in Alpha.</p>
               <span className="reference-block-icon"><svg aria-hidden="true" focusable="false" className="" width="51" height="56" viewBox="0 0 51 56" xmlns="http://www.w3.org/2000/svg"><path d="M25.045.685L.76 10.4c-.45.18-.765.653-.76 1.137V44.32c.002.48.316.94.76 1.12l24.285 9.714c.288.117.622.117.91 0L50.24 45.44c.444-.18.758-.64.76-1.12V11.538c.005-.484-.31-.956-.76-1.138L25.956.684c-.394-.127-.708-.06-.91 0zm.455 2.448l21.003 8.385L25.5 19.923 4.497 11.518 25.5 3.133zM2.43 13.32l21.856 8.747v30.146L2.43 43.486V13.32zm46.14 0v30.166l-21.856 8.727V22.067L48.57 13.32z" fillRule="nonzero" fill="#000" /></svg>
               </span>
               Cubes
-      </h2>
+            </h2>
 
-            <p>Find cards that are part of cube lists using the
-<code>cube:</code> keyword. The currently supported cubes are
-<code>legacy</code>, <code>twisted</code>, <code>april</code>, <code>vintage</code>, and <code>modern</code>.</p>
+            <p>Find cards that are part of cube lists using the <code>cube:</code> keyword. The currently supported cubes are <code>legacy</code>, <code>twisted</code>, <code>april</code>, <code>vintage</code>, and <code>modern</code>.</p>
 
           </div>
 
@@ -728,7 +726,7 @@ that once appeared in Alpha.</p>
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards/cube:modern+t:planeswalker">
+            <Link className="reference-example" to="/cards/cube:modern t:planeswalker">
               <span className="reference-example-text">
                 <code>cube:modern t:planeswalker</code>
                 <span>Planeswalkers in the Modern&nbsp;Cube<p />
@@ -748,22 +746,15 @@ that once appeared in Alpha.</p>
             <h2 className="reference-block-header">
               <span className="reference-block-icon"><svg aria-hidden="true" focusable="false" className="" width="33" height="25" viewBox="0 0 33 25" xmlns="http://www.w3.org/2000/svg"><path d="M25.788 18H8.561l-1.996-6-.665-2-1-3h1.555l1 3 .666 2 1 3h17.222l.998 3h-1.553zm-.447 5.001H6.561L2.89 12h1.564l2.666 8h17.223l.998 3.001zM27.788 13H10.561l-.333-1-.668-2-1.001-3-.667-2-1.001-3h18.79l3.67 11h-1.563zM4.121 0l1.667 5H2.121l1.667 5H.121l5 15h23l-1.666-5h3.666l-1.666-5h3.666l-5-15h-23z" fillRule="evenodd" /></svg></span>
               Format Legality
-      </h2>
+            </h2>
 
-            <p>Use the <code>f:</code> or <code>format:</code> keywords
-to find cards that are legal in a given format.</p>
+            <p>Use the <code>f:</code> or <code>format:</code> keywords to find cards that are legal in a given format.</p>
 
-            <p>The current supported formats are:
-<code>standard</code>, <code>modern</code>, <code>legacy</code>, <code>vintage</code>, <code>commander</code>,
-<code>future</code> (future Standard),
-<code>pauper</code>, <code>frontier</code>, <code>penny</code> (Penny Dreadful),
-<code>1v1</code> (1v1 Commander), and <code>duel</code> (Duel Commander).</p>
+            <p>The current supported formats are: <code>standard</code>, <code>modern</code>, <code>legacy</code>, <code>vintage</code>, <code>commander</code>, <code>future</code> (future Standard), <code>pauper</code>, <code>frontier</code>, <code>penny</code> (Penny Dreadful), <code>1v1</code> (1v1 Commander), and <code>duel</code> (Duel Commander).</p>
 
             <p>Use <code>is:commander</code> to find cards that can be your commander.</p>
 
-            <p>You can also find cards that are explicitly
-banned in a format with the <code>banned:</code> keyword and
-restricted with the <code>restricted:</code> keyword.</p>
+            <p>You can also find cards that are explicitly banned in a format with the <code>banned:</code> keyword and restricted with the <code>restricted:</code> keyword.</p>
 
             <p>Finally, you can find cards on the Reserved List with <code>is:reserved</code>.</p>
 
@@ -771,7 +762,7 @@ restricted with the <code>restricted:</code> keyword.</p>
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards/c:g+t:creature+f:pauper">
+            <Link className="reference-example" to="/cards/c:g t:creature f:pauper">
               <span className="reference-example-text">
                 <code>c:g t:creature f:pauper</code>
                 <span>Green creatures in Pauper&nbsp;format<p />
@@ -812,24 +803,22 @@ restricted with the <code>restricted:</code> keyword.</p>
             <h2 className="reference-block-header">
               <span className="reference-block-icon"><svg aria-hidden="true" focusable="false" className="" width="33" height="30" viewBox="0 0 33 30" xmlns="http://www.w3.org/2000/svg"><path d="M27.27 19.44c.54.55.85 1.29.85 2.06s-.31 1.51-.85 2.06l-.854.855a3.513 3.513 0 0 0-.71-.71l.855-.855c.36-.36.56-.84.56-1.35 0-.51-.2-.99-.56-1.35l-1.34-1.35-.004-.005L23.411 17H3.891l-1.5-12h23.46l-.08.64.907-.907.837-.836.006-.007.63-.63.019-.018c-.02-.08-.05-.156-.05-.242 0-.55.45-1 1-1 .097 0 .184.03.272.055l.019-.015.21-.04c.13 0 .26.05.35.15.15.15.19.37.11.56l-.015.019c.026.088.055.175.055.27 0 .55-.45 1-1 1-.085 0-.162-.028-.241-.048l-.02.019-1.01 1-.005.006-.463.463-1.411 1.41a.47.47 0 0 1-.35.15h-.02l-.247 1.973-.66 5.28-.29 2.32.007.008 1.57 1.57.01.01 1.28 1.28h-.001zM10.07 27c.024-.165.05-.33.05-.5 0-.171-.026-.335-.05-.5h10.102c-.024.165-.051.329-.051.5 0 .17.027.335.05.5H10.07zm-4.95-.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5-1.5-.67-1.5-1.5zm17 0c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5-1.5-.67-1.5-1.5zm7.6-20.56A2.997 2.997 0 0 0 32.12 3c0-1.66-1.34-3-3-3a2.996 2.996 0 0 0-2.94 2.4l-.6.6H2.39C1.18 3 .25 4.05.4 5.25l1.5 12c.13 1 .98 1.75 1.99 1.75h18.69l2.5 2.5-1.503 1.504a3.49 3.49 0 0 0-2.398.996H9.063c-.651-.64-1.528-1-2.442-1-1.757 0-3.202 1.306-3.45 2.996-.023.166-.05.33-.05.504 0 .173.027.338.05.504C3.419 28.694 4.864 30 6.621 30c.95 0 1.81-.383 2.442-1h12.116c.632.617 1.492 1 2.442 1a3.502 3.502 0 0 0 3.496-3.462l1.564-1.558c.92-.93 1.44-2.18 1.44-3.48 0-1.3-.52-2.55-1.44-3.48l-2.165-2.165.958-7.668 2.247-2.247h-.001z" fillRule="evenodd" /></svg></span>
               USD/EUR/TIX prices
-      </h2>
+            </h2>
 
-            <p>You can find prints within certain <code>usd</code>, <code>eur</code>, <code>tix</code> price
-ranges by comparing them with a
-numeric expression (<code>&gt;</code>, <code>&lt;</code>, <code>=</code>, <code>&gt;=</code>, <code>&lt;=</code>, and <code>!=</code>)</p>
+            <p>You can find prints within certain <code>usd</code>, <code>eur</code>, <code>tix</code> price ranges by comparing them with a numeric expression (<code>&gt;</code>, <code>&lt;</code>, <code>=</code>, <code>&gt;=</code>, <code>&lt;=</code>, and <code>!=</code>)</p>
 
           </div>
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards?as=checklist&amp;order=tix&amp;q=tix>15.00">
+            <Link className="reference-example" to="/cards/tix>15.00?as=checklist&amp;order=tix">
               <span className="reference-example-text">
                 <code>tix&gt;15.00</code>
                 <span>Cards that cost more than 15 TIX at MTGO&nbsp;stores<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards?as=checklist&amp;order=usd&amp;q=usd>=0.50+e:ema">
+            <Link className="reference-example" to="/cards/q=usd>=0.50 e:ema?as=checklist&amp;order=usd">
               <span className="reference-example-text">
                 <code>usd&gt;=0.50 e:ema</code>
                 <span>Cards worth 50¢ or more in Eternal&nbsp;Masters<p />
@@ -849,19 +838,15 @@ numeric expression (<code>&gt;</code>, <code>&lt;</code>, <code>=</code>, <code>
             <h2 className="reference-block-header">
               <span className="reference-block-icon"><svg aria-hidden="true" focusable="false" className="" width="33" height="28" viewBox="0 0 33 28" xmlns="http://www.w3.org/2000/svg"><path d="M5.794 25.16l.847-.85-.347-1.15A4.001 4.001 0 0 1 10.121 18c2.206 0 4 1.79 4 4s-1.794 4-4 4H4.949l.845-.84zm9.626-13.08l1.18-.897 4.34 4.34-.895 1.177c-.5.66-1.712 1.21-2.648 1.21-.094 0-.183 0-.263-.01l-1.06-.16c-.75-.1-1.59-.94-1.697-1.69l-.152-1.06c-.13-.91.462-2.36 1.195-2.91zm11.924-9.07c.779-.59 1.712-.94 2.128-.97.206.11.498.4.614.61-.032.34-.31 1.25-.973 2.13l-7.565 9.943-4.15-4.148 9.946-7.565zM10.12 28a6.002 6.002 0 0 0 5.537-8.312c.044.008.088.026.133.032l1.06.16c.177.02.359.03.546.03 1.539 0 3.349-.83 4.24-2l9.068-11.92c.999-1.32 1.59-3.06 1.316-3.89-.275-.83-1.175-1.72-2-2a1.413 1.413 0 0 0-.481-.07c-.913 0-2.312.55-3.407 1.39l-11.924 9.06c-1.313 1-2.197 3.16-1.964 4.79l.152 1.06c.006.045.023.088.032.132a6.002 6.002 0 0 0-8.049 7.278L.119 28H10.12z" fillRule="evenodd" /></svg></span>
               Artist, Flavor Text and Watermark
-      </h2>
+            </h2>
 
-            <p>Search for cards illustrated by a
-certain artist with the <code>a:</code>, <code>art:</code>, or <code>artist:</code> keywords.</p>
+            <p>Search for cards illustrated by a certain artist with the <code>a:</code>, <code>art:</code>, or <code>artist:</code> keywords.</p>
 
-            <p>Search for words in a card’s flavor text using the
-<code>ft:</code> or <code>flavor:</code> keywords.</p>
+            <p>Search for words in a card’s flavor text using the <code>ft:</code> or <code>flavor:</code> keywords.</p>
 
-            <p>Search for a card’s affiliation watermark using the
-<code>wm:</code> or <code>watermark:</code> keywords.</p>
+            <p>Search for a card’s affiliation watermark using the <code>wm:</code> or <code>watermark:</code> keywords.</p>
 
-            <p>For any of these, you can wrap statements with spaces
-or punctuation in quotes <code>" "</code>.</p>
+            <p>For any of these, you can wrap statements with spaces or punctuation in quotes <code>" "</code>.</p>
 
           </div>
 
@@ -881,7 +866,7 @@ or punctuation in quotes <code>" "</code>.</p>
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards/ft:designed+e:m15">
+            <Link className="reference-example" to="/cards/ft:designed e:m15">
               <span className="reference-example-text">
                 <code>ft:designed e:m15</code>
                 <span>Cards created by guest designers in Magic&nbsp;2015<p />
@@ -908,35 +893,28 @@ or punctuation in quotes <code>" "</code>.</p>
             <h2 className="reference-block-header">
               <span className="reference-block-icon"><svg aria-hidden="true" focusable="false" className="" width="33" height="32" viewBox="0 0 33 32" xmlns="http://www.w3.org/2000/svg"><g fillRule="evenodd"><path d="M2.121 30h28V2h-28v28zm28-30.001h-28c-1.1 0-2 .897-2 2.001v28c0 1.105.9 2 2 2h28c1.1 0 2-.895 2-2V2c0-1.104-.9-2.001-2-2.001z" /><path d="M5.121 11h22V5h-22v6zm-1 1h24V4h-24v8zm1 15h6V14h-6v13zm-1 1h8V13h-8v15zm10-1h13V14h-13v13zm-1 1h15V13h-15v15z" /></g></svg></span>
               Border, Frame &amp; Resolution
-      </h2>
+            </h2>
 
-            <p>Use the <code>border:</code> keyword
-to find cards with a <code>black</code>, <code>white</code>, or <code>silver</code> border.</p>
+            <p>Use the <code>border:</code> keyword to find cards with a <code>black</code>, <code>white</code>, or <code>silver</code> border.</p>
 
-            <p>You can find cards with a certain frame edition with
-<code>is:new</code>, <code>is:modern</code>, <code>is:old</code>, and <code>is:future</code>. You can find
-cards with full art using <code>is:full</code>.</p>
+            <p>You can find cards with a certain frame edition with <code>is:new</code>, <code>is:modern</code>, <code>is:old</code>, and <code>is:future</code>. You can find cards with full art using <code>is:full</code>.</p>
 
-            <p>Because the definition of “new” will shift over time,
-you can also search for <code>frame:1993</code>,
-<code>frame:2003</code>, <code>frame:2015</code>, and <code>frame:future</code>,
-which will not change.</p>
+            <p>Because the definition of “new” will shift over time, you can also search for <code>frame:1993</code>, <code>frame:2003</code>, <code>frame:2015</code>, and <code>frame:future</code>, which will not change.</p>
 
-            <p>You can find cards in our database with high-resolution images
-using <code>is:hires</code>.</p>
+            <p>You can find cards in our database with high-resolution images using <code>is:hires</code>.</p>
 
           </div>
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards/border:white+t:creature">
+            <Link className="reference-example" to="/cards/border:white t:creature">
               <span className="reference-example-text">
                 <code>border:white t:creature</code>
                 <span>White-bordered creature&nbsp;cards<p />
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards/is:new+r:mythic">
+            <Link className="reference-example" to="/cards/is:new r:mythic">
               <span className="reference-example-text">
                 <code>is:new r:mythic</code>
                 <span>Mythic cards with the 2015 holofoil-stamp&nbsp;frame<p />
@@ -963,14 +941,11 @@ using <code>is:hires</code>.</p>
             <h2 className="reference-block-header">
               <span className="reference-block-icon"><svg aria-hidden="true" focusable="false" className="" width="33" height="32" viewBox="0 0 33 32" xmlns="http://www.w3.org/2000/svg"><path d="M6.66 4.77l-.85.66.34 1.01.15.42-.26-.2-.92-.7-.92.7-.26.2.15-.42.34-1.01-.85-.66-.29-.22h1.44l.35-1.02.04-.12.04.12.35 1.02h1.44l-.29.22zm2.86-1.72H6.58L5.68.42A.587.587 0 0 0 5.12 0c-.23 0-.47.14-.56.42l-.9 2.63H.72c-.58 0-.82.77-.35 1.13l2.3 1.78-1.09 3.2c-.16.44.18.84.56.84.12 0 .24-.04.36-.12l2.62-2.03 2.63 2.03c.11.08.23.12.35.12.38 0 .72-.4.56-.84l-1.09-3.2 2.3-1.78c.47-.36.23-1.13-.35-1.13zm-5.86 12.5h1.07l.35-1.02.04-.12.04.12.35 1.02h1.44l-.29.22-.85.66.34 1.01.15.42-.26-.2-.92-.7-.92.7-.26.2.15-.42.34-1.01-.85-.66-.29-.22h.37zm-3.29-.37l2.3 1.78-1.09 3.2c-.16.44.18.84.56.84.12 0 .24-.04.36-.12l2.62-2.03 2.63 2.03c.11.08.23.12.35.12.38 0 .72-.4.56-.84l-1.09-3.2 2.3-1.78c.47-.36.23-1.13-.35-1.13H6.58l-.89-2.63a.598.598 0 0 0-.57-.42c-.23 0-.47.14-.56.42l-.9 2.63H.72c-.58 0-.82.77-.35 1.13zm3.29 11.37h1.07l.35-1.02.04-.12.04.12.35 1.02h1.44l-.29.22-.85.66.34 1.01.15.42-.26-.2-.92-.7-.92.7-.26.2.15-.42.34-1.01-.85-.66-.29-.22h.37zm-3.29-.37l2.3 1.78-1.09 3.2c-.16.44.18.84.56.84.12 0 .24-.04.36-.12l2.62-2.03 2.63 2.03c.11.08.23.12.35.12.38 0 .72-.4.56-.84l-1.09-3.2 2.3-1.78c.47-.36.23-1.13-.35-1.13H6.58l-.9-2.63a.587.587 0 0 0-.56-.42c-.23 0-.47.14-.56.42l-.9 2.63H.72c-.58 0-.82.77-.35 1.13zM12.121 7h20V5h-20v2zm0 11h20v-2h-20v2zm0 11h20v-2h-20v2z" fillRule="evenodd" /></svg></span>
               Games, Promos, &amp; Spotlights
-      </h2>
+            </h2>
 
-            <p>You can find specific prints available in different Magic game
-environments with the <code>game:</code> keyword.
-The games <code>paper</code>, <code>mtgo</code>, and <code>arena</code> are supported.</p>
+            <p>You can find specific prints available in different Magic game environments with the <code>game:</code> keyword. The games <code>paper</code>, <code>mtgo</code>, and <code>arena</code> are supported.</p>
 
-            <p>You can filter by a card’s availability in a game with the <code>in:</code> keyword.
-The games <code>paper</code>, <code>mtgo</code>, and <code>arena</code> are supported.</p>
+            <p>You can filter by a card’s availability in a game with the <code>in:</code> keyword. The games <code>paper</code>, <code>mtgo</code>, and <code>arena</code> are supported.</p>
 
             <p>Find prints that are only available digitally (MTGO and Arena) with <code>is:digital</code>.</p>
 
@@ -989,7 +964,7 @@ The games <code>paper</code>, <code>mtgo</code>, and <code>arena</code> are supp
                 </span>
               </span></Link>
 
-            <Link className="reference-example" to="/cards/-in:mtgo+f:legacy">
+            <Link className="reference-example" to="/cards/-in:mtgo f:legacy">
               <span className="reference-example-text">
                 <code>-in:mtgo f:legacy</code>
                 <span>Legacy legal cards not available on&nbsp;MTGO<p />
@@ -1023,10 +998,9 @@ The games <code>paper</code>, <code>mtgo</code>, and <code>arena</code> are supp
             <h2 className="reference-block-header">
               <span className="reference-block-icon"><svg aria-hidden="true" focusable="false" className="" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"><path d="M25 4c0-1.656-1.343-3-3-3s-3 1.344-3 3h-8c0-1.656-1.343-3-3-3s-3 1.344-3 3h-4v25h28v-25h-4zm-4 0c0-.551.448-1 1-1s1 .449 1 1v2c0 .551-.448 1-1 1s-1-.449-1-1v-2zm-14 0c0-.551.448-1 1-1s1 .449 1 1v2c0 .551-.448 1-1 1s-1-.449-1-1v-2zm20 23h-24v-14h24v14zm0-16h-24v-5h2c0 1.656 1.343 3 3 3s3-1.344 3-3h8c0 1.656 1.343 3 3 3s3-1.344 3-3h2v5zm-3 4h-14v4h-4v6h18v-10zm-14 8h-2v-2h2v2zm4 0h-2v-2h2v2zm0-4h-2v-2h2v2zm4 4h-2v-2h2v2zm0-4h-2v-2h2v2zm4 4h-2v-2h2v2zm0-4h-2v-2h2v2z" /></svg></span>
               Year
-      </h2>
+            </h2>
 
-            <p>You can use numeric expressions (<code>&gt;</code>, <code>&lt;</code>, <code>=</code>, <code>&gt;=</code>, <code>&lt;=</code>, and <code>!=</code>)
-to find cards that were released relative to a certain year.</p>
+            <p>You can use numeric expressions (<code>&gt;</code>, <code>&lt;</code>, <code>=</code>, <code>&gt;=</code>, <code>&lt;=</code>, and <code>!=</code>) to find cards that were released relative to a certain year.</p>
 
           </div>
 
@@ -1059,16 +1033,13 @@ to find cards that were released relative to a certain year.</p>
             <h2 className="reference-block-header">
               <span className="reference-block-icon"><svg aria-hidden="true" focusable="false" className="" width="26" height="32" viewBox="0 0 26 32" xmlns="http://www.w3.org/2000/svg"><g fillRule="evenodd"><path d="M9.12 2h6v2.65l-1.2.48-.004.002c-.01-.018-.02-.034-.028-.052a2.134 2.134 0 0 0-.25-.371c-.016-.018-.03-.038-.047-.056a2.023 2.023 0 0 0-.39-.332c-.012-.008-.027-.014-.04-.022a1.985 1.985 0 0 0-.53-.225 1.952 1.952 0 0 0-.51-.074 1.99 1.99 0 0 0-.63.11 1.988 1.988 0 0 0-.418.191c-.012.007-.025.012-.036.019a1.976 1.976 0 0 0-.387.331c-.02.02-.035.042-.053.063a1.983 1.983 0 0 0-.25.376l-.022.041-.004-.001-1.2-.48V2H9.12zm11.69 6.48l2.83 2.83-1.41 1.41-2.83-2.83 1.41-1.41zM22.12 20c0 5.51-4.49 10-10 10s-10-4.49-10-10c0-4.825 3.445-8.868 8-9.798 1.32-.27 2.68-.27 4 0 4.557.93 8 4.973 8 9.798zm-22 0c0 6.63 5.37 12 12 12s12-5.37 12-12c0-1.937-.468-3.76-1.282-5.379.293-.094.57-.249.803-.481l1.42-1.42c.78-.78.78-2.05 0-2.83l-2.83-2.83c-.78-.78-2.05-.78-2.83 0l-1.42 1.42c-.232.232-.387.51-.481.803a11.891 11.891 0 0 0-3.38-1.103v-.982l1.74-.698c.76-.3 1.26-1.04 1.26-1.85V2c0-1.1-.9-2-2-2h-6c-1.1 0-2 .9-2 2v2.65c0 .81.5 1.55 1.26 1.85l1.74.698v.982C4.446 9.133.12 14.053.12 20z" /><path d="M10.47 22.35l8-8-.7-.7-8 8z" /></g></svg></span>
               Shortcuts and Nicknames
-      </h2>
+            </h2>
 
-            <p>The search system includes a few convenience shortcuts for
-common card sets:</p>
+            <p>The search system includes a few convenience shortcuts for common card sets:</p>
 
             <p>You can find some interesting land groups with <code>is:bikeland</code> (alias <code>cycleland</code>, <code>bicycleland</code>), <code>is:bounceland</code> (alias <code>karoo</code>), <code>is:checkland</code>, <code>is:dual</code>, <code>is:fastland</code>, <code>is:fetchland</code>, <code>is:filterland</code>, <code>is:gainland</code>, <code>is:painland</code>, <code>is:scryland</code>, <code>is:shadowland</code>, <code>is:shockland</code>, <code>is:storageland</code>, and <code>is:tangoland</code> (alias <code>battleland</code>)</p>
 
-            <p>You can find color- and timeshifted
-cards from Time Spiral block with
-<code>is:colorshifted</code> and <code>is:timeshifted</code></p>
+            <p>You can find color- and timeshifted cards from Time Spiral block with <code>is:colorshifted</code> and <code>is:timeshifted</code></p>
 
             <p>You can find all Masterpiece Series cards with <code>is:masterpiece</code></p>
 
@@ -1079,23 +1050,22 @@ cards from Time Spiral block with
             <Link className="reference-example" to="/cards/is:dual">
               <span className="reference-example-text">
                 <code>is:dual</code>
-                <span>Cards that are dual&nbsp;lands<p />
-                </span>
+                <span>Cards that are dual&nbsp;lands<p /></span>
               </span></Link>
 
             <Link className="reference-example" to="/cards/is:fetchland">
               <span className="reference-example-text">
                 <code>is:fetchland</code>
-                <span>Cards that are&nbsp;fetchlands<p />
-                </span>
-              </span></Link>
+                <span>Cards that are&nbsp;fetchlands<p /></span>
+              </span>
+            </Link>
 
             <Link className="reference-example" to="/cards/is:colorshifted">
               <span className="reference-example-text">
                 <code>is:colorshifted</code>
-                <span>Colorshifted&nbsp;cards<p />
-                </span>
-              </span></Link>
+                <span>Colorshifted&nbsp;cards<p /></span>
+              </span>
+            </Link>
 
           </div>
 
@@ -1110,16 +1080,11 @@ cards from Time Spiral block with
             <h2 className="reference-block-header">
               <span className="reference-block-icon"><svg aria-hidden="true" focusable="false" className="" width="32" height="31" viewBox="0 0 32 31" xmlns="http://www.w3.org/2000/svg"><path d="M16.122 16.002h8.993v-1.004H6.125v1.004h8.993zM15.62 2c7.44 0 13.5 6.06 13.5 13.5S23.06 29 15.62 29s-13.5-6.06-13.5-13.5S8.18 2 15.62 2m0 29c8.56 0 15.5-6.94 15.5-15.5 0-8.56-6.94-15.5-15.5-15.5C7.06 0 .12 6.94.12 15.5c0 8.56 6.94 15.5 15.5 15.5" /></svg></span>
               Negating Conditions
-      </h2>
+            </h2>
 
-            <p>All keywords except for <code>include</code> can be negated by
-prefixing them with a hyphen (<code>-</code>).
-This inverts the meaning of the keyword to reject
-cards that matched what you’ve searched for.</p>
+            <p>All keywords except for <code>include</code> can be negated by prefixing them with a hyphen (<code>-</code>). This inverts the meaning of the keyword to reject cards that matched what you’ve searched for.</p>
 
-            <p>The <code>is:</code> keyword has a convenient inverted mode <code>not:</code>
-              which is the same as <code>-is:</code>.
-Conversely, <code>-not:</code> is the same as <code>is:</code>.</p>
+            <p>The <code>is:</code> keyword has a convenient inverted mode <code>not:</code> which is the same as <code>-is:</code>. Conversely, <code>-not:</code> is the same as <code>is:</code>.</p>
 
             <p>Loose name words can also be inverted with <code>-</code></p>
 
@@ -1127,26 +1092,26 @@ Conversely, <code>-not:</code> is the same as <code>is:</code>.</p>
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards/-fire+c:r+t:instant">
+            <Link className="reference-example" to="/cards/-fire c:r t:instant">
               <span className="reference-example-text">
                 <code>-fire c:r t:instant</code>
-                <span>Red instants without the word “fire” in their&nbsp;name<p />
-                </span>
-              </span></Link>
+                <span>Red instants without the word “fire” in their&nbsp;name<p /></span>
+              </span>
+            </Link>
 
-            <Link className="reference-example" to="/cards/o:changeling+-t:creature">
+            <Link className="reference-example" to="/cards/o:changeling -t:creature">
               <span className="reference-example-text">
                 <code>o:changeling -t:creature</code>
-                <span>Changeling cards that aren’t&nbsp;creatures<p />
-                </span>
-              </span></Link>
+                <span>Changeling cards that aren’t&nbsp;creatures<p /></span>
+              </span>
+            </Link>
 
-            <Link className="reference-example" to="/cards/not:reprint+e:c16">
+            <Link className="reference-example" to="/cards/not:reprint e:c16">
               <span className="reference-example-text">
                 <code>not:reprint e:c16</code>
-                <span>Cards in Commander 2016 that aren’t&nbsp;reprints<p />
-                </span>
-              </span></Link>
+                <span>Cards in Commander 2016 that aren’t&nbsp;reprints<p /></span>
+              </span>
+            </Link>
 
           </div>
 
@@ -1161,52 +1126,41 @@ Conversely, <code>-not:</code> is the same as <code>is:</code>.</p>
             <h2 className="reference-block-header">
               <span className="reference-block-icon"><svg aria-hidden="true" focusable="false" className="" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"><path d="M14 30h2v-2.051c1.642-.125 3.193-.557 4.608-1.234l1.025 1.775 1.731-1-1.021-1.768c1.323-.908 2.47-2.055 3.378-3.377l1.768 1.02.999-1.731-1.775-1.024c.679-1.415 1.11-2.968 1.235-4.609h2.052v-2h-2.051c-.125-1.642-.557-3.193-1.235-4.608l1.776-1.025-1-1.732-1.768 1.021c-.908-1.322-2.055-2.469-3.377-3.377l1.021-1.768-1.732-1-1.025 1.775c-1.416-.68-2.967-1.111-4.609-1.236v-2.051h-2v2.051c-1.642.125-3.193.557-4.608 1.234l-1.026-1.775-1.732 1 1.021 1.768c-1.323.908-2.469 2.054-3.378 3.376l-1.767-1.02-1.001 1.731 1.777 1.026c-.679 1.416-1.11 2.967-1.235 4.609h-2.051v2h2.051c.125 1.642.557 3.193 1.235 4.608l-1.776 1.026 1 1.732 1.768-1.021c.908 1.322 2.055 2.469 3.377 3.377l-1.021 1.768 1.732 1 1.025-1.775c1.415.678 2.967 1.109 4.608 1.234v2.051zm1-4c-1.647 0-3.204-.372-4.606-1.021l3.544-6.139c.34.094.692.16 1.062.16 1.861 0 3.412-1.277 3.858-3h7.091c-.506 5.605-5.212 10-10.949 10zm0-13c1.104 0 2 .896 2 2s-.896 2-2 2-2-.896-2-2 .896-2 2-2zm10.949 1h-7.091c-.446-1.723-1.997-3-3.858-3-.37 0-.722.066-1.063.16l-3.544-6.139c1.403-.649 2.96-1.021 4.607-1.021 5.737 0 10.443 4.395 10.949 10zm-21.949 1c0-3.712 1.844-6.988 4.66-8.98l3.539 6.129c-.739.726-1.199 1.734-1.199 2.851s.46 2.125 1.199 2.852l-3.539 6.128c-2.816-1.992-4.66-5.268-4.66-8.98z" /></svg></span>
               Regular Expressions
-      </h2>
+            </h2>
 
-            <p>The <code>regex:</code> or <code>re:</code> keywords are available to filter
-Oracle text against a regular expression pattern.</p>
+            <p>The <code>regex:</code> or <code>re:</code> keywords are available to filter Oracle text against a regular expression pattern.</p>
 
-            <p>Scryfall supports
-wildcards <code>*</code> and <code>~</code>,
-option groups <code>(|)</code>,
-classes
-<code>\d</code>,
-<code>\d+</code>,
-<code>\w</code>,
-and <code>\w+</code>,
-and anchors
-<code>(?!)</code>,
-<code>\b</code>,
-<code>^</code>,
-and <code>$</code>.</p>
+            <p>Scryfall supports wildcards <code>*</code> and <code>~</code>, option groups <code>(|)</code>, classes <code>\d</code>, <code>\d+</code>, <code>\w</code>, and <code>\w+</code>, and anchors <code>(?!)</code>, <code>\b</code>, <code>^</code>, and <code>$</code>.</p> 
 
-            <p>Full documentation for this keyword is available on
-our <a href="/docs/regular-expressions" rel="nofollow noreferrer">Regular Expressions help page</a>.</p>
+            <p>Full documentation for this keyword is available on our <a href="/docs/regular-expressions" rel="nofollow noreferrer">Regular Expressions help page</a>.</p>
 
           </div>
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to={`/cards/t:creature+re:"^{T}:"`}>
+            <Link className="reference-example" to={`/cards/t:creature re:"^{T}:"`}>
               <span className="reference-example-text">
                 <code>t:creature re:"^{`T`}:"</code>
                 <span>Creatures that tap with no other&nbsp;payment<p />
                 </span>
-              </span></Link>
+              </span>
+            </Link>
 
-            <Link className="reference-example" to={`/cards/t:instant+re:"+\\d/+\\d"`}>
+            <Link className="reference-example" to={`/cards/t:instant re:"+\\d/+\\d"`}>
               <span className="reference-example-text">
                 <code>t:instant re:"+\d/+\d"</code>
                 <span>Instants that provide +X/+X&nbsp;effects<p />
                 </span>
-              </span></Link>
+              </span>
+            </Link>
 
-            <Link className="reference-example" to={`/cards/t:land+re:"({W}|{U}|any)"`}>
+            <Link className="reference-example" to={`/cards/t:land re:"({W}|{U}|any)"`}>
               <span className="reference-example-text">
                 <code>t:land re:"({`W`}|{`U`}|any)"</code>
                 <span>Lands that mention white, blue, or “any”&nbsp;mana<p />
                 </span>
-              </span></Link>
+              </span>
+            </Link>
 
           </div>
 
@@ -1221,10 +1175,9 @@ our <a href="/docs/regular-expressions" rel="nofollow noreferrer">Regular Expres
             <h2 className="reference-block-header">
               <span className="reference-block-icon"><svg aria-hidden="true" focusable="false" className="" width="33" height="24" viewBox="0 0 33 24" xmlns="http://www.w3.org/2000/svg"><g fillRule="evenodd"><path d="M2.12 5V3c0-.55.45-1 1-1h26c.55 0 1 .45 1 1v2h-28zm0 3h28V6h-28v2zm28 13c0 .55-.45 1-1 1h-26c-.55 0-1-.45-1-1V9h28v12zm-1-21h-26c-1.66 0-3 1.34-3 3v18c0 1.66 1.34 3 3 3h26c1.66 0 3-1.34 3-3V3c0-1.66-1.34-3-3-3z" /><path d="M17.121 18h10v-1h-10v1zm0-3h10v-1h-10v1zM5.12 21c.03-1.11.95-2 2.06-2h.44c.39 0 .75-.24.91-.6.16-.36.09-.79-.18-1.08-.75-.81-1.23-2.14-1.23-3.38 0-1.79.98-2.94 2.5-2.94s2.5 1.15 2.5 2.94c0 1.24-.48 2.57-1.23 3.38-.27.29-.34.72-.18 1.08.16.36.52.6.91.6h.44c1.11 0 2.03.89 2.06 2h.995a3.057 3.057 0 0 0-3.054-3h-.44c.91-.98 1.5-2.54 1.5-4.06 0-2.49-1.57-3.94-3.5-3.94s-3.5 1.45-3.5 3.94c0 1.52.59 3.08 1.5 4.06h-.44a3.057 3.057 0 0 0-3.054 3h.994-.001z" /></g></svg></span>
               Exact Names
-      </h2>
+            </h2>
 
-            <p>If you prefix words or quoted phrases with <code>!</code>
-              you will find cards with that exact name only.</p>
+            <p>If you prefix words or quoted phrases with <code>!</code> you will find cards with that exact name only.</p>
 
             <p>This is still case-insensitive.</p>
 
@@ -1237,14 +1190,16 @@ our <a href="/docs/regular-expressions" rel="nofollow noreferrer">Regular Expres
                 <code>!fire</code>
                 <span>The card&nbsp;Fire<p />
                 </span>
-              </span></Link>
+              </span>
+            </Link>
 
-            <Link className="reference-example" to={`/cards/!"sift+through+sands"`}>
+            <Link className="reference-example" to={`/cards/!"sift through sands"`}>
               <span className="reference-example-text">
                 <code>!"sift through sands"</code>
                 <span>The card Sift Through&nbsp;Sands<p />
                 </span>
-              </span></Link>
+              </span>
+            </Link>
 
           </div>
 
@@ -1259,48 +1214,47 @@ our <a href="/docs/regular-expressions" rel="nofollow noreferrer">Regular Expres
             <h2 className="reference-block-header">
               <span className="reference-block-icon"><svg aria-hidden="true" focusable="false" className="" width="33" height="22" viewBox="0 0 33 22" xmlns="http://www.w3.org/2000/svg"><path d="M2.12 3.738l2 1.334v11.855l-2 1.336V3.738zm28 0v14.525l-2-1.336V5.073l2-1.335zm-4 2.67V17.65l-2-1.713V6.063l2-1.714v2.059zm-4-1.13V18h-12V4h12v1.278zm-16 10.314V4.349l2 1.714v9.874l-2 1.713v-2.058zM.98 21.176c.24 0 .51-.092.8-.285l2.34-1.561V20c0 .7.28 1.083.69 1.083.24 0 .52-.125.83-.385l2.554-2.19A2 2 0 0 0 10.121 20h12a2 2 0 0 0 1.927-1.492l2.553 2.19c.31.26.59.385.83.385.41 0 .69-.382.69-1.082v-.671l2.34 1.56c.29.194.56.286.8.286.51 0 .86-.425.86-1.175V2c0-.751-.35-1.176-.86-1.176-.24 0-.51.09-.8.286l-2.34 1.56V2c0-.701-.28-1.082-.69-1.082-.24 0-.52.124-.83.384l-2.553 2.19A2 2 0 0 0 22.121 2h-12c-.924 0-1.7.635-1.926 1.492l-2.554-2.19c-.31-.26-.59-.384-.83-.384-.41 0-.69.38-.69 1.082v.67l-2.34-1.56c-.29-.195-.56-.286-.8-.286-.51 0-.86.425-.86 1.176v18c0 .75.35 1.176.86 1.176H.98z" fillRule="evenodd" /></svg></span>
               “Unrolling” Searches
-      </h2>
+            </h2>
 
-            <p>By default, searching finds each Magic card name only once.
-For example, if your search results include the card Pacifism,
-you will only see Pacifism once and
-not every single reprint of Pacifism.</p>
+            <p>By default, searching finds each Magic card name only once. For example, if your search results include the card Pacifism, you will only see Pacifism once and not every single reprint of Pacifism.</p>
 
-            <p>However, if you prefix your whole search with <code>++</code> you
-will “unroll” the search and
-find every single print of all matching cards.</p>
+            <p>However, if you prefix your whole search with <code>++</code> you will “unroll” the search and find every single print of all matching cards.</p>
 
           </div>
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to={`/cards/++!"Lightning+Bolt"`}>
+            <Link className="reference-example" to={`/cards/++!"Lightning Bolt"`}>
               <span className="reference-example-text">
                 <code>++!"Lightning Bolt"</code>
                 <span>Every printing of Lightning&nbsp;Bolt<p />
                 </span>
-              </span></Link>
+              </span>
+            </Link>
 
-            <Link className="reference-example" to={`/cards/++t:forest+a:"john+avon"`}>
+            <Link className="reference-example" to={`/cards/++t:forest a:"john avon"`}>
               <span className="reference-example-text">
                 <code>++t:forest a:"john avon"</code>
                 <span>Every Forest illustrated by John&nbsp;Avon<p />
                 </span>
-              </span></Link>
+              </span>
+            </Link>
 
             <Link className="reference-example" to="/cards/++yamazaki">
               <span className="reference-example-text">
                 <code>++yamazaki</code>
                 <span>Both Brothers&nbsp;Yamazaki<p />
                 </span>
-              </span></Link>
+              </span>
+            </Link>
 
             <Link className="reference-example" to="/cards/++e:all">
               <span className="reference-example-text">
                 <code>++e:all</code>
                 <span>Every card, including alternate arts, in&nbsp;Alliances<p />
                 </span>
-              </span></Link>
+              </span>
+            </Link>
 
           </div>
 
@@ -1315,31 +1269,31 @@ find every single print of all matching cards.</p>
             <h2 className="reference-block-header">
               <span className="reference-block-icon"><svg aria-hidden="true" focusable="false" className="" width="33" height="30" viewBox="0 0 33 30" xmlns="http://www.w3.org/2000/svg"><path d="M7.12 18v1.172L2.95 15l4.17-4.172V14h7V2h4v12h7v-3.172L29.29 15l-4.17 4.172V16h-7v12h-4V16h-7v2zm2 0h3v12h8V18h3v6l9-9-9-9v6h-3V0h-8v12h-3V6l-9 9 9 9v-6z" fillRule="evenodd" /></svg></span>
               Using “OR”
-      </h2>
+            </h2>
 
-            <p>By default every search term you enter is combined.
-All of them must match to find a card.</p>
+            <p>By default every search term you enter is combined. All of them must match to find a card.</p>
 
-            <p>If you want to search over a set of options or choices,
-you can put the special word <code>or</code>/<code>OR</code> between terms.</p>
+            <p>If you want to search over a set of options or choices, you can put the special word <code>or</code>/<code>OR</code> between terms.</p>
 
           </div>
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards/t:fish+or+t:bird">
+            <Link className="reference-example" to="/cards/t:fish or t:bird">
               <span className="reference-example-text">
                 <code>t:fish or t:bird</code>
                 <span>Cards that are Fish or&nbsp;Birds<p />
                 </span>
-              </span></Link>
+              </span>
+            </Link>
 
-            <Link className="reference-example" to="/cards/t:land+(a:titus+or+a:bradley)">
+            <Link className="reference-example" to="/cards/t:land (a:titus or a:bradley)">
               <span className="reference-example-text">
                 <code>t:land (a:titus or a:bradley)</code>
                 <span>Lands illustrated by Titus Lunter of Noah&nbsp;Bradley<p />
                 </span>
-              </span></Link>
+              </span>
+            </Link>
 
           </div>
 
@@ -1354,32 +1308,31 @@ you can put the special word <code>or</code>/<code>OR</code> between terms.</p>
             <h2 className="reference-block-header">
               <span className="reference-block-icon"><svg aria-hidden="true" focusable="false" className="" width="67" height="47" viewBox="0 0 67 47" xmlns="http://www.w3.org/2000/svg"><g fillRule="evenodd"><path d="M56.556 23.303c0 3.662-.513 6.848-1.538 9.558-1.026 2.71-2.385 4.993-4.078 6.848-1.676 1.84-3.584 3.276-5.725 4.31-2.14 1.033-4.325 1.696-6.555 1.989V43.81c3.076-.57 5.436-2.552 7.08-5.945 1.644-3.394 2.466-8.248 2.466-14.563 0-6.315-.822-11.17-2.466-14.563-1.644-3.394-4.004-5.375-7.08-5.945V.598c2.23.293 4.415.956 6.555 1.99 2.14 1.033 4.049 2.47 5.725 4.308 1.693 1.856 3.052 4.139 4.078 6.849 1.025 2.71 1.538 5.896 1.538 9.558z" /><path d="M66.896 23.705c0 3.662-.513 6.848-1.539 9.558-1.025 2.71-2.384 4.993-4.077 6.848-1.676 1.84-3.585 3.276-5.725 4.31-2.14 1.033-4.325 1.696-6.555 1.99v-2.198c3.076-.57 5.436-2.551 7.08-5.945 1.644-3.394 2.466-8.248 2.466-14.563 0-6.315-.822-11.17-2.466-14.563C54.436 5.75 52.076 3.767 49 3.197V1c2.23.293 4.415.956 6.555 1.99 2.14 1.033 4.049 2.47 5.725 4.309 1.693 1.855 3.052 4.138 4.077 6.848 1.026 2.71 1.539 5.896 1.539 9.558zm-66.113 0c0 3.662.513 6.848 1.538 9.558 1.026 2.71 2.385 4.993 4.077 6.848 1.677 1.84 3.585 3.276 5.726 4.31 2.14 1.033 4.325 1.696 6.555 1.99v-2.198c-3.076-.57-5.436-2.551-7.08-5.945-1.644-3.394-2.466-8.248-2.466-14.563 0-6.315.822-11.17 2.466-14.563 1.644-3.393 4.004-5.375 7.08-5.945V1c-2.23.293-4.415.956-6.555 1.99-2.14 1.033-4.05 2.47-5.726 4.309-1.692 1.855-3.051 4.138-4.077 6.848-1.025 2.71-1.538 5.896-1.538 9.558z" /><path d="M11.783 23.705c0 3.662.513 6.848 1.538 9.558 1.026 2.71 2.385 4.993 4.077 6.848 1.677 1.84 3.585 3.276 5.726 4.31 2.14 1.033 4.325 1.696 6.555 1.99v-2.198c-3.076-.57-5.436-2.551-7.08-5.945-1.644-3.394-2.466-8.248-2.466-14.563 0-6.315.822-11.17 2.466-14.563 1.644-3.393 4.004-5.375 7.08-5.945V1c-2.23.293-4.415.956-6.555 1.99-2.14 1.033-4.05 2.47-5.726 4.309-1.692 1.855-3.051 4.138-4.077 6.848-1.025 2.71-1.538 5.896-1.538 9.558z" /></g></svg></span>
               Nesting Conditions
-      </h2>
+            </h2>
 
-            <p>You may nest conditions inside parenthesis <code>( )</code>
-              to group them together.
-This is most useful when combined with the <code>OR</code> keyword.</p>
+            <p>You may nest conditions inside parenthesis <code>( )</code> to group them together. This is most useful when combined with the <code>OR</code> keyword.</p>
 
-            <p>Remember that terms that are <em>not</em> separated by <code>OR</code>
-              are still combined.</p>
+            <p>Remember that terms that are <em>not</em> separated by <code>OR</code> are still combined.</p>
 
           </div>
 
           <div className="reference-block-examples">
 
-            <Link className="reference-example" to="/cards/t:legendary+(t:goblin+or+t:elf)">
+            <Link className="reference-example" to="/cards/t:legendary (t:goblin or t:elf)">
               <span className="reference-example-text">
                 <code>t:legendary (t:goblin or t:elf)</code>
                 <span>Legendary goblins or&nbsp;elves<p />
                 </span>
-              </span></Link>
+              </span>
+            </Link>
 
-            <Link className="reference-example" to="/cards/through+(depths+or+sands+or+mists)">
+            <Link className="reference-example" to="/cards/through (depths or sands or mists)">
               <span className="reference-example-text">
                 <code>through (depths or sands or mists)</code>
                 <span>The Unspeakable&nbsp;combo<p />
                 </span>
-              </span></Link>
+              </span>
+            </Link>
 
           </div>
 

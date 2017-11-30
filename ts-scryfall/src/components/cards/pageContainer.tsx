@@ -7,11 +7,11 @@ import { Card } from '../../model';
 
 const mapStateToProps = (state: State, ownProps: any) => {     
     return {
+        search: ownProps.match.params.search,
         cardsResult: state.cardsResult,
         location: ownProps.location,
         searchTerms: state.searchTerms,
-        updateSearchTerms: ownProps.updateSearchTerms,
-        search: ownProps.match.params.search
+        fetchFilteredCards: ownProps.fetchFilteredCards
     };
 };
 

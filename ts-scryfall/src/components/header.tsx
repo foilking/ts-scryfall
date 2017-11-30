@@ -5,7 +5,7 @@ import { SearchTerms, SearchOrder } from '../model';
 
 interface HeaderProps {
   searchTerms: SearchTerms;
-  updateSearchTerms: (searchTerms: SearchTerms) => void;
+  fetchFilteredCards: (searchTerms: SearchTerms) => void;
 }
 interface State {
   isMenuOpen: boolean;
@@ -90,8 +90,8 @@ export class Header extends React.Component<HeaderProps & RouteComponentProps<He
       document.title = q  + ' | TS Scryfall';
       
       const newSearchTerms = { ...this.props.searchTerms, q, page: 1, order: SearchOrder.Name };
-      this.props.updateSearchTerms(newSearchTerms);
-      
+      this.props.fetchFilteredCards(newSearchTerms);
+
       this.props.history.push(`/cards/` + q);
     }
   }

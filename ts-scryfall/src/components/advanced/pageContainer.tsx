@@ -9,7 +9,7 @@ const mapStateToProps = (state: State, ownProps: any) => {
     return {
         searchTerms: ownProps.searchTerms,
         sets: state.sets,
-        updateSearchTerms: ownProps.updateSearchTerms
+        fetchFilteredCards: ownProps.fetchFilteredCards
     };
 };
 

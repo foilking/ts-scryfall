@@ -5,7 +5,7 @@ import { SearchTerms } from './model/index';
 
 interface RouterProps {
   searchTerms: SearchTerms;
-  updateSearchTerms: (searchTerms: SearchTerms) => void;
+  fetchFilteredCards: (searchTerms: SearchTerms, getAll?: boolean) => void;
   location: Location;
 }
 
@@ -18,14 +18,14 @@ export class ScryfallRouter extends React.Component<RouterProps, {}> {
     return (
       <Switch>
         <Route exact={true} path={`/`} component={About}/>
-        <Route path={`/cards/:search?`} render={(props) => <CardsPageContainer {...props}  updateSearchTerms={this.props.updateSearchTerms} />} />
+        <Route path={`/cards/:search?`} render={(props) => <CardsPageContainer {...props}  fetchFilteredCards={this.props.fetchFilteredCards} />} />
         <Route path={`/card/:code/:number`} component={CardPageContainer} />
-        <Route path={`/advanced`} render={(props) => <AdvanceSearchPageContainer {...props}  updateSearchTerms={this.props.updateSearchTerms} searchTerms={this.props.searchTerms} />} />
+        <Route path={`/advanced`} render={(props) => <AdvanceSearchPageContainer {...props}  fetchFilteredCards={this.props.fetchFilteredCards} searchTerms={this.props.searchTerms} />} />
         <Route path={`/deck`} render={(props) => <DeckPageContainer {...props} />} /> 
         <Route path={`/about`} component={About} />
         <Route path={`/reference`} component={Reference} />
         <Route path={`/sets`} component={SetsPageContainer} />
-        <Route path={`/set/:code`} render={(props) => <SetPageContainer {...props} updateSearchTerms={this.props.updateSearchTerms} />} />
+        <Route path={`/set/:code`} render={(props) => <SetPageContainer {...props} fetchFilteredCards={this.props.fetchFilteredCards} />} />
       </Switch>
     );
   }
