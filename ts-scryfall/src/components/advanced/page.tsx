@@ -21,19 +21,24 @@ interface AdvanceSearchProps {
 }
 
 interface AdvanceSearchState {
-    
+    searchTerms: SearchTerms;
 }
 
 export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & RouteComponentProps<AdvanceSearchProps>, AdvanceSearchState> {
     constructor(props: AdvanceSearchProps & RouteComponentProps<AdvanceSearchProps>) {        
         super(props);
         this.props.fetchSets();
+        this.state = {
+            searchTerms: props.searchTerms
+        };
+        console.log(props.searchTerms);
         
         document.title = 'Advance Search | TS Scryfall';
     }
 
     public render() {
-        const { searchTerms } = this.props;
+        const { searchTerms } = this.state;
+        
         return (
             <div className="form-layout advanced-search">
                 <input name="utf8" value="✓" type="hidden" />
@@ -58,7 +63,7 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
                         </label>
                         <div className="form-row-content">
                             <div className="form-row-content-band">
-                                <input name="oracle" id="oracle" className="form-input" placeholder="Any Oracle text, e.g. “draw a card”" type="text" value={searchTerms.oracle} onChange={event => this.onFieldChange(event.currentTarget.name, event.currentTarget.value)} onKeyUp={event => this.onEnter(event.keyCode)} />
+                                <input name="oracle" id="oracle" className="form-input" placeholder="Any Oracle text, e.g. “draw a card”" type="text" value={searchTerms.oracle} onChange={event => this.onFieldChange(event.currentTarget.name, event.currentTarget.value)} />
                                 <select className="advanced-search-subjoiner" aria-hidden="true" onChange={event => this.onJoinerDropdownFieldChange('oracle', event.currentTarget.value)} value={''}>
                                     <option value="">Add symbol</option>
                                     <option value="{T}">{`{T}`} – tap this permanent</option>
@@ -890,47 +895,47 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
         );
     }
 
-    private onEnter(keyCode: number) {
-        if (keyCode === 13) {   
-            this.buildQueryAndSearch();
-        }
-    }
+    // private onEnter(keyCode: number) {
+    //     if (keyCode === 13) {   
+    //         this.buildQueryAndSearch();
+    //     }
+    // }
 
     private submitButtonClicked() {
         this.buildQueryAndSearch();
     }
     
     private onFieldChange(fieldName: string, fieldValue: string) {
-        const newSearchTerms = {...this.props.searchTerms, [fieldName]: fieldValue};        
-        this.props.updateSearchTerms(newSearchTerms);
+        const newSearchTerms = {...this.state.searchTerms, [fieldName]: fieldValue};    
+        this.setState({searchTerms: newSearchTerms});  
     }
 
     private onJoinerDropdownFieldChange(targetName: string, addValue: string) {        
-        const field = this.props.searchTerms[targetName];        
+        const field = this.state.searchTerms[targetName];        
         const fieldValue = field ? field + addValue : addValue;
-        const newSearchTerms = {...this.props.searchTerms, [targetName]: fieldValue};
-        this.props.updateSearchTerms(newSearchTerms);
+        const newSearchTerms = {...this.state.searchTerms, [targetName]: fieldValue};
+        this.setState({searchTerms: newSearchTerms});  
     }
 
     private onCheckboxChange(fieldName: string, checked: boolean) {        
-        const newSearchTerms = {... this.props.searchTerms, [fieldName]: checked};        
-        this.props.updateSearchTerms(newSearchTerms);        
+        const newSearchTerms = {...this.state.searchTerms, [fieldName]: checked};    
+        this.setState({searchTerms: newSearchTerms});  
     }
     
     private onMultiCheckboxChange(fieldName: string, fieldValue: any) {
-        const field = this.props.searchTerms[fieldName] as any[];        
+        const field = this.state.searchTerms[fieldName] as any[];        
         const fieldIndex = field.indexOf(fieldValue);
         if (fieldIndex > -1) {
             field.splice(fieldIndex, 1);
         } else {
             field.push(fieldValue);
         }
-        const newSearchTerms = {...this.props.searchTerms, [fieldName]: field};   
-        this.props.updateSearchTerms(newSearchTerms);  
+        const newSearchTerms = {...this.state.searchTerms, [fieldName]: field};   
+        this.setState({searchTerms: newSearchTerms});  
     }
 
     private buildQueryAndSearch() {
-        const { searchTerms } = this.props;
+        const { searchTerms } = this.state;
         let searchQueryArray = [];
         if (searchTerms.showAllPrints) {
             searchQueryArray.push('++');
@@ -988,7 +993,7 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps & Rout
             searchQueryArray.push('include:extras');
         }
         const q = searchQueryArray.join(' ').trim();
-        const newSearchTerms = { ...this.props.searchTerms, q, page: 1, order: SearchOrder.Name };
+        const newSearchTerms = { ...this.state.searchTerms, q, page: 1, order: SearchOrder.Name };
         
         this.props.updateSearchTerms(newSearchTerms);
         this.props.history.push('/cards/' + q);       

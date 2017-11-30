@@ -50,7 +50,9 @@ const mapToCards = (response: any): CardsResponse => {
         } as CardsResponse;
     }
     console.error(`${capitalize(response.object)}: ${response.details}`);
-    return { } as CardsResponse;
+    return { 
+        cards: [] as Card[]
+     } as CardsResponse;
 };
 
 const mapToCard = (card: any): Card => {
