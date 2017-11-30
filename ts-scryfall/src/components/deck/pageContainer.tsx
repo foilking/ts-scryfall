@@ -5,10 +5,6 @@ import { DeckPage } from './page';
 import { Card } from '../../model';
 
 const mapStateToProps = (state: State, ownProps: any) => {    
-    console.log('Deck State to Props');
-    
-    console.log(state);
-    
     return {
         deck: state.deck
     };

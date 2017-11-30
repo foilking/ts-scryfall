@@ -5,11 +5,12 @@ import { CardFormat } from '../../common/constants/cardFormats';
 import { SearchControls } from './searchControls';
 
 interface Props {
+    search: string;
     cardsResult: CardsResponse;
     searchTerms: SearchTerms;
-    fetchFilteredCards: (searchTerms: SearchTerms) => void;
     location: Location;
     addCardToDeck: (card: Card) => void;
+    updateSearchTerms: (searchTerms: SearchTerms) => void;
 }
 
 interface State {
@@ -24,17 +25,20 @@ export class CardsPage extends React.Component<Props, State> {
             cardFormat: CardFormat.Full
         };
         this.changeListDisplay = this.changeListDisplay.bind(this);
-        this.props.fetchFilteredCards(this.props.searchTerms);
+        if (!this.props.searchTerms.q && this.props.search) {
+            const searchTerms = {...this.props.searchTerms, q: this.props.search};
+            this.props.updateSearchTerms(searchTerms);
+        }
     }
 
     public render() {
         const { cardFormat } = this.state;
-        const { searchTerms, cardsResult, fetchFilteredCards, addCardToDeck } = this.props;
+        const { searchTerms, cardsResult, updateSearchTerms, addCardToDeck } = this.props;
         document.title = (this.props.searchTerms.q || 'Search') + ' | TS Scryfall';
         
         return (
             <div id="main" className="main">
-                <SearchControls searchTerms={searchTerms} cardFormat={cardFormat} resultCount={cardsResult ? cardsResult.total_cards : 0} hasMore={cardsResult ? cardsResult.has_more : false} fetchFilteredCards={fetchFilteredCards} changeListDisplay={this.changeListDisplay} />
+                <SearchControls searchTerms={searchTerms} cardFormat={cardFormat} resultCount={cardsResult ? cardsResult.total_cards : 0} hasMore={cardsResult ? cardsResult.has_more : false} updateSearchTerms={updateSearchTerms} changeListDisplay={this.changeListDisplay} />
                 {/* <SearchControlsMobile /> */}
                 {cardsResult && cardsResult.cards &&
                     <CardDisplay cards={cardsResult.cards} cardFormat={cardFormat} addCardToDeck={addCardToDeck}/>
@@ -58,7 +62,7 @@ export class CardsPage extends React.Component<Props, State> {
                     </div>
                 }
                 {cardsResult && cardsResult.total_cards > 9 &&
-                    <SearchControls searchTerms={searchTerms} cardFormat={cardFormat} resultCount={cardsResult ? cardsResult.total_cards : 0} hasMore={cardsResult ? cardsResult.has_more : false} fetchFilteredCards={fetchFilteredCards} changeListDisplay={this.changeListDisplay} />
+                    <SearchControls searchTerms={searchTerms} cardFormat={cardFormat} resultCount={cardsResult ? cardsResult.total_cards : 0} hasMore={cardsResult ? cardsResult.has_more : false} updateSearchTerms={updateSearchTerms} changeListDisplay={this.changeListDisplay} />
                 }
             </div>
         );

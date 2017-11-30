@@ -11,10 +11,7 @@ export const initialState: Deck = {
 } as Deck;
 
 export const deckReducer = (state: Deck = initialState, action: any) => {
-    console.log('Deck Reducer');
-    
     switch (action.type) {
-
         case actionTypes.ADD_CARD_TO_DECK:
             return handleAddCardToDeck(state, action.payload as Card);
         case actionTypes.REMOVE_CARD_FROM_DECK:

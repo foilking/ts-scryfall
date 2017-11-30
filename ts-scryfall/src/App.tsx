@@ -6,7 +6,7 @@ import { ScryfallRouter } from './router';
 
 interface Props {
   searchTerms: SearchTerms;
-  fetchFilteredCards: (searchTerms: SearchTerms, getAll: boolean) => void;
+  fetchFilteredCards: (searchTerms: SearchTerms, getAll?: boolean) => void;
   updateSearchTerms: (searchTerms: SearchTerms) => void;
 }
 interface State {
@@ -16,7 +16,7 @@ export class App extends React.Component<Props & RouteComponentProps<Props>, Sta
   constructor(props: Props & RouteComponentProps<Props>) {
     super(props);
 
-    this.fetchFilteredCards = this.fetchFilteredCards.bind(this);
+    this.updateSearchTerms = this.updateSearchTerms.bind(this);
   }
 
   public render() {     
@@ -24,17 +24,17 @@ export class App extends React.Component<Props & RouteComponentProps<Props>, Sta
     
     return (
         <div id="body">
-          <Header {...this.props}/>
-          <ScryfallRouter searchTerms={searchTerms} fetchFilteredCards={this.fetchFilteredCards} location={location} />
+          <Header {...this.props} updateSearchTerms={this.updateSearchTerms} />
+          <ScryfallRouter searchTerms={searchTerms} updateSearchTerms={this.updateSearchTerms} location={location} />
           <Footer />
       </div>
     );
   }
   
-  private fetchFilteredCards(searchTerms: SearchTerms, getAll: boolean = false) {
+  private updateSearchTerms(searchTerms: SearchTerms) {
     const newSearchTerms = {...this.props.searchTerms, ...searchTerms}; 
     
-    this.props.fetchFilteredCards(newSearchTerms, getAll);
+    this.props.fetchFilteredCards(newSearchTerms);
     this.props.updateSearchTerms(newSearchTerms);
   }
 }

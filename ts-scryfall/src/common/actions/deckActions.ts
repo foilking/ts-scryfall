@@ -4,7 +4,6 @@ import { Card } from '../../model';
 
 export const addCardToDeckAction = (card: Card) => (dispatch: any) => {
     dispatch(addCardToDeck(card));
-    // toastr.success('Added Card to Deck');
 };
 
 const addCardToDeck = (card: Card) => ({
@@ -13,9 +12,6 @@ const addCardToDeck = (card: Card) => ({
 });
 
 export const removeCardFromDeckAction = (card: Card) => (dispatch: any) => {
-    console.log('Remove Card Action');
-    console.log(card);
-    
     dispatch(removeCardFromDeck(card));
 };
 

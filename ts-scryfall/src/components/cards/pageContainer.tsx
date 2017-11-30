@@ -6,15 +6,12 @@ import { addCardToDeckAction } from '../../common/actions';
 import { Card } from '../../model';
 
 const mapStateToProps = (state: State, ownProps: any) => {     
-    let searchTerms = state.searchTerms;
-    if (ownProps.match.params.search) {
-        searchTerms = {...state.searchTerms, q: ownProps.match.params.search};
-    } 
     return {
         cardsResult: state.cardsResult,
         location: ownProps.location,
-        searchTerms: searchTerms,
-        fetchFilteredCards: ownProps.fetchFilteredCards
+        searchTerms: state.searchTerms,
+        updateSearchTerms: ownProps.updateSearchTerms,
+        search: ownProps.match.params.search
     };
 };
 

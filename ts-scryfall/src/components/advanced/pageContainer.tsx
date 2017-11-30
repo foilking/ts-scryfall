@@ -9,7 +9,6 @@ import { SearchTerms } from '../../model';
 const mapStateToProps = (state: State, ownProps: any) => {
     return {
         searchTerms: ownProps.searchTerms,
-        fetchFilteredCards: ownProps.fetchFilteredCards,
         sets: state.sets
     };
 };

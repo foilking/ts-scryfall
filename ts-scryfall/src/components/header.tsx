@@ -5,7 +5,7 @@ import { SearchTerms, SearchOrder } from '../model';
 
 interface HeaderProps {
   searchTerms: SearchTerms;
-  fetchFilteredCards: (searchTerms: SearchTerms, getAll: boolean) => void;
+  updateSearchTerms: (searchTerms: SearchTerms) => void;
 }
 interface State {
   isMenuOpen: boolean;
@@ -31,7 +31,7 @@ export class Header extends React.Component<HeaderProps & RouteComponentProps<He
   public render() {
     const { isMenuOpen } = this.state;
     const { searchTerms } = this.props;
-    
+
     return (
       <div id="header" className="header">
         <div className="inner-flex">
@@ -90,9 +90,9 @@ export class Header extends React.Component<HeaderProps & RouteComponentProps<He
       document.title = q  + ' | TS Scryfall';
       
       const newSearchTerms = { ...this.props.searchTerms, q, page: 1, order: SearchOrder.Name };
-      this.props.history.push(`/cards/` + q);
+      this.props.updateSearchTerms(newSearchTerms);
       
-      this.props.fetchFilteredCards(newSearchTerms, false);      
+      this.props.history.push(`/cards/` + q);
     }
   }
 

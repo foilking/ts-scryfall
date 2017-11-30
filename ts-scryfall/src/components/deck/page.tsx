@@ -16,8 +16,6 @@ export class DeckPage extends React.Component<DeckProps, {}> {
 
     public render() {
         const { deck, removeCardFromDeck, addCardToDeck } = this.props;
-        console.log('Render Decks Page');
-        
         return (
             <div className="deck">
                 <div className="checklist-wrapper">
