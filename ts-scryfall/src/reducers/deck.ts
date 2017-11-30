@@ -7,7 +7,7 @@ export const initialState: Deck = {
     isCurrent: true,
     name: 'My Deck',
     cards: [] as CardInDeck[],
-    formats: [ ] as DeckFormat[]
+    formats: [] as DeckFormat[]
 } as Deck;
 
 export const deckReducer = (state: Deck = initialState, action: any) => {
@@ -62,6 +62,7 @@ const validateDeckLegal = (deck: Deck, cardInDeck: CardInDeck) => {
         let typeLine = '';
         let oracleText = '';
         const card = c.card;
+        // TODO: Make this check to see if we should use card_faces a property on the Card object so we don't have to write this long check every time.
         if ((card.layout === 'transform' || card.layout === 'double_faced_token' || card.layout === 'flip' || card.layout === 'split') && card.card_faces) {
             const cardFront = card.card_faces[0];
             typeLine = cardFront.type_line;
@@ -81,24 +82,33 @@ const validateDeckLegal = (deck: Deck, cardInDeck: CardInDeck) => {
     const isValidHighlanderDeck = excludeCardsThatAllowGreaterMultiples
         .every((c) => c.quantity === 1);
     
-    // Update the deck's legality
-    Object.keys(cardInDeck.card.legalities).map((legality, key) => {    
-        // Figure out if the deck is legal 
-        let isLegal = (cardInDeck.card.legalities[legality] === 'legal' 
-            || (cardInDeck.card.legalities[legality] === 'restricted' && cardInDeck.quantity <= 1));
-        
-        // If the format is a highlander format, make sure the full deck is also highlander legal
-        if (legality === 'duel' || legality === 'commander' || legality === '1v1') {
-            isLegal = isLegal && isValidHighlanderDeck;
-        } else {
-            isLegal = isLegal && isValidConstructedDeck;
-        }
-                            
-        const format = deck.formats.find((f) => f.name === legality);
-        if (format) {                  
-            format.isLegal = format.isLegal && isLegal;
-        } else {
-            deck.formats.push({ name: legality, isLegal: isLegal});
-        }
+    const formats = [] as DeckFormat[];
+
+    // We can pull this out because every card has all the formats in there legalities
+    const legalities = Object.keys(cardInDeck.card.legalities);
+
+    // Figure out if the deck is legal
+    deck.cards.forEach(c => {
+        legalities.map((legality, key) => {    
+            // Figure out if the card is legal
+            let isLegal = (c.card.legalities[legality] === 'legal' 
+                || (c.card.legalities[legality] === 'restricted' && c.quantity <= 1));
+            
+            // If the format is a highlander format, make sure the full deck is also highlander legal
+            if (legality === 'duel' || legality === 'commander' || legality === '1v1') {
+                isLegal = isLegal && isValidHighlanderDeck;
+            } else {
+                isLegal = isLegal && isValidConstructedDeck;
+            }
+                                
+            const format = formats.find((f) => f.name === legality);
+            if (format) {                  
+                format.isLegal = format.isLegal && isLegal;
+            } else {
+                formats.push({ name: legality, isLegal: isLegal});
+            }
+        });
     });
+    // Replace the formats, as the past state doesn't affect the current decks legality in formats
+    deck.formats = formats;
 };
