@@ -7,4 +7,4 @@ export * from './card';
 export * from './advanced';
 export * from './sets';
 export * from './set';
-export * from './decks';
+export * from './deck';

@@ -12,6 +12,14 @@ const addCardToDeck = (card: Card) => ({
     payload: card
 });
 
-// export const removeCardFromDeckAction = (card: Card) => (dispatch: any) => {
-//     dispatch(removeCardFromDeck)
-// }
+export const removeCardFromDeckAction = (card: Card) => (dispatch: any) => {
+    console.log('Remove Card Action');
+    console.log(card);
+    
+    dispatch(removeCardFromDeck(card));
+};
+
+const removeCardFromDeck = (card: Card) => ({
+    type: actionTypes.REMOVE_CARD_FROM_DECK,
+    payload: card
+});

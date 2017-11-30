@@ -13,7 +13,7 @@ export const Footer: React.StatelessComponent<{}> = () => {
                             <li><Link to={`/reference`} className="footer-link" >Syntax Guide</Link></li>
                             <li><Link to={`/sets`} className="footer-link" >All Sets</Link></li>
                             <li><Link to={`/random`} className="footer-link" >Random Card</Link></li>
-                            <li><Link to={`/decks`} className="footer-link" >Decks</Link></li>
+                            <li><Link to={`/deck`} className="footer-link" >Current Deck</Link></li>
                         </ul>
                     </div>
 
