@@ -3,6 +3,7 @@ import { CardsResponse, SearchTerms, Card } from '../../model';
 import { CardDisplay } from '../../common/components/card';
 import { CardFormat } from '../../common/constants/cardFormats';
 import { SearchControls } from './searchControls';
+import { SearchControlsMobile } from './searchControlsMobile';
 import { NoCards } from './noCards';
 
 interface Props {
@@ -57,7 +58,7 @@ export class CardsPage extends React.Component<Props, State> {
         return (
             <div id="main" className="main">
                 <SearchControls searchTerms={searchTerms} cardFormat={cardFormat} resultCount={cardsResult ? cardsResult.total_cards : 0} hasMore={cardsResult ? cardsResult.has_more : false} fetchFilteredCards={fetchFilteredCards} changeListDisplay={this.changeListDisplay} />
-                {/* <SearchControlsMobile /> */}
+                <SearchControlsMobile searchTerms={searchTerms} cardFormat={cardFormat} resultCount={cardsResult ? cardsResult.total_cards : 0} hasMore={cardsResult ? cardsResult.has_more : false} fetchFilteredCards={fetchFilteredCards} changeListDisplay={this.changeListDisplay} />
                 {cards}
                 {cardsResult && cardsResult.total_cards > 9 &&
                     <SearchControls searchTerms={searchTerms} cardFormat={cardFormat} resultCount={cardsResult ? cardsResult.total_cards : 0} hasMore={cardsResult ? cardsResult.has_more : false} fetchFilteredCards={fetchFilteredCards} changeListDisplay={this.changeListDisplay} />

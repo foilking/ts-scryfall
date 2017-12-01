@@ -26,7 +26,8 @@ export class SearchControls extends React.Component<SortProps, {}> {
             cardsShown = `${(searchTerms.page - 1) * 175 + 1} - ${searchTerms.page * 175} of ${resultCount.toLocaleString()}`;
         } else {
             cardsShown = resultCount ? resultCount.toString() : '0';
-        }        
+        }       
+        const lastPage = resultCount / 175 + 1; 
         return (
             <div className="search-controls">
                 <div className="inner-flex">
@@ -81,7 +82,7 @@ export class SearchControls extends React.Component<SortProps, {}> {
                             Next 175
                             <svg aria-hidden="true" focusable="false" className="" width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><path d="M9.375 3l12.625 12-12.562 12-1.438-1.406 11.094-10.594-11.094-10.562z" /></svg>
                         </span>        
-                        <span aria-hidden="true" className={`${hasMore ? 'button-primary' : 'button-disabled'} button-icon-center`} data-track="{&quot;category&quot;:&quot;Search Controls&quot;,&quot;action&quot;:&quot;Paginate&quot;,&quot;label&quot;:&quot;Last&quot;}">
+                        <span aria-hidden="true" className={`${hasMore ? 'button-primary' : 'button-disabled'} button-icon-center`} onClick={event => this.updatePage(lastPage)}>
                             <svg aria-hidden="true" focusable="false" className="" width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><path d="M12 4.438l1.375-1.438 12.625 12-12.563 12-1.437-1.406 11.094-10.594-11.094-10.562zm-12 0l1.375-1.438 12.625 12-12.563 12-1.437-1.406 11.094-10.594-11.094-10.562zM28 3h1.66v24h-1.66z" /></svg>
                             <span className="vh">Last Page</span>
                         </span>
