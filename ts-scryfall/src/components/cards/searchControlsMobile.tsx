@@ -15,7 +15,6 @@ interface SortMobileState {
     showViewOptions: boolean;
 }
 
-{/* TODO: Make this not static */}
 export class SearchControlsMobile extends React.Component<SortMobileProps, SortMobileState> {
     constructor(props: SortMobileProps) {
         super(props);
@@ -25,7 +24,6 @@ export class SearchControlsMobile extends React.Component<SortMobileProps, SortM
         };
     }
     public render() {
-        // resultCount, searchTerms, hasMore, 
         const { cardFormat, searchTerms, hasMore, resultCount } = this.props;
         const viewOptionsStyle = {
             display: this.state.showViewOptions ? 'block' : 'none'

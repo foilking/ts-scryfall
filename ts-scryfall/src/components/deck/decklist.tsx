@@ -31,8 +31,8 @@ export class DecklistDisplay extends React.Component<DecklistDisplayProps, {}> {
                                 }
                             </Link></td>
                             <td>
-                                <button onClick={event => addCardToDeck(card)}>Add Card</button>
-                                <button onClick={event => removeCardFromDeck(card)}>Remove Card</button>
+                                <button className="button-primary button-icon-left" onClick={event => addCardToDeck(card)}>Add Card</button>
+                                <button className="button-primary button-icon-left" onClick={event => removeCardFromDeck(card)}>Remove Card</button>
                             </td>
                         </tr>
                     );
