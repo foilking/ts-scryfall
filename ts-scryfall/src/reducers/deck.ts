@@ -157,10 +157,10 @@ const handleAddCardToDeck = (deck: Deck, card: Card) => {
     if (!deck.cards) {
         deck.cards = [] as CardInDeck[];
     }
-    let cardInDeck = deck.cards.find((c) => c.card === card);
+    let cardInDeck = deck.cards.find((c) => c.card.name === card.name);
     if (cardInDeck) {
         deck = {...deck, cards: deck.cards.map((c, key) => 
-            c.card === card ? {...c, quantity: c.quantity + 1} : c
+            c.card.name === card.name ? {...c, quantity: c.quantity + 1} : c
         )};
     } else {
         cardInDeck = {card: card, quantity: 1};
@@ -172,13 +172,13 @@ const handleAddCardToDeck = (deck: Deck, card: Card) => {
 
 const handleRemoveCardFromDeck = (deck: Deck, card: Card) => {   
     if (deck.cards) {
-        let cardInDeck = deck.cards.find((c) => c.card === card);
+        let cardInDeck = deck.cards.find((c) => c.card.name === card.name);
         if (cardInDeck) {
             if (cardInDeck.quantity === 1) {
-                deck = {...deck, cards: deck.cards.filter((c) => c.card !== card)};
+                deck = {...deck, cards: deck.cards.filter((c) => c.card.name !== card.name)};
             } else {
                 deck = {...deck, cards: deck.cards.map((c, key) => 
-                    c.card === card ? {...c, quantity: c.quantity - 1} : c
+                    c.card.name === card.name ? {...c, quantity: c.quantity - 1} : c
                 )};
             }
             validateDeckLegal(deck, cardInDeck);
