@@ -8,6 +8,7 @@ interface Props {
   searchTerms: SearchTerms;
   fetchFilteredCards: (searchTerms: SearchTerms, getAll?: boolean) => void;
   updateSearchTerms: (searchTerms: SearchTerms) => void;
+  fetchRandomCard: () => void;
 }
 interface State {
 }
@@ -20,11 +21,11 @@ export class App extends React.Component<Props & RouteComponentProps<Props>, Sta
   }
 
   public render() {         
-    const { searchTerms } = this.props; 
+    const { searchTerms, fetchRandomCard } = this.props; 
     
     return (
         <div id="body">
-          <Header {...this.props} fetchFilteredCards={this.fetchFilteredCards} />
+          <Header {...this.props} fetchFilteredCards={this.fetchFilteredCards} fetchRandomCard={fetchRandomCard} />
           <ScryfallRouter searchTerms={searchTerms} fetchFilteredCards={this.fetchFilteredCards} location={location} />
           <Footer />
       </div>

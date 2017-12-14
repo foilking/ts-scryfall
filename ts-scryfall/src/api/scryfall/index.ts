@@ -39,6 +39,15 @@ const fetchCardByCodeAndCollectorNumberAsync = async (code: string, collector_nu
     return cardRespone;
 };
 
+const fetchRandomCard = async (): Promise<Card> => {
+    const cardUrl = `${baseURL}/cards/random`;
+
+    const response = await fetch(cardUrl);
+    const responseJson = await response.json();
+    const cardRespone = mapToCard(responseJson);
+    return cardRespone;
+};
+
 const mapToCards = (response: any): CardsResponse => {    
     const cards = response.data;
     if (cards) {
@@ -185,6 +194,7 @@ export const scryfall = {
     fetchFilteredCardsAsync,
     fetchCardByMultiverseIdAsync,
     fetchCardByCodeAndCollectorNumberAsync,
+    fetchRandomCard,
     fetchCardSymbology,
     fetchSetsAsync
 };

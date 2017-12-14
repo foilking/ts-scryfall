@@ -4,6 +4,7 @@ import { State } from './reducers';
 import { App } from './App';
 import { fetchFilteredCardsAction, updateSearchTermsAction } from './common/actions';
 import { SearchTerms, SearchOrder } from './model';
+import { fetchRandomCardAsyncAction } from './common/actions/fetchRandomCard';
 
 const mapStateToProps = (state: State, ownProps: any) => {  
     let searchTerms = {
@@ -41,7 +42,8 @@ const mapStateToProps = (state: State, ownProps: any) => {
 
 const mapDispatchToProps = (dispatch: any) => ({
     fetchFilteredCards: (params: SearchTerms, getAll: boolean) => dispatch(fetchFilteredCardsAction(params, getAll)),
-    updateSearchTerms: (params: SearchTerms) => dispatch(updateSearchTermsAction(params))
+    updateSearchTerms: (params: SearchTerms) => dispatch(updateSearchTermsAction(params)),
+    fetchRandomCard: () => dispatch(fetchRandomCardAsyncAction())
 });
 
 export const AppContainer = withRouter(connect(

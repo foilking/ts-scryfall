@@ -17,7 +17,9 @@ interface State {
 export class CardPage extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);        
-        this.props.fetchCardByCodeAndCollectorNumber(this.props.setCode, this.props.collectorNumber);
+        if (!(props.card && props.card.name)) {
+            this.props.fetchCardByCodeAndCollectorNumber(this.props.setCode, this.props.collectorNumber);
+        }
     }
 
     public render() {
